@@ -1,21 +1,24 @@
-<div class="conainer">
-  <div class="row shadow-sm mb-5 rounded mx-auto mt-lg-4 cashier-container">
+
+<div class="card mb-3 mt-lg-4 mx-auto cashier-container" >
+  <div class="row no-gutters">
     <div class="col-md-12 p-0 bg-gray ">
       <h5 class="text-center">充值</h5>
     </div>
-    <div class="col-md-3 p-0 m-0">
+    <div class="col-md-3">
       <ul class="list-group list-group-flush">
         <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'recommend'}" (click)="tab = 'recommend'">推荐</li>
+        <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'cashier'}" (click)="tab = 'cashier'">Config</li>
         <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'vip'}" (click)="tab = 'vip'">VIP</li>
         <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'record'}" (click)="tab = 'record'">充值记录</li>
       </ul>
     </div>
     <div class="col-md-9">
-      <app-recommend-tab *ngIf="tab === 'recommend'"></app-recommend-tab>
-      <app-cashier-tab *ngIf="tab === 'cashier'"></app-cashier-tab>
-      <app-deposit-record-tab *ngIf="tab === 'record'"></app-deposit-record-tab>
-      <app-vip-tab *ngIf="tab === 'vip'"></app-vip-tab>
+      <div class="card-body">
+        <app-recommend-tab *ngIf="tab === 'recommend'"></app-recommend-tab>
+        <app-cashier-tab *ngIf="tab === 'cashier'"></app-cashier-tab>
+        <app-deposit-record-tab *ngIf="tab === 'record'"></app-deposit-record-tab>
+        <app-vip-tab *ngIf="tab === 'vip'"></app-vip-tab>
+      </div>
     </div>
   </div>
-
 </div>

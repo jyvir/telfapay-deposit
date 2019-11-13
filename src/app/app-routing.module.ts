@@ -7,6 +7,7 @@ import {RecommendTabComponent} from './modules/deposit/recommend-tab/recommend-t
 import {VipTabComponent} from './modules/deposit/vip-tab/vip-tab.component';
 import {DepositRecordTabComponent} from './modules/deposit/deposit-record-tab/deposit-record-tab.component';
 import {CashierTabComponent} from './modules/deposit/cashier-tab/cashier-tab.component';
+import {NgMaterialIconModule} from 'ng-material-icon';
 
 const routes: Routes = [
     {path: '', component: DepositComponent}
@@ -28,7 +29,8 @@ const config: ExtraOptions = {
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, config),
-    CommonModule
+    CommonModule,
+    NgMaterialIconModule
   ],
   exports: [
     RouterModule,
