@@ -1,0 +1,16 @@
+.cashier-container {
+  width: 900px
+}
+
+.cashier-container h5 {
+  font-weight: bolder;
+}
+
+.bg-gray {
+  background-color: #fbfbfb !important;
+}
+
+.list-group-item.active {
+  background-color: #6c757d!important;
+  border-color: #6c757d!important;
+}

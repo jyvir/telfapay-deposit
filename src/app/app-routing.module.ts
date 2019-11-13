@@ -3,13 +3,21 @@ import {DepositComponent} from './modules/deposit/deposit.component';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {RecommendTabComponent} from './modules/deposit/recommend-tab/recommend-tab.component';
+import {VipTabComponent} from './modules/deposit/vip-tab/vip-tab.component';
+import {DepositRecordTabComponent} from './modules/deposit/deposit-record-tab/deposit-record-tab.component';
+import {CashierTabComponent} from './modules/deposit/cashier-tab/cashier-tab.component';
 
 const routes: Routes = [
     {path: '', component: DepositComponent}
   ]
 
 const PAGES_COMPONENTS = [
-    DepositComponent
+    DepositComponent,
+    RecommendTabComponent,
+    VipTabComponent,
+    DepositRecordTabComponent,
+    CashierTabComponent
   ]
 
 const config: ExtraOptions = {
