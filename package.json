@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "run-test": "ng serve --port 8383"
   },
   "private": true,
   "dependencies": {
@@ -20,11 +21,16 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "@ng-bootstrap/ng-bootstrap": "^4.2.2",
+    "@swimlane/ngx-datatable": "^16.0.2",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
     "material-icons": "^0.3.1",
+    "moment": "^2.24.0",
     "ng-material-icon": "^1.0.0",
+    "ngx-cookie-service": "^2.2.0",
     "rxjs": "~6.3.3",
+    "sweetalert2": "^9.3.5",
+    "ts-md5": "^1.2.7",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },

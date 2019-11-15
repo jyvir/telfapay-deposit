@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {TransactionService} from './transaction/transaction.service';
+import {CommonService} from './common/common.service';
 
 @NgModule({
   declarations: [],
@@ -8,7 +8,7 @@ import {TransactionService} from './transaction/transaction.service';
     CommonModule,
   ],
   providers: [
-    TransactionService
+    CommonService
   ]
 })
 export class CoreModule { }

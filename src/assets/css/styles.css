@@ -9,3 +9,35 @@ body {
 i{
   cursor: pointer;
 }
+
+.alipay{
+  background-image: url("../icons/Alipay.svg");
+}
+
+.btc{
+  background-image: url("../icons/btc.png");
+}
+
+.jd{
+  background-image: url("../icons/jd.png");
+}
+
+.qq-wallet{
+  background-image: url("../icons/QQWallet.png");
+}
+
+.unionpay{
+  background-image: url("../icons/UnionPay.svg");
+}
+
+.visa{
+  background-image: url("../icons/visa.svg");
+}
+
+.wechat{
+  background-image: url("../icons/wechat.svg");
+}
+
+.ngx-datatable.material{
+  box-shadow: none !important;
+}

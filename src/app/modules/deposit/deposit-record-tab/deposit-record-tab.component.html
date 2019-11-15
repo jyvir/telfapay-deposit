@@ -1,3 +1,18 @@
-<p>
-  deposit-record-tab works!
-</p>
+<div class="row">
+  <div class="col-xs-12"></div>
+  <ngx-datatable class="material "
+    [rows]="rows"
+    [columns]="columns"
+   [headerHeight]="50"
+   [footerHeight]="50"
+   rowHeight="auto"
+   [columnMode]="ColumnMode.force"
+   [externalPaging]="true"
+   [count]="page.totalElements"
+   [loadingIndicator]="loading"
+   [offset]="page.pageNumber"
+   [limit]="page.size"
+   (page)="setPage($event)"
+   (sort)="onSort($event)">
+  </ngx-datatable>
+</div>

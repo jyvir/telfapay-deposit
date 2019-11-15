@@ -8,9 +8,11 @@ import {VipTabComponent} from './modules/deposit/vip-tab/vip-tab.component';
 import {DepositRecordTabComponent} from './modules/deposit/deposit-record-tab/deposit-record-tab.component';
 import {CashierTabComponent} from './modules/deposit/cashier-tab/cashier-tab.component';
 import {NgMaterialIconModule} from 'ng-material-icon';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 const routes: Routes = [
-    {path: '', component: DepositComponent}
+    {path: '', component: DepositComponent},
+  { path: '**', redirectTo: '' }
   ]
 
 const PAGES_COMPONENTS = [
@@ -30,7 +32,8 @@ const config: ExtraOptions = {
   imports: [
     RouterModule.forRoot(routes, config),
     CommonModule,
-    NgMaterialIconModule
+    NgMaterialIconModule,
+    NgxDatatableModule
   ],
   exports: [
     RouterModule,
