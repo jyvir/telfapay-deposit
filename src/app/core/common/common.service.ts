@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {CookieService} from 'ngx-cookie-service';
 import {PageListModel} from '../../shared/models/page-list.model';
+import {Utility} from "../../shared/helpers/utility";
+import {SearchFieldModel} from "../../shared/models/search-field.model";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -48,6 +50,23 @@ export class CommonService {
 
   public retrievePaymentList(data: any, sort, search): Observable<PageListModel<any>> {
     this.searchData = [];
+    if (search) {
+      Object.keys(data).forEach((element, index) => {
+        if (Object.getOwnPropertyDescriptor(data, element).value) {
+          let param: SearchFieldModel;
+          const logic = 'EQ';
+          let fieldName = element.toString();
+          const value = Object.getOwnPropertyDescriptor(data, element).value;
+          if (fieldName === 'fromDate') {
+            fieldName = 'fromDateUpdate';
+          } else if (fieldName === 'toDate') {
+            fieldName = 'toDateUpdate';
+          }
+          param = Utility.searchUtility(fieldName, logic, value);
+          this.searchData.push(param);
+        }
+      });
+    }
     return this.http.post<PageListModel<any>>(`${environment.api}/cashier/payment?sort=${sort}`, JSON.stringify(this.searchData), httpOptions);
   }
 

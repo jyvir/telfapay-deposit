@@ -1,5 +1,8 @@
 <div class="row">
   <div class="col-xs-12"></div>
+  <button type="button" class="btn btn-xs btn-outline-secondary" (click)="search('day')">今天</button>
+  <button type="button" class="btn btn-xs btn-outline-secondary mr-2 ml-2" (click)="search('week')">近一周</button>
+  <button type="button" class="btn btn-xs btn-outline-secondary" (click)="search('month')">近一月</button>
   <ngx-datatable class="material "
     [rows]="rows"
     [columns]="columns"
