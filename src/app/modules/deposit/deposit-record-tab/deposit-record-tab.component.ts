@@ -13,7 +13,7 @@ export class DepositRecordTabComponent implements OnInit {
   columns = [
     { prop: 'amount' },
     { prop: 'channel' },
-    { prop: 'systemReference' },
+    { prop: 'providerReference' },
     { prop: 'updateTime'},
     { prop: 'status' }
   ];

@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h6 class="modal-title">请转至以下银行卡</h6>
+</div>
+<div class="modal-body">
+  <div *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK';else then" >
+    <div class="row">
+      <div class="col-md-12 align-middle mb-1">
+        <label>{{data.bankAccount}}</label>
+        <div class="float-right blue" (click)="copy(data.bankAccount)">复制</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label>{{data.bankCode}}</label>
+        <div class="float-right blue" (click)="copy(data.bankCode)">复制</div>
+      </div>
+    </div>
+  </div>
+  <ng-template #then>
+    <div class="row">
+      <div class="col-md-12">
+        Reference: {{ data.providerReference }}
+      </div>
+      <div class="col-md-12">
+        URL: <a href="{{ data.content }}" target="_blank">{{ data.content }}</a>
+      </div>
+    </div>
+  </ng-template>
+
+
+
+</div>
+<div class="modal-footer" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK';else other">
+  <button type="button" class="btn btn-outline-dark col-md-6" (click)="activeModal.close('Close click')">取消</button>
+  <button type="button" class="btn btn-outline-dark col-md-6" (click)="activeModal.close('Close click')">已完成转账</button>
+</div>
+<ng-template #other>
+  <div class="modal-footer" >
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">OK</button>
+  </div>
+</ng-template>

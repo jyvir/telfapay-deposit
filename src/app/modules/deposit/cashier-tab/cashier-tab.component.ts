@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import {EMPTY, throwError} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
+import {ResponseModalComponent} from '../../modals/response-modal/response-modal.component';
 
 @Component({
   selector: 'app-cashier-tab',
@@ -16,6 +17,16 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class CashierTabComponent implements OnInit, AfterViewInit {
   channelList = [];
+  aliGrp = [];
+  weChatGrp = [];
+  jdGrp = [];
+  kjGrp = [];
+  unionGrp = [];
+  qqGrp = [];
+  visaGrp = [];
+  bankGrp = [];
+  btcGrp = [];
+
   constructor(
     private commonService: CommonService,
     private cookie: CookieService,
@@ -23,11 +34,20 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    console.log('cash')
+
   }
 
   fetchConfig(id) {
     this.channelList = [];
+    this.aliGrp = [];
+    this.weChatGrp = [];
+    this.jdGrp = [];
+    this.kjGrp = [];
+    this.unionGrp = [];
+    this.qqGrp = [];
+    this.visaGrp = [];
+    this.bankGrp = [];
+    this.btcGrp = [];
     this.commonService.retrieveConfig(id).pipe(
       map(data => {
         Object.keys(data).forEach((element, index) => {
@@ -38,7 +58,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
                 amount: element,
                 channel: val
               };
-              this.channelList.push(formattedData);
+              this.groupByChannel(formattedData);
             });
           }
         });
@@ -50,8 +70,42 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
     );
   }
 
-  ngAfterViewInit(): void {
+  groupByChannel(data) {
+    switch (data.channel) {
+      case 'AliPay': case 'AliPayH5': case 'ALI': case 'AlipayQR':
+        this.aliGrp.push(data);
+        break;
+      case 'WeChat': case 'WeChatH5': case 'WE_CHAT': case 'WeChatPublic':
+        this.weChatGrp.push(data);
+        break;
+      case 'UnionPay': case 'UnionPayH5':
+        this.unionGrp.push(data);
+        break;
+      case 'QQWallet': case 'QQWallet':
+        this.qqGrp.push(data);
+        break;
+      case 'JD': case 'JDH5':
+        this.jdGrp.push(data);
+        break;
+      case 'KJ': case 'KJH5':
+        this.kjGrp.push(data);
+        break;
+      case 'VISAQR': case 'VISA':
+        this.visaGrp.push(data);
+        break;
+      case 'OFFLINE_BANK':
+      case 'NetBank':
+      case 'INTERNAL':
+      case 'MERCHANT':
+        this.bankGrp.push(data);
+        break;
+      case 'BTC':
+        this.btcGrp.push(data);
+        break;
+    }
+  }
 
+  ngAfterViewInit(): void {
   }
 
   send(item) {
@@ -67,25 +121,20 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
     const req = Utility.generateSign(payload);
     this.commonService.sendPayment('', req).pipe(
       catchError((res: HttpErrorResponse) => {
-        console.log(JSON.stringify(res));
+        const errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
         Swal.fire({
-          html: res.error.messages[0],
+          html: errorMsg,
           icon: 'error'
         });
         return throwError(JSON.stringify(res));
       })
     ).subscribe(resp => {
-      Swal.fire({
-        html: `Reference: ${resp.systemReference}`,
-        icon: 'success'
-      });
-    },
-    error => {
-      const errorMsg = error.error && error.error.messages[0] ? error.error.messages[0] : 'Something went wrong';
-      Swal.fire({
-        html: errorMsg,
-        icon: 'error'
-      });
+      this.openModal(resp);
     });
+  }
+
+  openModal(response) {
+    const modalRef = this.modalService.open(ResponseModalComponent, { size: 'sm' });
+    modalRef.componentInstance.data = response;
   }
 }

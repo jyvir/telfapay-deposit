@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CommonService} from '../../../core/common/common.service';
+import {flatMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-vip-tab',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VipTabComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private commonService: CommonService
+  ) { }
 
   ngOnInit() {
+
   }
 
 }
