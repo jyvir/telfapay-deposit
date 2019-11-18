@@ -16,11 +16,23 @@ export class ResponseModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    if (this.data.type === 'AliPayAccount' || this.data.type === 'BankCard') {
+      this.data.bankAccount = this.data.accountId;
+      this.data.bankAccountName = this.data.accountOwner;
+    }
   }
 
   copy(val) {
     this.clipboardService.copyFromContent(val);
+  }
+
+  openNewTab() {
+    const newTab = window.open();
+    if (this.data.type.includes('QR')) {
+      newTab.document.body.innerHTML = `<img src="data:image/png;base64,${this.data.base64}" >`;
+    } else if (this.data.type === 'HTML' || this.data.type ===  'FORM_DOC') {
+      newTab.document.write(this.data.content);
+    }
   }
 
 }

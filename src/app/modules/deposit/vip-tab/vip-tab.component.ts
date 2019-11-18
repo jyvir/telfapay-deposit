@@ -32,18 +32,18 @@ export class VipTabComponent implements OnInit {
   }
 
 
-  send(item) {
+  send(item, type) {
     const ref = moment().format('YYYYMMDDHHmmss');
     const payload = {
-      login_name: this.cookie.get('username'),
+      username: this.cookie.get('username'),
       product_id: this.cookie.get('product_id'),
-      amount: item.amount,
-      channel: item.channel,
+      amount: item,
+      channel: type,
       sign: '',
       payment_reference: ref
     };
     const req = Utility.generateSign(payload);
-    this.commonService.sendPayment('', req).pipe(
+    this.commonService.sendVipPayment('', req).pipe(
       catchError((res: HttpErrorResponse) => {
         const errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
         Swal.fire({
@@ -53,11 +53,12 @@ export class VipTabComponent implements OnInit {
         return throwError(JSON.stringify(res));
       })
     ).subscribe(resp => {
-      this.openModal(resp);
+      this.openModal(resp, type);
     });
   }
 
-  openModal(response) {
+  openModal(response, type) {
+    response.type = type;
     const modalRef = this.modalService.open(ResponseModalComponent, { size: 'sm' });
     modalRef.componentInstance.data = response;
   }

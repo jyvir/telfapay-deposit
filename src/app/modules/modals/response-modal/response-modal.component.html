@@ -2,7 +2,7 @@
   <h6 class="modal-title"*ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK'">请转至以下银行卡</h6>
 </div>
 <div class="modal-body">
-  <div *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK';else then" >
+  <div *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard';else then" >
     <div class="row">
       <div class="col-md-12 align-middle mb-1">
         <label>{{data.bankAccount}}</label>
@@ -11,8 +11,8 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <label>{{data.bankCode}}</label>
-        <div class="float-right blue" (click)="copy(data.bankCode)">复制</div>
+        <label>{{data.bankAccountName}}</label>
+        <div class="float-right blue" (click)="copy(data.bankAccountName)">复制</div>
       </div>
     </div>
   </div>
@@ -21,9 +21,14 @@
       <div class="col-md-12">
         Reference: {{ data.providerReference }}
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12" *ngIf="data.content && data.type !== 'HTML' && data.type !== 'FORM_DOC'; else _content">
         URL: <a href="{{ data.content }}" target="_blank">{{ data.content }}</a>
       </div>
+      <ng-template #_content>
+        <div class="col-md-12">
+          <a href="" (click)="openNewTab()">OPEN</a>
+        </div>
+      </ng-template>
     </div>
   </ng-template>
 

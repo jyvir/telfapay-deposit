@@ -60,4 +60,10 @@ export class CommonService {
     httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', token)
     return this.http.post(`${environment.api}/online-pay/deposit`, data, httpOptionsPay);
   }
+
+  public sendVipPayment(url, data): Observable<any> {
+    const token = this.cookie.get('token');
+    httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', token)
+    return this.http.post(`${environment.api}/online-pay/payment-deposit`, data, httpOptionsPay);
+  }
 }

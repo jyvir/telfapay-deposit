@@ -4,7 +4,7 @@
       AliPay Account
     </div>
     <ng-container *ngFor="let item of vipAmountList">
-      <div class="card mb-1 btn btn-light" (click)="send(item)">
+      <div class="card mb-1 btn btn-light" (click)="send(item, 'AliPayAccount')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item}}元</span>
         </div>
@@ -16,7 +16,7 @@
       AliPayQR
     </div>
     <ng-container *ngFor="let item of vipAmountList">
-      <div class="card mb-1 btn btn-light" (click)="send(item)">
+      <div class="card mb-1 btn btn-light" (click)="send(item, 'AliPayQR')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item}}元</span>
         </div>
@@ -25,10 +25,10 @@
   </div>
   <div class="col-sm-3" *ngIf="vipAmountList.length">
     <div class="text-nowrap">
-      Bankard
+      BankCard
     </div>
     <ng-container *ngFor="let item of vipAmountList">
-      <div class="card mb-1 btn btn-light" (click)="send(item)">
+      <div class="card mb-1 btn btn-light" (click)="send(item, 'BankCard')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item}}元</span>
         </div>
@@ -40,7 +40,7 @@
       WeChatQR
     </div>
     <ng-container *ngFor="let item of vipAmountList">
-      <div class="card mb-1 btn btn-light" (click)="send(item)">
+      <div class="card mb-1 btn btn-light" (click)="send(item, 'WeChatQR')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item}}元</span>
         </div>

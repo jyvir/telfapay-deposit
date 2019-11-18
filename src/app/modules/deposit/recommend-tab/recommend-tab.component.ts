@@ -51,14 +51,14 @@ export class RecommendTabComponent implements OnInit {
       mergeMap((resp: any) => {
           if (resp.content.length !== 0) {
             for (const data of resp.content) {
-              index++;
               if (!['BANK', 'MERCHANT', 'INTERNAL', 'AlipayQR'].includes(data.channel)) {
                 this.groupByChannel({
                   channel: data.channel,
                   amount: data.amount
                 });
+                index++;
               }
-              if (index === 4) { break; }
+              if (index === 5) { break; }
             }
             return resp;
           }
