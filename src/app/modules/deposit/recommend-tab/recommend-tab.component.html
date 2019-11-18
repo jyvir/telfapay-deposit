@@ -2,24 +2,131 @@
   <h6 class="card-title"><strong>为您推荐</strong></h6>
 </div>
 
-<div class="row">
-
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body p-2">
-        <span class="card-text font-weight-bold align-middle h5">2001元</span>
-        <ng-material-icon class="float-right align-middle" icon="send" size="2" ></ng-material-icon>
-      </div>
+<div class="row amount-cont">
+  <div class="col-sm-3" *ngIf="aliGrp.length">
+    <div class="text-nowrap">
+      AliPay
     </div>
+    <ng-container *ngFor="let item of aliGrp">
+      <div class="card mb-1 btn btn-light" (click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
+          <span class="float-right small-text mt-2">{{item.channel}}</span>
+        </div>
+      </div>
+    </ng-container>
   </div>
 
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body p-2">
-        <span class="card-text font-weight-bold align-middle h5">250元</span>
-        <ng-material-icon class="float-right align-middle" icon="send" size="2" ></ng-material-icon>
-      </div>
+  <div class="col-sm-3" *ngIf="weChatGrp.length">
+    <div class="text-nowrap">
+      WeChat
     </div>
+    <ng-container *ngFor="let item of weChatGrp">
+      <div class="card mb-1 btn btn-light" (click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
+          <span class="float-right small-text mt-2">{{item.channel}}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="col-sm-3" *ngIf="jdGrp.length">
+    <div class="text-nowrap">
+      JD
+    </div>
+    <ng-container *ngFor="let item of jdGrp">
+      <div class="card mb-1 btn btn-light" (click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
+          <span class="float-right small-text mt-2">{{item.channel}}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="col-sm-3" *ngIf="kjGrp.length">
+    <div class="text-nowrap">
+      KD
+    </div>
+    <ng-container *ngFor="let item of kjGrp">
+      <div class="card mb-1 btn btn-light" (click)="send(item)">
+        <div class="card-body p-2 text-center ">
+          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
+          <span class="float-right small-text mt-2">{{item.channel}}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="col-sm-3" *ngIf="unionGrp.length">
+    <div class="text-nowrap">
+      UnionPay
+    </div>
+    <ng-container *ngFor="let item of unionGrp">
+      <div class="card mb-1 btn btn-light">
+        <div class="card-body p-2 text-center" (click)="send(item)">
+          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
+          <span class="float-right small-text mt-2">{{item.channel}}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="col-sm-3" *ngIf="qqGrp.length">
+    <div class="text-nowrap">
+      QQWallet
+    </div>
+    <ng-container *ngFor="let item of qqGrp">
+      <div class="card mb-1 btn btn-light" (click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
+          <span class="float-right small-text mt-2">{{item.channel}}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="col-sm-3" *ngIf="visaGrp.length">
+    <div class="text-nowrap">
+      Visa
+    </div>
+    <ng-container *ngFor="let item of visaGrp">
+      <div class="card mb-1 btn btn-light" (click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
+          <span class="float-right small-text mt-2">{{item.channel}}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="col-sm-3" *ngIf="btcGrp.length">
+    <div class="text-nowrap">
+      BTC
+    </div>
+    <ng-container *ngFor="let item of btcGrp">
+      <div class="card mb-1 btn btn-light" (click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
+          <span class="float-right small-text mt-2">{{item.channel}}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="col-sm-3" *ngIf="bankGrp.length > 0">
+    <div class="text-nowrap">
+      Bank
+    </div>
+    <ng-container *ngFor="let item of bankGrp">
+      <div class="card mb-1 btn btn-light"(click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
+          <span class="float-right small-text mt-2">{{item.channel}}</span>
+        </div>
+      </div>
+    </ng-container>
   </div>
 
 </div>

@@ -40,6 +40,10 @@ export class CommonService {
     return this.http.get(`${environment.api}/cashier/config/list`, httpOptions);
   }
 
+  public retrieveVIPAmounts(): Observable<any> {
+    return this.http.get(`${environment.api}/cashier/config/vip`, httpOptions);
+  }
+
   public retrieveConfig(id): Observable<any> {
     return this.http.get(`${environment.api}/cashier/config/${id}`, httpOptions);
   }
@@ -74,5 +78,11 @@ export class CommonService {
     const token = this.cookie.get('token');
     httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', token)
     return this.http.post(`${environment.api}/online-pay/deposit`, data, httpOptionsPay);
+  }
+
+  public sendVipPayment(url, data): Observable<any> {
+    const token = this.cookie.get('token');
+    httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', token)
+    return this.http.post(`${environment.api}/online-pay/payment-deposit`, data, httpOptionsPay);
   }
 }

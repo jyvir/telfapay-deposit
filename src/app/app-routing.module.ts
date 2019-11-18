@@ -9,6 +9,10 @@ import {DepositRecordTabComponent} from './modules/deposit/deposit-record-tab/de
 import {CashierTabComponent} from './modules/deposit/cashier-tab/cashier-tab.component';
 import {NgMaterialIconModule} from 'ng-material-icon';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {ClipboardModule} from 'ngx-clipboard';
+import {SearchTabComponent} from './modules/deposit/search-tab/search-tab.component';
+import {ModalsModule} from './modules/modals/modals.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes = [
     {path: '', component: DepositComponent},
@@ -20,7 +24,8 @@ const PAGES_COMPONENTS = [
     RecommendTabComponent,
     VipTabComponent,
     DepositRecordTabComponent,
-    CashierTabComponent
+    CashierTabComponent,
+    SearchTabComponent
   ]
 
 const config: ExtraOptions = {
@@ -33,7 +38,10 @@ const config: ExtraOptions = {
     RouterModule.forRoot(routes, config),
     CommonModule,
     NgMaterialIconModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ClipboardModule
   ],
   exports: [
     RouterModule,

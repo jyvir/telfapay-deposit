@@ -7,6 +7,8 @@ import {CoreModule} from './core/core.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
+import {ModalsModule} from './modules/modals/modals.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import {CookieService} from 'ngx-cookie-service';
     AppRoutingModule,
     NgbModule,
     CoreModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalsModule
   ],
   providers: [
     CookieService

@@ -12,6 +12,7 @@
                (click)="selectConfig(item.id);tab = 'cashier'">
             {{item.name}}</li>
         </ng-container >
+        <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'search'}" (click)="tab = 'search'">自选</li>
         <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'vip'}" (click)="tab = 'vip'">VIP</li>
         <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'record'}" (click)="tab = 'record'">充值记录</li>
       </ul>
@@ -22,6 +23,7 @@
         <app-cashier-tab *ngIf="tab === 'cashier'" #config></app-cashier-tab>
         <app-deposit-record-tab *ngIf="tab === 'record'"></app-deposit-record-tab>
         <app-vip-tab *ngIf="tab === 'vip'"></app-vip-tab>
+        <app-search-tab *ngIf="tab === 'search'"></app-search-tab>
       </div>
     </div>
   </div>

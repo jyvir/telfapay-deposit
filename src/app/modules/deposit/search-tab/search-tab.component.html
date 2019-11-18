@@ -1,4 +1,9 @@
+
 <div class="row amount-cont">
+  <div class="col-md-12 row mb-2">
+    <input class="form-control form-control-sm col-md-9" type="text" [(ngModel)]="amountSearch" placeholder="请输入金额"/>
+    <button type="button" class="btn btn-sm btn-dark col-md-2 ml-2" (click)="initData()">查询</button>
+  </div>
   <div class="col-sm-3" *ngIf="aliGrp.length">
     <div class="text-nowrap">
       AliPay
@@ -113,15 +118,15 @@
 
   <div class="col-sm-3" *ngIf="bankGrp.length">
     <div class="text-nowrap">
-       Bank
+      Bank
     </div>
     <ng-container *ngFor="let item of bankGrp">
-        <div class="card mb-1 btn btn-light"(click)="send(item)">
-          <div class="card-body p-2 text-center">
-            <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
-            <span class="float-right small-text mt-2">{{item.channel}}</span>
-          </div>
+      <div class="card mb-1 btn btn-light"(click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
+          <span class="float-right small-text mt-2">{{item.channel}}</span>
         </div>
+      </div>
     </ng-container>
   </div>
 
