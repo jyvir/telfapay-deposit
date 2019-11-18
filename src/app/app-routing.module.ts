@@ -11,6 +11,8 @@ import {NgMaterialIconModule} from 'ng-material-icon';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {ClipboardModule} from 'ngx-clipboard';
 import {SearchTabComponent} from './modules/deposit/search-tab/search-tab.component';
+import {ModalsModule} from './modules/modals/modals.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes = [
     {path: '', component: DepositComponent},
@@ -37,6 +39,8 @@ const config: ExtraOptions = {
     CommonModule,
     NgMaterialIconModule,
     NgxDatatableModule,
+    ReactiveFormsModule,
+    FormsModule,
     ClipboardModule
   ],
   exports: [

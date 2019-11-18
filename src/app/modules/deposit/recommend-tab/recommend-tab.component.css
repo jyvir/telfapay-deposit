@@ -1,0 +1,12 @@
+.amount-cont {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.card-body {
+  cursor: pointer;
+}
+
+.small-text {
+  font-size: 12px;
+}

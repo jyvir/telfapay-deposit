@@ -38,6 +38,10 @@ export class CommonService {
     return this.http.get(`${environment.api}/cashier/config/list`, httpOptions);
   }
 
+  public retrieveVIPAmounts(): Observable<any> {
+    return this.http.get(`${environment.api}/cashier/config/vip`, httpOptions);
+  }
+
   public retrieveConfig(id): Observable<any> {
     return this.http.get(`${environment.api}/cashier/config/${id}`, httpOptions);
   }

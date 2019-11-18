@@ -1,21 +1,53 @@
 <div class="row">
-
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body p-2">
-        <span class="card-text font-weight-bold align-middle h5">2001元</span>
-        <ng-material-icon class="float-right align-middle" icon="send" size="2" ></ng-material-icon>
-      </div>
+  <div class="col-sm-3" *ngIf="vipAmountList.length">
+    <div class="text-nowrap">
+      AliPay Account
     </div>
+    <ng-container *ngFor="let item of vipAmountList">
+      <div class="card mb-1 btn btn-light" (click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item}}元</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="col-sm-3" *ngIf="vipAmountList.length">
+    <div class="text-nowrap">
+      AliPayQR
+    </div>
+    <ng-container *ngFor="let item of vipAmountList">
+      <div class="card mb-1 btn btn-light" (click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item}}元</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="col-sm-3" *ngIf="vipAmountList.length">
+    <div class="text-nowrap">
+      Bankard
+    </div>
+    <ng-container *ngFor="let item of vipAmountList">
+      <div class="card mb-1 btn btn-light" (click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item}}元</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="col-sm-3" *ngIf="vipAmountList.length">
+    <div class="text-nowrap">
+      WeChatQR
+    </div>
+    <ng-container *ngFor="let item of vipAmountList">
+      <div class="card mb-1 btn btn-light" (click)="send(item)">
+        <div class="card-body p-2 text-center">
+          <span class="card-text font-weight-bold align-middle h5">{{item}}元</span>
+        </div>
+      </div>
+    </ng-container>
   </div>
 
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body p-2">
-        <span class="card-text font-weight-bold align-middle h5">250元</span>
-        <ng-material-icon class="float-right align-middle" icon="send" size="2" ></ng-material-icon>
-      </div>
-    </div>
-  </div>
+
 
 </div>
