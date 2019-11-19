@@ -5,7 +5,7 @@ import {PageListModel} from '../../../shared/models/page-list.model';
 import {Utility} from '../../../shared/helpers/utility';
 import {HttpErrorResponse} from '@angular/common/http';
 import Swal from "sweetalert2";
-import {Observable, throwError} from 'rxjs';
+import {forkJoin, Observable, throwError} from 'rxjs';
 import * as moment from 'moment';
 import {ResponseModalComponent} from '../../modals/response-modal/response-modal.component';
 import {CookieService} from 'ngx-cookie-service';
@@ -46,25 +46,48 @@ export class RecommendTabComponent implements OnInit {
     this.visaGrp = [];
     this.bankGrp = [];
     this.btcGrp = [];
-    let index = 0;
+    let paymentList = [];
     this.commonService.retrievePaymentList([], 'updateTime,desc', true).pipe(
       mergeMap((resp: any) => {
-          if (resp.content.length !== 0) {
-            for (const data of resp.content) {
-              if (!['BANK', 'MERCHANT', 'INTERNAL', 'AlipayQR'].includes(data.channel)) {
-                this.groupByChannel({
-                  channel: data.channel,
-                  amount: data.amount
-                });
-                index++;
-              }
-              if (index === 5) { break; }
-            }
-            return resp;
-          }
+        paymentList = resp.content;
+        return this.commonService.retrieveConfigList();
+        }
+      ),
+      mergeMap(
+        resp => {
+          const calls = [];
+          Object.keys(resp).forEach((element, index) => {
+            calls.push(this.commonService.retrieveConfig(element));
+            calls.push(this.commonService.retrieveVipConfig(element));
+          });
+          return forkJoin(calls);
         }
       )
-    ).subscribe();
+    ).subscribe(
+      dataList => {
+        for (const data of dataList) {
+          Object.keys(data).forEach((element, index) => {
+            const channels = Object.getOwnPropertyDescriptor(data, element).value;
+            if (channels.length > 0) {
+              channels.forEach(val => {
+                const formattedData = {
+                  amount: element,
+                  channel: val
+                };
+                const findItem = paymentList.find(item => {
+                  if (item.channel === val && parseFloat(element) === item.amount) {
+                    return item;
+                  }
+                });
+                if (!Utility.isEmpty(findItem)) {
+                  this.groupByChannel(formattedData);
+                }
+              });
+            }
+          });
+        }
+      }
+    );
   }
 
   groupByChannel(data) {
