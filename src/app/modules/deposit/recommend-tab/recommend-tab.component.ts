@@ -19,15 +19,18 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class RecommendTabComponent implements OnInit {
 
   channelList = [];
-  aliGrp = [];
-  weChatGrp = [];
-  jdGrp = [];
-  kjGrp = [];
-  unionGrp = [];
-  qqGrp = [];
-  visaGrp = [];
-  bankGrp = [];
-  btcGrp = [];
+  groups = {
+    aliGrp: [],
+    weChatGrp: [],
+    unionGrp: [],
+    qqGrp: [],
+    jdGrp: [],
+    kjGrp: [],
+    visaGrp: [],
+    bankGrp: [],
+    btcGrp: [],
+    vipGrp: []
+  };
 
   constructor(
     private commonService: CommonService,
@@ -37,17 +40,18 @@ export class RecommendTabComponent implements OnInit {
 
   ngOnInit() {
     this.channelList = [];
-    this.aliGrp = [];
-    this.weChatGrp = [];
-    this.jdGrp = [];
-    this.kjGrp = [];
-    this.unionGrp = [];
-    this.qqGrp = [];
-    this.visaGrp = [];
-    this.bankGrp = [];
-    this.btcGrp = [];
+    this.groups.aliGrp = [];
+    this.groups.weChatGrp = [];
+    this.groups.jdGrp = [];
+    this.groups.kjGrp = [];
+    this.groups.unionGrp = [];
+    this.groups.qqGrp = [];
+    this.groups.visaGrp = [];
+    this.groups.bankGrp = [];
+    this.groups.btcGrp = [];
+    this.groups.vipGrp = [];
     let paymentList = [];
-    this.commonService.retrievePaymentList([], 'updateTime,desc', true).pipe(
+    this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc', true).pipe(
       mergeMap((resp: any) => {
         paymentList = resp.content;
         return this.commonService.retrieveConfigList();
@@ -74,12 +78,16 @@ export class RecommendTabComponent implements OnInit {
                   amount: element,
                   channel: val
                 };
-                const findItem = paymentList.find(item => {
-                  if (item.channel === val && parseFloat(element) === item.amount) {
-                    return item;
+                if (paymentList.length > 0) {
+                  const findItem = paymentList.find(item => {
+                    if (item.channel === val && parseFloat(element) === item.amount) {
+                      return item;
+                    }
+                  });
+                  if (!Utility.isEmpty(findItem)) {
+                    this.groupByChannel(formattedData);
                   }
-                });
-                if (!Utility.isEmpty(findItem)) {
+                } else if (parseFloat(element) < 500) {
                   this.groupByChannel(formattedData);
                 }
               });
@@ -93,34 +101,37 @@ export class RecommendTabComponent implements OnInit {
   groupByChannel(data) {
     switch (data.channel) {
       case 'AliPay': case 'AliPayH5': case 'ALI': case 'AlipayQR':
-        this.aliGrp.push(data);
+        this.groups.aliGrp.push(data);
         break;
       case 'WeChat': case 'WeChatH5': case 'WE_CHAT': case 'WeChatPublic':
-        this.weChatGrp.push(data);
+        this.groups.weChatGrp.push(data);
         break;
       case 'UnionPay': case 'UnionPayH5':
-        this.unionGrp.push(data);
+        this.groups.unionGrp.push(data);
         break;
       case 'QQWallet': case 'QQWallet':
-        this.qqGrp.push(data);
+        this.groups.qqGrp.push(data);
         break;
       case 'JD': case 'JDH5':
-        this.jdGrp.push(data);
+        this.groups.jdGrp.push(data);
         break;
       case 'KJ': case 'KJH5':
-        this.kjGrp.push(data);
+        this.groups.kjGrp.push(data);
         break;
       case 'VISAQR': case 'VISA':
-        this.visaGrp.push(data);
+        this.groups.visaGrp.push(data);
         break;
       case 'OFFLINE_BANK':
       case 'NetBank':
       case 'INTERNAL':
       case 'MERCHANT':
-        this.bankGrp.push(data);
+        this.groups.bankGrp.push(data);
         break;
       case 'BTC':
-        this.btcGrp.push(data);
+        this.groups.btcGrp.push(data);
+        break;
+      case 'VipChannel':
+        this.groups.vipGrp.push(data);
         break;
     }
   }
@@ -146,6 +157,32 @@ export class RecommendTabComponent implements OnInit {
         return throwError(JSON.stringify(res));
       })
     ).subscribe(resp => {
+      this.openModal(resp);
+    });
+  }
+
+  sendVip(item, type) {
+    const ref = moment().format('YYYYMMDDHHmmss');
+    const payload = {
+      username: this.cookie.get('username'),
+      product_id: this.cookie.get('product_id'),
+      amount: item,
+      channel: type,
+      sign: '',
+      payment_reference: ref
+    };
+    const req = Utility.generateSign(payload);
+    this.commonService.sendVipPayment('', req).pipe(
+      catchError((res: HttpErrorResponse) => {
+        const errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
+        Swal.fire({
+          html: errorMsg,
+          icon: 'error'
+        });
+        return throwError(JSON.stringify(res));
+      })
+    ).subscribe(resp => {
+      resp.type = type;
       this.openModal(resp);
     });
   }

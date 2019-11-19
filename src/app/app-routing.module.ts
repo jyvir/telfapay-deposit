@@ -13,6 +13,7 @@ import {ClipboardModule} from 'ngx-clipboard';
 import {SearchTabComponent} from './modules/deposit/search-tab/search-tab.component';
 import {ModalsModule} from './modules/modals/modals.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AnnouncementBarComponent} from "./modules/deposit/announcement-bar/announcement-bar.component";
 
 const routes: Routes = [
     {path: '', component: DepositComponent},
@@ -25,7 +26,8 @@ const PAGES_COMPONENTS = [
     VipTabComponent,
     DepositRecordTabComponent,
     CashierTabComponent,
-    SearchTabComponent
+    SearchTabComponent,
+    AnnouncementBarComponent
   ]
 
 const config: ExtraOptions = {

@@ -167,4 +167,54 @@ export class Utility {
     return req;
   }
 
+  static groupByChannel(data) {
+    const groups = {
+      aliGrp: [],
+      weChatGrp: [],
+      unionGrp: [],
+      qqGrp: [],
+      jdGrp: [],
+      kjGrp: [],
+      visaGrp: [],
+      bankGrp: [],
+      btcGrp: [],
+      vipGrp: []
+    };
+    switch (data.channel) {
+      case 'AliPay': case 'AliPayH5': case 'ALI': case 'AlipayQR':
+        groups.aliGrp.push(data);
+        break;
+      case 'WeChat': case 'WeChatH5': case 'WE_CHAT': case 'WeChatPublic':
+        groups.weChatGrp.push(data);
+        break;
+      case 'UnionPay': case 'UnionPayH5':
+        groups.unionGrp.push(data);
+        break;
+      case 'QQWallet': case 'QQWallet':
+        groups.qqGrp.push(data);
+        break;
+      case 'JD': case 'JDH5':
+        groups.jdGrp.push(data);
+        break;
+      case 'KJ': case 'KJH5':
+        groups.kjGrp.push(data);
+        break;
+      case 'VISAQR': case 'VISA':
+        groups.visaGrp.push(data);
+        break;
+      case 'OFFLINE_BANK':
+      case 'NetBank':
+      case 'INTERNAL':
+      case 'MERCHANT':
+        groups.bankGrp.push(data);
+        break;
+      case 'BTC':
+        groups.btcGrp.push(data);
+        break;
+      case 'VipChannel':
+        groups.vipGrp.push(data);
+        break;
+    }
+  }
+
 }

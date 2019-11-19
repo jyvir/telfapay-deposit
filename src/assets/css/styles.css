@@ -45,3 +45,8 @@ i{
 .btn-xs {
   padding: 1px 6px !important;
 }
+
+.amount-cont {
+  height: 300px;
+  overflow: auto;
+}

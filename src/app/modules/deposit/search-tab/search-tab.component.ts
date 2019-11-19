@@ -17,15 +17,18 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class SearchTabComponent implements OnInit {
 
-  aliGrp = [];
-  weChatGrp = [];
-  jdGrp = [];
-  kjGrp = [];
-  unionGrp = [];
-  qqGrp = [];
-  visaGrp = [];
-  bankGrp = [];
-  btcGrp = [];
+  groups = {
+    aliGrp: [],
+    weChatGrp: [],
+    unionGrp: [],
+    qqGrp: [],
+    jdGrp: [],
+    kjGrp: [],
+    visaGrp: [],
+    bankGrp: [],
+    btcGrp: [],
+    vipGrp: []
+  };
   amountSearch = '';
 
   amountList = [];
@@ -40,15 +43,16 @@ export class SearchTabComponent implements OnInit {
   }
 
   initData() {
-    this.aliGrp = [];
-    this.weChatGrp = [];
-    this.jdGrp = [];
-    this.kjGrp = [];
-    this.unionGrp = [];
-    this.qqGrp = [];
-    this.visaGrp = [];
-    this.bankGrp = [];
-    this.btcGrp = [];
+    this.groups.aliGrp = [];
+    this.groups.weChatGrp = [];
+    this.groups.jdGrp = [];
+    this.groups.kjGrp = [];
+    this.groups.unionGrp = [];
+    this.groups.qqGrp = [];
+    this.groups.visaGrp = [];
+    this.groups.bankGrp = [];
+    this.groups.btcGrp = [];
+    this.groups.vipGrp = [];
     this.commonService.retrieveConfigList().pipe(
       mergeMap(
         (resp: any) => {
@@ -85,49 +89,53 @@ export class SearchTabComponent implements OnInit {
   groupByChannel(data) {
     switch (data.channel) {
       case 'AliPay': case 'AliPayH5': case 'ALI': case 'AlipayQR':
-        this.aliGrp.push(data);
+        this.groups.aliGrp.push(data);
         break;
       case 'WeChat': case 'WeChatH5': case 'WE_CHAT': case 'WeChatPublic':
-        this.weChatGrp.push(data);
+        this.groups.weChatGrp.push(data);
         break;
       case 'UnionPay': case 'UnionPayH5':
-        this.unionGrp.push(data);
+        this.groups.unionGrp.push(data);
         break;
       case 'QQWallet': case 'QQWallet':
-        this.qqGrp.push(data);
+        this.groups.qqGrp.push(data);
         break;
       case 'JD': case 'JDH5':
-        this.jdGrp.push(data);
+        this.groups.jdGrp.push(data);
         break;
       case 'KJ': case 'KJH5':
-        this.kjGrp.push(data);
+        this.groups.kjGrp.push(data);
         break;
       case 'VISAQR': case 'VISA':
-        this.visaGrp.push(data);
+        this.groups.visaGrp.push(data);
         break;
       case 'OFFLINE_BANK':
       case 'NetBank':
       case 'INTERNAL':
       case 'MERCHANT':
-        this.bankGrp.push(data);
+        this.groups.bankGrp.push(data);
         break;
       case 'BTC':
-        this.btcGrp.push(data);
+        this.groups.btcGrp.push(data);
+        break;
+      case 'VipChannel':
+        this.groups.vipGrp.push(data);
         break;
     }
   }
 
   filterResult() {
 
-    this.aliGrp = this.aliGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.weChatGrp = this.weChatGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.jdGrp = this.jdGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.kjGrp = this.kjGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.unionGrp = this.unionGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.qqGrp = this.qqGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.visaGrp = this.visaGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.bankGrp = this.bankGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.btcGrp = this.btcGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+    this.groups.aliGrp = this.groups.aliGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+    this.groups.weChatGrp = this.groups.weChatGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+    this.groups.jdGrp = this.groups.jdGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+    this.groups.kjGrp = this.groups.kjGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+    this.groups.unionGrp = this.groups.unionGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+    this.groups.qqGrp = this.groups.qqGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+    this.groups.visaGrp = this.groups.visaGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+    this.groups.bankGrp = this.groups.bankGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+    this.groups.btcGrp = this.groups.btcGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+    this.groups.vipGrp = this.groups.vipGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
   }
 
   send(item) {
@@ -158,6 +166,32 @@ export class SearchTabComponent implements OnInit {
   openModal(response) {
     const modalRef = this.modalService.open(ResponseModalComponent, { size: 'sm' });
     modalRef.componentInstance.data = response;
+  }
+
+  sendVip(item, type) {
+    const ref = moment().format('YYYYMMDDHHmmss');
+    const payload = {
+      username: this.cookie.get('username'),
+      product_id: this.cookie.get('product_id'),
+      amount: item,
+      channel: type,
+      sign: '',
+      payment_reference: ref
+    };
+    const req = Utility.generateSign(payload);
+    this.commonService.sendVipPayment('', req).pipe(
+      catchError((res: HttpErrorResponse) => {
+        const errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
+        Swal.fire({
+          html: errorMsg,
+          icon: 'error'
+        });
+        return throwError(JSON.stringify(res));
+      })
+    ).subscribe(resp => {
+      resp.type = type;
+      this.openModal(resp);
+    });
   }
 
 }
