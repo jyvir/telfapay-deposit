@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
-import {catchError, flatMap, map} from 'rxjs/operators';
+import {catchError, flatMap, map, mergeMap} from 'rxjs/operators';
 import {Utility} from '../../../shared/helpers/utility';
 import {HttpErrorResponse} from '@angular/common/http';
 import Swal from "sweetalert2";
-import {throwError} from 'rxjs';
+import {forkJoin, throwError} from 'rxjs';
 import * as moment from 'moment';
 import {ResponseModalComponent} from '../../modals/response-modal/response-modal.component';
 import {CookieService} from 'ngx-cookie-service';
@@ -26,9 +26,25 @@ export class VipTabComponent implements OnInit {
 
   ngOnInit() {
     this.vipAmountList = [];
-    this.commonService.retrieveVIPAmounts().subscribe(resp => {
-      this.vipAmountList = resp;
-    });
+    this.commonService.retrieveConfigList().pipe(
+      mergeMap(
+        (resp: any) => {
+          const calls = [];
+          Object.keys(resp).forEach((element, index) => {
+            calls.push(this.commonService.retrieveVipConfig(element));
+          });
+          return forkJoin(calls);
+        }
+      )
+    ).subscribe(
+      dataList => {
+        for (const data of dataList) {
+          Object.keys(data).forEach((element, index) => {
+            this.vipAmountList.push(element);
+          });
+        };
+      }
+    );
   }
 
 

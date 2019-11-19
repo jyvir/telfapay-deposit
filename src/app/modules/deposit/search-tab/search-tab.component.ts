@@ -55,6 +55,7 @@ export class SearchTabComponent implements OnInit {
           const calls = [];
           Object.keys(resp).forEach((element, index) => {
             calls.push(this.commonService.retrieveConfig(element));
+            calls.push(this.commonService.retrieveVipConfig(element));
           });
           return forkJoin(calls);
         }
