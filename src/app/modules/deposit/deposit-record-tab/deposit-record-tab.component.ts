@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
 import {ColumnMode} from '@swimlane/ngx-datatable';
 import {Utility} from "../../../shared/helpers/utility";
+import {ClipboardService} from 'ngx-clipboard';
 
 @Component({
   selector: 'app-deposit-record-tab',
@@ -33,7 +34,8 @@ export class DepositRecordTabComponent implements OnInit {
   isSearch = false;
 
   constructor(
-    private commonService: CommonService
+    private commonService: CommonService,
+    private clipboardService: ClipboardService
   ) { }
 
   ngOnInit() {
@@ -99,6 +101,10 @@ export class DepositRecordTabComponent implements OnInit {
     this.page.prop = sort.prop === 'channel' ? 'paymentConfig.channel' : sort.prop;
     this.page.sort = sort.dir;
     this.search(null);
+  }
+
+  copy(val) {
+    this.clipboardService.copyFromContent(val);
   }
 
 }

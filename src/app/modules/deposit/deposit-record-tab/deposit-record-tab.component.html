@@ -17,5 +17,16 @@
    [limit]="page.size"
    (page)="setPage($event)"
    (sort)="onSort($event)">
+
+    <ngx-datatable-column *ngFor="let column of columns" prop="{{column.prop}}">
+      <ng-template let-value="value" *ngIf="column.prop === 'providerReference'" ngx-datatable-cell-template>
+        {{value}} &nbsp;
+        <button class="btn btn-xs btn-outline-primary" (click)="copy(value)">复制</button>
+      </ng-template>
+      <ng-template let-value="value" *ngIf="column.prop === 'status'" ngx-datatable-cell-template>
+        {{value}} &nbsp;
+        <button class="btn btn-xs btn-secondary" (click)="search(null)">刷新</button>
+      </ng-template>
+    </ngx-datatable-column>
   </ngx-datatable>
 </div>

@@ -41,3 +41,7 @@ i{
 .ngx-datatable.material{
   box-shadow: none !important;
 }
+
+.btn-xs {
+  padding: 1px 6px !important;
+}
