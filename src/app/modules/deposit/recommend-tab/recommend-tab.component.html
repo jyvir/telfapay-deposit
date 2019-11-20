@@ -130,7 +130,7 @@
   </div>
 
   <!-- Alipay QR -->
-  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0">
+  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0 && agentTypes.includes('AliPayQR')">
     <div class="text-nowrap">
       VIP - AliPayQR
     </div>
@@ -145,7 +145,7 @@
   </div>
 
   <!-- Alipay Account -->
-  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0">
+  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0 && agentTypes.includes('AliPayAccount')">
     <div class="text-nowrap">
       VIP - Alipay Account
     </div>
@@ -160,7 +160,7 @@
   </div>
 
   <!-- BankCard -->
-  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0">
+  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0 && agentTypes.includes('BankCard')">
     <div class="text-nowrap">
       VIP - BankCard
     </div>
@@ -175,7 +175,7 @@
   </div>
 
   <!-- Wechat -->
-  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0">
+  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0 && agentTypes.includes('WeChatQR')">
     <div class="text-nowrap">
       VIP - WeChatQR
     </div>

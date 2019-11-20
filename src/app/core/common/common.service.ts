@@ -52,6 +52,10 @@ export class CommonService {
     return this.http.get(`${environment.api}/cashier/payment/${id}`, httpOptions);
   }
 
+  public retrieveAgentType(id): Observable<any> {
+    return this.http.get(`${environment.api}/cashier/payment/agent-account/${id}`, httpOptions);
+  }
+
   public retrievePaymentList(data: any, sort, search): Observable<PageListModel<any>> {
     this.searchData = [];
     if (search) {

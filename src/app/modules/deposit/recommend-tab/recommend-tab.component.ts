@@ -31,6 +31,7 @@ export class RecommendTabComponent implements OnInit {
     btcGrp: [],
     vipGrp: []
   };
+  agentTypes = [];
 
   constructor(
     private commonService: CommonService,
@@ -51,16 +52,26 @@ export class RecommendTabComponent implements OnInit {
     this.groups.btcGrp = [];
     this.groups.vipGrp = [];
     let paymentList = [];
-    this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc', true).pipe(
+    this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5', true).pipe(
       mergeMap((resp: any) => {
+        const calls = [];
         paymentList = resp.content;
-        return this.commonService.retrieveConfigList();
+        calls.push(this.commonService.retrieveConfigList());
+        for (const payment of paymentList) {
+          if (payment.channel === 'VipChannel' ) {calls.push(this.commonService.retrieveAgentType(payment.id)); }
+        }
+        return forkJoin(calls);
         }
       ),
       mergeMap(
         resp => {
+          paymentList.forEach((data, index) => {
+            if (data.channel === 'VipChannel' ) {
+              data.agentType = resp[index + 1];
+            }
+          })
           const calls = [];
-          Object.keys(resp).forEach((element, index) => {
+          Object.keys(resp[0]).forEach((element, index) => {
             calls.push(this.commonService.retrieveConfig(element));
             calls.push(this.commonService.retrieveVipConfig(element));
           });
@@ -81,6 +92,7 @@ export class RecommendTabComponent implements OnInit {
                 if (paymentList.length > 0) {
                   const findItem = paymentList.find(item => {
                     if (item.channel === val && parseFloat(element) === item.amount) {
+                      if (item.channel === 'VipChannel') { this.agentTypes.push(item.agentType); }
                       return item;
                     }
                   });
@@ -101,37 +113,57 @@ export class RecommendTabComponent implements OnInit {
   groupByChannel(data) {
     switch (data.channel) {
       case 'AliPay': case 'AliPayH5': case 'ALI': case 'AlipayQR':
-        this.groups.aliGrp.push(data);
+        if (this.groups.aliGrp.length < 5) {
+          this.groups.aliGrp.push(data);
+        }
         break;
       case 'WeChat': case 'WeChatH5': case 'WE_CHAT': case 'WeChatPublic':
-        this.groups.weChatGrp.push(data);
+        if (this.groups.weChatGrp.length < 5) {
+          this.groups.weChatGrp.push(data);
+        }
         break;
       case 'UnionPay': case 'UnionPayH5':
-        this.groups.unionGrp.push(data);
+        if (this.groups.unionGrp.length < 5) {
+          this.groups.unionGrp.push(data);
+        }
         break;
       case 'QQWallet': case 'QQWallet':
-        this.groups.qqGrp.push(data);
+        if (this.groups.qqGrp.length < 5) {
+          this.groups.qqGrp.push(data);
+        }
         break;
       case 'JD': case 'JDH5':
-        this.groups.jdGrp.push(data);
+        if (this.groups.jdGrp.length < 5) {
+          this.groups.jdGrp.push(data);
+        }
         break;
       case 'KJ': case 'KJH5':
-        this.groups.kjGrp.push(data);
+        if (this.groups.kjGrp.length < 5) {
+          this.groups.kjGrp.push(data);
+        }
         break;
       case 'VISAQR': case 'VISA':
-        this.groups.visaGrp.push(data);
+        if (this.groups.visaGrp.length < 5) {
+          this.groups.visaGrp.push(data);
+        }
         break;
       case 'OFFLINE_BANK':
       case 'NetBank':
       case 'INTERNAL':
       case 'MERCHANT':
-        this.groups.bankGrp.push(data);
+        if (this.groups.bankGrp.length < 5) {
+          this.groups.bankGrp.push(data);
+        }
         break;
       case 'BTC':
-        this.groups.btcGrp.push(data);
+        if (this.groups.btcGrp.length < 5) {
+          this.groups.btcGrp.push(data);
+        }
         break;
       case 'VipChannel':
-        this.groups.vipGrp.push(data);
+        if (this.groups.vipGrp.length < 5) {
+          this.groups.vipGrp.push(data);
+        }
         break;
     }
   }
