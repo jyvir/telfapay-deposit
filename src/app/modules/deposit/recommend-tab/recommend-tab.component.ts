@@ -60,7 +60,7 @@ export class RecommendTabComponent implements OnInit {
     this.groups.vipGrp.bankGrp = [];
     this.groups.vipGrp.aliPayGrp = [];
     let paymentList = [];
-    this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5', true).pipe(
+    this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5000', true).pipe(
       mergeMap((resp: any) => {
         const calls = [];
         paymentList = resp.content;
