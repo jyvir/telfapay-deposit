@@ -29,6 +29,7 @@
     "ng-material-icon": "^1.0.0",
     "ngx-clipboard": "^12.2.1",
     "ngx-cookie-service": "^2.2.0",
+    "ngx-order-pipe": "^2.0.4",
     "rxjs": "~6.3.3",
     "sweetalert2": "^9.3.5",
     "ts-md5": "^1.2.7",
