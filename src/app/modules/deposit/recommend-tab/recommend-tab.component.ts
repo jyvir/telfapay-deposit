@@ -29,7 +29,12 @@ export class RecommendTabComponent implements OnInit {
     visaGrp: [],
     bankGrp: [],
     btcGrp: [],
-    vipGrp: []
+    vipGrp: {
+      weChatGrp: [],
+      aliGrp: [],
+      bankGrp: [],
+      aliPayGrp: []
+    }
   };
   agentTypes = [];
 
@@ -50,7 +55,10 @@ export class RecommendTabComponent implements OnInit {
     this.groups.visaGrp = [];
     this.groups.bankGrp = [];
     this.groups.btcGrp = [];
-    this.groups.vipGrp = [];
+    this.groups.vipGrp.aliGrp = [];
+    this.groups.vipGrp.weChatGrp = [];
+    this.groups.vipGrp.bankGrp = [];
+    this.groups.vipGrp.aliPayGrp = [];
     let paymentList = [];
     this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5', true).pipe(
       mergeMap((resp: any) => {
@@ -87,12 +95,13 @@ export class RecommendTabComponent implements OnInit {
               channels.forEach(val => {
                 const formattedData = {
                   amount: element,
-                  channel: val
+                  channel: val,
+                  type: ''
                 };
                 if (paymentList.length > 0) {
                   const findItem = paymentList.find(item => {
                     if (item.channel === val && parseFloat(element) === item.amount) {
-                      if (item.channel === 'VipChannel') { this.agentTypes.push(item.agentType); }
+                      if (item.channel === 'VipChannel') { formattedData.type  = item.agentType; }
                       return item;
                     }
                   });
@@ -111,6 +120,9 @@ export class RecommendTabComponent implements OnInit {
   }
 
   groupByChannel(data) {
+    if (data.channel === 'VipChannel') {
+      data.channel = data.type;
+    }
     switch (data.channel) {
       case 'AliPay': case 'AliPayH5': case 'ALI': case 'AlipayQR':
         if (this.groups.aliGrp.length < 5) {
@@ -160,9 +172,24 @@ export class RecommendTabComponent implements OnInit {
           this.groups.btcGrp.push(data);
         }
         break;
-      case 'VipChannel':
-        if (this.groups.vipGrp.length < 5) {
-          this.groups.vipGrp.push(data);
+      case 'WeChatQR':
+        if (this.groups.vipGrp.weChatGrp.length < 5) {
+          this.groups.vipGrp.weChatGrp.push(data);
+        }
+        break;
+      case 'BankCard':
+        if (this.groups.vipGrp.bankGrp.length < 5) {
+          this.groups.vipGrp.bankGrp.push(data);
+        }
+        break;
+      case 'AliPayAccount':
+        if (this.groups.vipGrp.aliGrp.length < 5) {
+          this.groups.vipGrp.aliGrp.push(data);
+        }
+        break;
+      case 'AliPayQR':
+        if (this.groups.vipGrp.aliPayGrp.length < 5) {
+          this.groups.vipGrp.aliPayGrp.push(data);
         }
         break;
     }

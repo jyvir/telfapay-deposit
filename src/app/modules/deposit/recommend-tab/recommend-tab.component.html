@@ -130,11 +130,11 @@
   </div>
 
   <!-- Alipay QR -->
-  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0 && agentTypes.includes('AliPayQR')">
+  <div class="col-sm-3" *ngIf="groups?.vipGrp.aliPayGrp.length > 0">
     <div class="text-nowrap">
       VIP - AliPayQR
     </div>
-    <ng-container *ngFor="let item of groups?.vipGrp | orderBy:'amount'">
+    <ng-container *ngFor="let item of groups?.vipGrp.aliPayGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light"(click)="sendVip(item.amount, 'AliPayQR')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -145,11 +145,11 @@
   </div>
 
   <!-- Alipay Account -->
-  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0 && agentTypes.includes('AliPayAccount')">
+  <div class="col-sm-3" *ngIf="groups?.vipGrp.aliGrp.length > 0">
     <div class="text-nowrap">
       VIP - Alipay Account
     </div>
-    <ng-container *ngFor="let item of groups?.vipGrp | orderBy:'amount'">
+    <ng-container *ngFor="let item of groups?.vipGrp.aliGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light"(click)="sendVip(item.amount, 'AliPayAccount')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -160,11 +160,11 @@
   </div>
 
   <!-- BankCard -->
-  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0 && agentTypes.includes('BankCard')">
+  <div class="col-sm-3" *ngIf="groups?.vipGrp.bankGrp.length > 0">
     <div class="text-nowrap">
       VIP - BankCard
     </div>
-    <ng-container *ngFor="let item of groups?.vipGrp | orderBy:'amount'">
+    <ng-container *ngFor="let item of groups?.vipGrp.bankGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light"(click)="sendVip(item.amount, 'BankCard')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -175,11 +175,11 @@
   </div>
 
   <!-- Wechat -->
-  <div class="col-sm-3" *ngIf="groups?.vipGrp.length > 0 && agentTypes.includes('WeChatQR')">
+  <div class="col-sm-3" *ngIf="groups?.vipGrp.weChatGrp.length > 0">
     <div class="text-nowrap">
       VIP - WeChatQR
     </div>
-    <ng-container *ngFor="let item of groups?.vipGrp | orderBy:'amount'">
+    <ng-container *ngFor="let item of groups?.vipGrp.weChatGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light"(click)="sendVip(item.amount, 'WeChatQR')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
