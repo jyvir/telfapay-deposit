@@ -9,7 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {ModalsModule} from './modules/modals/modals.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {OrderPipe} from "ngx-order-pipe";
+import {OrderModule, OrderPipe} from "ngx-order-pipe";
 
 @NgModule({
   declarations: [
@@ -25,6 +25,8 @@ import {OrderPipe} from "ngx-order-pipe";
   ],
   providers: [
     CookieService
+  ],
+  exports: [
   ],
   bootstrap: [AppComponent]
 })

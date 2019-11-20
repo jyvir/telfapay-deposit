@@ -14,7 +14,7 @@ import {SearchTabComponent} from './modules/deposit/search-tab/search-tab.compon
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AnnouncementBarComponent} from "./modules/deposit/announcement-bar/announcement-bar.component";
 import {ModalsModule} from "./modules/modals/modals.module";
-import {OrderPipe} from "ngx-order-pipe";
+import {OrderModule, OrderPipe} from "ngx-order-pipe";
 
 const routes: Routes = [
     {path: '', component: DepositComponent},
@@ -44,7 +44,8 @@ const config: ExtraOptions = {
     NgxDatatableModule,
     ReactiveFormsModule,
     FormsModule,
-    ClipboardModule
+    ClipboardModule,
+    OrderModule
   ],
   exports: [
     RouterModule,
@@ -52,8 +53,7 @@ const config: ExtraOptions = {
     PAGES_COMPONENTS
   ],
   declarations: [
-    PAGES_COMPONENTS,
-    OrderPipe
+    PAGES_COMPONENTS
   ]
 })
 export class AppRoutingModule { }
