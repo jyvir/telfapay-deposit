@@ -55,7 +55,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
           if (channels.length > 0) {
             channels.forEach(val => {
               const formattedData = {
-                amount: element,
+                amount: parseFloat(element),
                 channel: val
               };
               this.groupByChannel(formattedData);

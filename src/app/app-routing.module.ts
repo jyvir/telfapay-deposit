@@ -11,9 +11,10 @@ import {NgMaterialIconModule} from 'ng-material-icon';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {ClipboardModule} from 'ngx-clipboard';
 import {SearchTabComponent} from './modules/deposit/search-tab/search-tab.component';
-import {ModalsModule} from './modules/modals/modals.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AnnouncementBarComponent} from "./modules/deposit/announcement-bar/announcement-bar.component";
+import {ModalsModule} from "./modules/modals/modals.module";
+import {OrderPipe} from "ngx-order-pipe";
 
 const routes: Routes = [
     {path: '', component: DepositComponent},
@@ -51,7 +52,8 @@ const config: ExtraOptions = {
     PAGES_COMPONENTS
   ],
   declarations: [
-    PAGES_COMPONENTS
+    PAGES_COMPONENTS,
+    OrderPipe
   ]
 })
 export class AppRoutingModule { }

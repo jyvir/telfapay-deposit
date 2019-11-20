@@ -8,7 +8,7 @@
     <div class="text-nowrap">
       AliPay
     </div>
-    <ng-container *ngFor="let item of groups?.aliGrp">
+    <ng-container *ngFor="let item of groups?.aliGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light" (click)="send(item)">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -22,7 +22,7 @@
     <div class="text-nowrap">
       WeChat
     </div>
-    <ng-container *ngFor="let item of groups?.weChatGrp">
+    <ng-container *ngFor="let item of groups?.weChatGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light" (click)="send(item)">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -36,7 +36,7 @@
     <div class="text-nowrap">
       JD
     </div>
-    <ng-container *ngFor="let item of groups?.jdGrp">
+    <ng-container *ngFor="let item of groups?.jdGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light" (click)="send(item)">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -50,7 +50,7 @@
     <div class="text-nowrap">
       KD
     </div>
-    <ng-container *ngFor="let item of groups?.kjGrp">
+    <ng-container *ngFor="let item of groups?.kjGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light" (click)="send(item)">
         <div class="card-body p-2 text-center ">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -64,7 +64,7 @@
     <div class="text-nowrap">
       UnionPay
     </div>
-    <ng-container *ngFor="let item of groups?.unionGrp">
+    <ng-container *ngFor="let item of groups?.unionGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light">
         <div class="card-body p-2 text-center" (click)="send(item)">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -78,7 +78,7 @@
     <div class="text-nowrap">
       QQWallet
     </div>
-    <ng-container *ngFor="let item of groups?.qqGrp">
+    <ng-container *ngFor="let item of groups?.qqGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light" (click)="send(item)">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -92,7 +92,7 @@
     <div class="text-nowrap">
       Visa
     </div>
-    <ng-container *ngFor="let item of groups?.visaGrp">
+    <ng-container *ngFor="let item of groups?.visaGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light" (click)="send(item)">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -106,7 +106,7 @@
     <div class="text-nowrap">
       BTC
     </div>
-    <ng-container *ngFor="let item of groups?.btcGrp">
+    <ng-container *ngFor="let item of groups?.btcGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light" (click)="send(item)">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -120,7 +120,7 @@
     <div class="text-nowrap">
       Bank
     </div>
-    <ng-container *ngFor="let item of groups?.bankGrp">
+    <ng-container *ngFor="let item of groups?.bankGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light"(click)="send(item)">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -134,7 +134,7 @@
     <div class="text-nowrap">
       VIP - AliPayQR
     </div>
-    <ng-container *ngFor="let item of groups?.vipGrp">
+    <ng-container *ngFor="let item of groups?.vipGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light"(click)="sendVip(item.amount, 'AliPayQR')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -149,7 +149,7 @@
     <div class="text-nowrap">
       VIP - Alipay Account
     </div>
-    <ng-container *ngFor="let item of groups?.vipGrp">
+    <ng-container *ngFor="let item of groups?.vipGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light"(click)="sendVip(item.amount, 'AliPayAccount')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -164,7 +164,7 @@
     <div class="text-nowrap">
       VIP - BankCard
     </div>
-    <ng-container *ngFor="let item of groups?.vipGrp">
+    <ng-container *ngFor="let item of groups?.vipGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light"(click)="sendVip(item.amount, 'BankCard')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
@@ -179,7 +179,7 @@
     <div class="text-nowrap">
       VIP - WeChatQR
     </div>
-    <ng-container *ngFor="let item of groups?.vipGrp">
+    <ng-container *ngFor="let item of groups?.vipGrp | orderBy:'amount'">
       <div class="card mb-1 btn btn-light"(click)="sendVip(item.amount, 'WeChatQR')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
