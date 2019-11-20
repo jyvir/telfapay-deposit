@@ -40,7 +40,10 @@ export class VipTabComponent implements OnInit {
       dataList => {
         for (const data of dataList) {
           Object.keys(data).forEach((element, index) => {
-            this.vipAmountList.push(element);
+            const channels = Object.getOwnPropertyDescriptor(data, element).value;
+            if (channels.length > 0) {
+              this.vipAmountList.push(element);
+            }
           });
         };
       }
