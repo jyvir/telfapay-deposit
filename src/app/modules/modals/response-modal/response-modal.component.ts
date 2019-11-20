@@ -28,10 +28,12 @@ export class ResponseModalComponent implements OnInit {
 
   openNewTab() {
     const newTab = window.open();
-    if (this.data.type.includes('QR')) {
+    if (this.data.type.includes('QR') && this.data.type !== 'QR_CODE') {
       newTab.document.body.innerHTML = `<img src="data:image/png;base64,${this.data.base64}" >`;
     } else if (this.data.type === 'HTML' || this.data.type ===  'FORM_DOC') {
       newTab.document.write(this.data.content);
+    } else {
+      newTab.open(this.data.content, '_blank');
     }
   }
 
