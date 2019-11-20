@@ -8,9 +8,13 @@
 <div class="modal-body" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard'">
   <div>
     <div class="row">
-      <div class="col-md-12 align-middle mb-1">
+      <div class="col-md-12 align-middle mb-1" *ngIf="data.bankAccount">
         <label>{{data.bankAccount}}</label>
         <div class="float-right blue" (click)="copy(data.bankAccount)">复制</div>
+      </div>
+      <div class="col-md-12 align-middle mb-1" *ngIf="data.accountNumber">
+        <label>{{data.accountNumber}}</label>
+        <div class="float-right blue" (click)="copy(data.accountNumber)">复制</div>
       </div>
     </div>
     <div class="row">
