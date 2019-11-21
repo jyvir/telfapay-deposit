@@ -6,7 +6,7 @@
     <ng-container *ngFor="let item of vipAmountList | orderBy: ''">
       <div class="card mb-1 btn btn-light" (click)="send(item, 'AliPayAccount')">
         <div class="card-body p-2 text-center">
-          <span class="card-text font-weight-bold align-middle h5">{{item}}元</span>
+          <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{item}}元</span>
         </div>
       </div>
     </ng-container>
@@ -18,7 +18,7 @@
     <ng-container *ngFor="let item of vipAmountList | orderBy: ''">
       <div class="card mb-1 btn btn-light" (click)="send(item, 'AliPayQR')">
         <div class="card-body p-2 text-center">
-          <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{item}}元</span>
+          <span class="card-text font-weight-bold align-middle h5 text-nowrap text-nowrap">{{item}}元</span>
         </div>
       </div>
     </ng-container>
@@ -30,7 +30,7 @@
     <ng-container *ngFor="let item of vipAmountList | orderBy: ''">
       <div class="card mb-1 btn btn-light" (click)="send(item, 'BankCard')">
         <div class="card-body p-2 text-center">
-          <span class="card-text font-weight-bold align-middle h5">{{item}}元</span>
+          <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{item}}元</span>
         </div>
       </div>
     </ng-container>
@@ -42,7 +42,7 @@
     <ng-container *ngFor="let item of vipAmountList | orderBy: ''">
       <div class="card mb-1 btn btn-light" (click)="send(item, 'WeChatQR')">
         <div class="card-body p-2 text-center">
-          <span class="card-text font-weight-bold align-middle h5">{{item}}元</span>
+          <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{item}}元</span>
         </div>
       </div>
     </ng-container>

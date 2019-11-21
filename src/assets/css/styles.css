@@ -96,5 +96,5 @@ i{
 }
 
 .amount-cont .col-md-3 {
-  width: 175px
+  min-width: 175px
 }

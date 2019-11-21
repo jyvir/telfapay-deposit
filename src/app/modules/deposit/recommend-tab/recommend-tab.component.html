@@ -11,12 +11,12 @@
       <ng-container *ngFor="let info of item.value | orderBy:'amount'">
         <div class="card mb-1 btn btn-light" (click)="send(info)" *ngIf="!info.type">
           <div class="card-body p-2 text-center">
-            <span class="card-text font-weight-bold align-middle h5">{{info.amount}}元</span>
+            <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{info.amount}}元</span>
           </div>
         </div>
         <div class="card mb-1 btn btn-light" (click)="sendVip(info.amount, info.type)" *ngIf="info.type">
           <div class="card-body p-2 text-center">
-            <span class="card-text font-weight-bold align-middle h5">{{info.amount}}元</span>
+            <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{info.amount}}元</span>
           </div>
         </div>
       </ng-container>
