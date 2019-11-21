@@ -17,7 +17,8 @@ export class DepositRecordTabComponent implements OnInit {
     { prop: 'channel' },
     { prop: 'providerReference' },
     { prop: 'updateTime'},
-    { prop: 'status' }
+    { prop: 'status' },
+    { prop: '' }
   ];
   rows = [];
   page = {
@@ -61,7 +62,7 @@ export class DepositRecordTabComponent implements OnInit {
       }
       case 'month': {
         this.fromDate = new Date();
-        this.fromDate.setDate(this.toDate.getDate() - 30);
+        this.fromDate.setDate(this.toDate.getDate() - 31);
         break;
       }
       default: {

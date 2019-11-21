@@ -23,8 +23,7 @@
         {{value}} &nbsp;
         <button class="btn btn-xs btn-outline-primary" (click)="copy(value)">复制</button>
       </ng-template>
-      <ng-template let-value="value" *ngIf="column.prop === 'status'" ngx-datatable-cell-template>
-        {{value}} &nbsp;
+      <ng-template let-value="value" *ngIf="column.prop === ''" ngx-datatable-cell-template>
         <button class="btn btn-xs btn-secondary" (click)="search(null)">刷新</button>
       </ng-template>
     </ngx-datatable-column>

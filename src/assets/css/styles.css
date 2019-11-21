@@ -70,3 +70,9 @@ i{
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.datatable-header-cell,
+.datatable-body-cell {
+  white-space: normal !important;
+  word-wrap: normal;
+}
