@@ -1,10 +1,20 @@
+
+@font-face {
+  font-family: 'PingFang';
+  src: url("../fonts/pingfang/PingFang-regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .bg-gray {
   background-color: #e4e8ea;
 }
 
 body {
   color: #5a5e61 !important;
+  font-family: "PingFang", sans-serif !important;
 }
+
 
 i{
   cursor: pointer;
@@ -98,3 +108,16 @@ i{
 .amount-cont .col-md-3 {
   min-width: 175px;
 }
+
+.black-bg {
+  background-color: black;
+}
+
+.gray-font {
+  color: #999999;
+}
+
+.brown {
+  color: #4D2F00;
+}
+
