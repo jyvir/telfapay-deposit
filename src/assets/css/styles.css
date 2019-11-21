@@ -11,7 +11,7 @@
 }
 
 body {
-  color: #5a5e61 !important;
+  color: #999999 !important;
   font-family: "PingFang", sans-serif !important;
 }
 
@@ -110,7 +110,7 @@ i{
 }
 
 .black-bg {
-  background-color: black;
+  background-color: #1E1B12 !important;
 }
 
 .gray-font {
