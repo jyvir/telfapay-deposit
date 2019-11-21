@@ -76,3 +76,21 @@ i{
   white-space: normal !important;
   word-wrap: normal;
 }
+
+.menu-icon {
+  position: absolute;
+}
+
+@media (max-width: 767.98px) {
+  .cashier-container {
+    width: 100% !important;
+  }
+  .card-body > .row {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .card-body > .row > .col-sm-4 {
+    display: inline-block;
+    float: none;
+  }
+}

@@ -22,6 +22,8 @@ export class DepositComponent implements OnInit {
   isExpired: boolean;
   configList = [];
   selectedId: number;
+  @ViewChild('nav') nav: ElementRef;
+  @ViewChild('contentDiv') contentDiv: ElementRef;
 
 
   constructor(
@@ -69,5 +71,15 @@ export class DepositComponent implements OnInit {
       // @ts-ignore
       this.configChild.fetchConfig(this.selectedId);
     }
+  }
+
+  openNav() {
+    this.nav.nativeElement.style.width = '250px';
+    this.contentDiv.nativeElement.style.marginLeft = '250px';
+  }
+
+  closeNav() {
+    this.nav.nativeElement.style.width = '0';
+    this.contentDiv.nativeElement.style.marginLeft = '0';
   }
 }

@@ -1,10 +1,11 @@
 
 <div class="card mb-3 mt-lg-4 mx-auto cashier-container" *ngIf="!isExpired">
   <div class="row no-gutters">
-    <div class="col-md-12 p-0 bg-gray ">
+    <div class="col-md-12 p-0 bg-gray menu-title">
+      <ng-material-icon class="menu-icon align-middle d-md-none d-lg-none d-xl-none" icon="menu" size="4" (click)="openNav()"></ng-material-icon>
       <h5 class="text-center">充值</h5>
     </div>
-    <div class="col-md-3 bg-gray">
+    <div class="col-md-3 bg-gray d-none d-sm-none d-md-block d-lg-block d-xl-block">
       <ul class="list-group list-group-flush">
         <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'recommend'}" (click)="tab = 'recommend'">推荐</li>
         <ng-container  *ngFor="let item of configList">
@@ -17,9 +18,24 @@
         <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'record'}" (click)="tab = 'record'">充值记录</li>
       </ul>
     </div>
-    <div class="col-md-9">
+    <div id="mySidenav" class="sidenav d-md-none d-lg-none d-xl-none" #nav>
+      <ng-material-icon class="closebtn" icon="close" size="1" (click)="closeNav()"></ng-material-icon>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'recommend'}" (click)="tab = 'recommend'">推荐</li>
+        <ng-container  *ngFor="let item of configList">
+          <li  class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'cashier' && item.id === selectedId}"
+               (click)="selectConfig(item.id);tab = 'cashier'">
+            {{item.name}}</li>
+        </ng-container >
+        <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'search'}" (click)="tab = 'search'">自选</li>
+        <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'vip'}" (click)="tab = 'vip'">VIP</li>
+        <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'record'}" (click)="tab = 'record'">充值记录</li>
+      </ul>
+    </div>
+
+    <div class="col-md-9" id="main-card" #contentDiv>
       <app-announcement-bar></app-announcement-bar>
-      <div class="card-body">
+      <div class="card-body col-12">
         <app-recommend-tab *ngIf="tab === 'recommend'"></app-recommend-tab>
         <app-cashier-tab *ngIf="tab === 'cashier'" #config></app-cashier-tab>
         <app-deposit-record-tab *ngIf="tab === 'record'"></app-deposit-record-tab>

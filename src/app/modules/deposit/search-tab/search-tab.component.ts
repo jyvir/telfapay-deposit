@@ -16,43 +16,22 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./search-tab.component.css']
 })
 export class SearchTabComponent implements OnInit {
-
-  groups = {
-    aliGrp: [],
-    weChatGrp: [],
-    unionGrp: [],
-    qqGrp: [],
-    jdGrp: [],
-    kjGrp: [],
-    visaGrp: [],
-    bankGrp: [],
-    btcGrp: [],
-    vipGrp: []
-  };
   amountSearch = '';
 
-  amountList = [];
+  channelList = [];
   constructor(
     private commonService: CommonService,
     private cookie: CookieService,
     private modalService: NgbModal
-  ) { }
-
-  ngOnInit() {
+  ) {
     this.initData();
   }
 
+  ngOnInit() {
+  }
+
   initData() {
-    this.groups.aliGrp = [];
-    this.groups.weChatGrp = [];
-    this.groups.jdGrp = [];
-    this.groups.kjGrp = [];
-    this.groups.unionGrp = [];
-    this.groups.qqGrp = [];
-    this.groups.visaGrp = [];
-    this.groups.bankGrp = [];
-    this.groups.btcGrp = [];
-    this.groups.vipGrp = [];
+    this.channelList = [];
     this.commonService.retrieveConfigList().pipe(
       mergeMap(
         (resp: any) => {
@@ -61,81 +40,62 @@ export class SearchTabComponent implements OnInit {
             calls.push(this.commonService.retrieveConfig(element));
             calls.push(this.commonService.retrieveVipConfig(element));
           });
-          return forkJoin(calls);
+          return forkJoin(calls).pipe(
+            map(
+              dataList => {
+                let datas = [];
+                for (const data of dataList) {
+                  Object.keys(data).forEach((element, index) => {
+                    const channels = Object.getOwnPropertyDescriptor(data, element).value;
+                    if (channels.length > 0) {
+                      channels.forEach(val => {
+                        const formattedData = {
+                          amount: element,
+                          channel: val,
+                          type: ''
+                        };
+                        if (val === 'VipChannel') {
+                          datas.push({
+                            amount: element,
+                            channel:  'VIP - AliPayQR',
+                            type: 'AliPayQR'
+                          });
+                          datas.push({
+                            amount: element,
+                            channel:  'VIP - WeChatQR',
+                            type: 'WeChatQR'
+                          });
+                          datas.push({
+                            amount: element,
+                            channel:  'VIP - AliPayAccount',
+                            type: 'AliPayAccount'
+                          });
+                          datas.push({
+                            amount: element,
+                            channel:  'VIP - BankCard',
+                            type: 'BankCard'
+                          });
+                        } else {
+                          datas.push(formattedData);
+                        }
+                      });
+                    }
+                  });
+                };
+                if (!Utility.isEmpty(this.amountSearch)) { datas = this.filterResult(datas); };
+                return datas;
+              }
+            )
+          );
         }
       )
-    ).subscribe(
-      dataList => {
-        for (const data of dataList) {
-          Object.keys(data).forEach((element, index) => {
-            const channels = Object.getOwnPropertyDescriptor(data, element).value;
-            if (channels.length > 0) {
-              channels.forEach(val => {
-                const formattedData = {
-                  amount: element,
-                  channel: val
-                };
-                this.groupByChannel(formattedData);
-              });
-            }
-          });
-        };
-        if (!Utility.isEmpty(this.amountSearch)) { this.filterResult(); };
-      }
-    );
+    ).subscribe(resp => {
+      this.channelList = resp;
+    });
   }
 
-
-  groupByChannel(data) {
-    switch (data.channel) {
-      case 'AliPay': case 'AliPayH5': case 'ALI': case 'AlipayQR':
-        this.groups.aliGrp.push(data);
-        break;
-      case 'WeChat': case 'WeChatH5': case 'WE_CHAT': case 'WeChatPublic':
-        this.groups.weChatGrp.push(data);
-        break;
-      case 'UnionPay': case 'UnionPayH5':
-        this.groups.unionGrp.push(data);
-        break;
-      case 'QQWallet': case 'QQWallet':
-        this.groups.qqGrp.push(data);
-        break;
-      case 'JD': case 'JDH5':
-        this.groups.jdGrp.push(data);
-        break;
-      case 'KJ': case 'KJH5':
-        this.groups.kjGrp.push(data);
-        break;
-      case 'VISAQR': case 'VISA':
-        this.groups.visaGrp.push(data);
-        break;
-      case 'OFFLINE_BANK':
-      case 'NetBank':
-      case 'INTERNAL':
-      case 'MERCHANT':
-        this.groups.bankGrp.push(data);
-        break;
-      case 'BTC':
-        this.groups.btcGrp.push(data);
-        break;
-      case 'VipChannel':
-        this.groups.vipGrp.push(data);
-        break;
-    }
-  }
-
-  filterResult() {
-
-    this.groups.aliGrp = this.groups.aliGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.groups.weChatGrp = this.groups.weChatGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.groups.jdGrp = this.groups.jdGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.groups.kjGrp = this.groups.kjGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.groups.unionGrp = this.groups.unionGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.groups.qqGrp = this.groups.qqGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.groups.visaGrp = this.groups.visaGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.groups.bankGrp = this.groups.bankGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.groups.btcGrp = this.groups.btcGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
-    this.groups.vipGrp = this.groups.vipGrp.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+  filterResult(datas) {
+    return datas.filter(data => data.amount.indexOf(this.amountSearch) > -1);
   }
 
   send(item) {

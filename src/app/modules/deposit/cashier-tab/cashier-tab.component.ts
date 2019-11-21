@@ -39,17 +39,9 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
 
   fetchConfig(id) {
     this.channelList = [];
-    this.aliGrp = [];
-    this.weChatGrp = [];
-    this.jdGrp = [];
-    this.kjGrp = [];
-    this.unionGrp = [];
-    this.qqGrp = [];
-    this.visaGrp = [];
-    this.bankGrp = [];
-    this.btcGrp = [];
     this.commonService.retrieveConfig(id).pipe(
       map(data => {
+        const datas = [];
         Object.keys(data).forEach((element, index) => {
           const channels = Object.getOwnPropertyDescriptor(data, element).value;
           if (channels.length > 0) {
@@ -58,14 +50,19 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
                 amount: parseFloat(element),
                 channel: val
               };
-              this.groupByChannel(formattedData);
+              datas.push(formattedData);
             });
           }
         });
+        return datas;
+      }),
+      catchError(err => {
+        console.log(err);
+        return EMPTY;
       })
     ).subscribe(
-      error => {
-        console.log(error);
+      res => {
+        this.channelList = res;
       }
     );
   }

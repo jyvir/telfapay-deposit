@@ -15,6 +15,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AnnouncementBarComponent} from "./modules/deposit/announcement-bar/announcement-bar.component";
 import {ModalsModule} from "./modules/modals/modals.module";
 import {OrderModule, OrderPipe} from "ngx-order-pipe";
+import {GroupByPipe} from './shared/pipes/group-by.pipe';
 
 const routes: Routes = [
     {path: '', component: DepositComponent},
@@ -50,10 +51,12 @@ const config: ExtraOptions = {
   exports: [
     RouterModule,
     NgbModule,
-    PAGES_COMPONENTS
+    PAGES_COMPONENTS,
+    GroupByPipe
   ],
   declarations: [
-    PAGES_COMPONENTS
+    PAGES_COMPONENTS,
+    GroupByPipe
   ]
 })
 export class AppRoutingModule { }

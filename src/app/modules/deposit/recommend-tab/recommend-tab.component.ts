@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
-import {catchError, flatMap, groupBy, mergeMap} from 'rxjs/operators';
+import {catchError, flatMap, groupBy, map, mergeMap} from 'rxjs/operators';
 import {PageListModel} from '../../../shared/models/page-list.model';
 import {Utility} from '../../../shared/helpers/utility';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -19,25 +19,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class RecommendTabComponent implements OnInit {
 
   channelList = [];
-  groups = {
-    aliGrp: [],
-    weChatGrp: [],
-    unionGrp: [],
-    qqGrp: [],
-    jdGrp: [],
-    kjGrp: [],
-    visaGrp: [],
-    bankGrp: [],
-    btcGrp: [],
-    vipGrp: {
-      weChatGrp: [],
-      aliGrp: [],
-      bankGrp: [],
-      aliPayGrp: []
-    }
-  };
-  agentTypes = [];
-
   constructor(
     private commonService: CommonService,
     private cookie: CookieService,
@@ -46,19 +27,6 @@ export class RecommendTabComponent implements OnInit {
 
   ngOnInit() {
     this.channelList = [];
-    this.groups.aliGrp = [];
-    this.groups.weChatGrp = [];
-    this.groups.jdGrp = [];
-    this.groups.kjGrp = [];
-    this.groups.unionGrp = [];
-    this.groups.qqGrp = [];
-    this.groups.visaGrp = [];
-    this.groups.bankGrp = [];
-    this.groups.btcGrp = [];
-    this.groups.vipGrp.aliGrp = [];
-    this.groups.vipGrp.weChatGrp = [];
-    this.groups.vipGrp.bankGrp = [];
-    this.groups.vipGrp.aliPayGrp = [];
     let paymentList = [];
     this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5000', true).pipe(
       mergeMap((resp: any) => {
@@ -83,116 +51,50 @@ export class RecommendTabComponent implements OnInit {
             calls.push(this.commonService.retrieveConfig(element));
             calls.push(this.commonService.retrieveVipConfig(element));
           });
-          return forkJoin(calls);
-        }
-      )
-    ).subscribe(
-      dataList => {
-        for (const data of dataList) {
-          Object.keys(data).forEach((element, index) => {
-            const channels = Object.getOwnPropertyDescriptor(data, element).value;
-            if (channels.length > 0) {
-              channels.forEach(val => {
-                const formattedData = {
-                  amount: element,
-                  channel: val,
-                  type: ''
-                };
-                if (paymentList.length > 0) {
-                  const findItem = paymentList.find(item => {
-                    if (item.channel === val && parseFloat(element) === item.amount) {
-                      if (item.channel === 'VipChannel') { formattedData.type  = item.agentType; }
-                      return item;
+          return forkJoin(calls).pipe(
+            map(
+              dataList => {
+                const datas = [];
+                for (const data of dataList) {
+                  Object.keys(data).forEach((element, index) => {
+                    const channels = Object.getOwnPropertyDescriptor(data, element).value;
+                    if (channels.length > 0) {
+                      channels.forEach(val => {
+                        const formattedData = {
+                          amount: element,
+                          channel: val,
+                          type: ''
+                        };
+                        if (paymentList.length > 0) {
+                          const findItem = paymentList.find(item => {
+                            if (item.channel === val && parseFloat(element) === item.amount) {
+                              if (item.channel === 'VipChannel') {
+                                formattedData.type  = item.agentType;
+                                formattedData.channel = `VIP - ${item.agentType}`;
+                              }
+                              return item;
+                            }
+                          });
+                          if (!Utility.isEmpty(findItem)) {
+                            datas.push(formattedData);
+                          }
+                        } else if (parseFloat(element) < 500) {
+                          datas.push(formattedData);
+                        }
+                      });
                     }
                   });
-                  if (!Utility.isEmpty(findItem)) {
-                    this.groupByChannel(formattedData);
-                  }
-                } else if (parseFloat(element) < 500) {
-                  this.groupByChannel(formattedData);
                 }
-              });
-            }
-          });
+                return datas;
+              }
+            )
+          );
         }
+      )
+    ).subscribe(resp => {
+        this.channelList = resp;
       }
     );
-  }
-
-  groupByChannel(data) {
-    if (data.channel === 'VipChannel') {
-      data.channel = data.type;
-    }
-    switch (data.channel) {
-      case 'AliPay': case 'AliPayH5': case 'ALI': case 'AlipayQR':
-        if (this.groups.aliGrp.length < 5) {
-          this.groups.aliGrp.push(data);
-        }
-        break;
-      case 'WeChat': case 'WeChatH5': case 'WE_CHAT': case 'WeChatPublic':
-        if (this.groups.weChatGrp.length < 5) {
-          this.groups.weChatGrp.push(data);
-        }
-        break;
-      case 'UnionPay': case 'UnionPayH5':
-        if (this.groups.unionGrp.length < 5) {
-          this.groups.unionGrp.push(data);
-        }
-        break;
-      case 'QQWallet': case 'QQWallet':
-        if (this.groups.qqGrp.length < 5) {
-          this.groups.qqGrp.push(data);
-        }
-        break;
-      case 'JD': case 'JDH5':
-        if (this.groups.jdGrp.length < 5) {
-          this.groups.jdGrp.push(data);
-        }
-        break;
-      case 'KJ': case 'KJH5':
-        if (this.groups.kjGrp.length < 5) {
-          this.groups.kjGrp.push(data);
-        }
-        break;
-      case 'VISAQR': case 'VISA':
-        if (this.groups.visaGrp.length < 5) {
-          this.groups.visaGrp.push(data);
-        }
-        break;
-      case 'OFFLINE_BANK':
-      case 'NetBank':
-      case 'INTERNAL':
-      case 'MERCHANT':
-        if (this.groups.bankGrp.length < 5) {
-          this.groups.bankGrp.push(data);
-        }
-        break;
-      case 'BTC':
-        if (this.groups.btcGrp.length < 5) {
-          this.groups.btcGrp.push(data);
-        }
-        break;
-      case 'WeChatQR':
-        if (this.groups.vipGrp.weChatGrp.length < 5) {
-          this.groups.vipGrp.weChatGrp.push(data);
-        }
-        break;
-      case 'BankCard':
-        if (this.groups.vipGrp.bankGrp.length < 5) {
-          this.groups.vipGrp.bankGrp.push(data);
-        }
-        break;
-      case 'AliPayAccount':
-        if (this.groups.vipGrp.aliGrp.length < 5) {
-          this.groups.vipGrp.aliGrp.push(data);
-        }
-        break;
-      case 'AliPayQR':
-        if (this.groups.vipGrp.aliPayGrp.length < 5) {
-          this.groups.vipGrp.aliPayGrp.push(data);
-        }
-        break;
-    }
   }
 
   send(item) {

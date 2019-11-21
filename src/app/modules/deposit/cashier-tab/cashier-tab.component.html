@@ -1,129 +1,17 @@
-<div class="row flex-row flex-sm-nowrap amount-cont">
-  <div class="col-sm-3" *ngIf="aliGrp.length">
-    <div class="text-nowrap">
-      AliPay
-    </div>
-    <ng-container *ngFor="let item of aliGrp | orderBy:'amount'">
-      <div class="card mb-1 btn btn-light" (click)="send(item)">
-        <div class="card-body p-2 text-center">
-          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
-          <span class="float-right small-text mt-2">{{item.channel}}</span>
-        </div>
-      </div>
-    </ng-container>
-  </div>
 
-  <div class="col-sm-3" *ngIf="weChatGrp.length">
-    <div class="text-nowrap">
-      WeChat
-    </div>
-    <ng-container *ngFor="let item of weChatGrp | orderBy:'amount'">
-      <div class="card mb-1 btn btn-light" (click)="send(item)">
-        <div class="card-body p-2 text-center">
-          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
-          <span class="float-right small-text mt-2">{{item.channel}}</span>
-        </div>
+<div class="row flex-row flex-nowrap amount-cont">
+  <ng-container *ngFor="let item of channelList | groupBy:'channel'">
+    <div class="col-md-3" *ngIf="item.value.length">
+      <div class="text-nowrap">
+        {{item.key}}
       </div>
-    </ng-container>
-  </div>
-
-  <div class="col-sm-3" *ngIf="jdGrp.length">
-    <div class="text-nowrap">
-      JD
-    </div>
-    <ng-container *ngFor="let item of jdGrp | orderBy:'amount'">
-      <div class="card mb-1 btn btn-light" (click)="send(item)">
-        <div class="card-body p-2 text-center">
-          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
-          <span class="float-right small-text mt-2">{{item.channel}}</span>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-
-  <div class="col-sm-3" *ngIf="kjGrp.length">
-    <div class="text-nowrap">
-      KD
-    </div>
-    <ng-container *ngFor="let item of kjGrp | orderBy:'amount'">
-      <div class="card mb-1 btn btn-light" (click)="send(item)">
-        <div class="card-body p-2 text-center ">
-          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
-          <span class="float-right small-text mt-2">{{item.channel}}</span>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-
-  <div class="col-sm-3" *ngIf="unionGrp.length">
-    <div class="text-nowrap">
-      UnionPay
-    </div>
-    <ng-container *ngFor="let item of unionGrp | orderBy:'amount'">
-      <div class="card mb-1 btn btn-light">
-        <div class="card-body p-2 text-center" (click)="send(item)">
-          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
-          <span class="float-right small-text mt-2">{{item.channel}}</span>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-
-  <div class="col-sm-3" *ngIf="qqGrp.length">
-    <div class="text-nowrap">
-      QQWallet
-    </div>
-    <ng-container *ngFor="let item of qqGrp | orderBy:'amount'">
-      <div class="card mb-1 btn btn-light" (click)="send(item)">
-        <div class="card-body p-2 text-center">
-          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
-          <span class="float-right small-text mt-2">{{item.channel}}</span>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-
-  <div class="col-sm-3" *ngIf="visaGrp.length">
-    <div class="text-nowrap">
-      Visa
-    </div>
-    <ng-container *ngFor="let item of visaGrp | orderBy:'amount'">
-      <div class="card mb-1 btn btn-light" (click)="send(item)">
-        <div class="card-body p-2 text-center">
-          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
-          <span class="float-right small-text mt-2">{{item.channel}}</span>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-
-  <div class="col-sm-3" *ngIf="btcGrp.length">
-    <div class="text-nowrap">
-      BTC
-    </div>
-    <ng-container *ngFor="let item of btcGrp | orderBy:'amount'">
-      <div class="card mb-1 btn btn-light" (click)="send(item)">
-        <div class="card-body p-2 text-center">
-          <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
-          <span class="float-right small-text mt-2">{{item.channel}}</span>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-
-  <div class="col-sm-3" *ngIf="bankGrp.length">
-    <div class="text-nowrap">
-       Bank
-    </div>
-    <ng-container *ngFor="let item of bankGrp | orderBy:'amount'">
-        <div class="card mb-1 btn btn-light"(click)="send(item)">
+      <ng-container *ngFor="let info of item.value | orderBy:'amount'">
+        <div class="card mb-1 btn btn-light" (click)="send(info)">
           <div class="card-body p-2 text-center">
-            <span class="card-text font-weight-bold align-middle h5">{{item.amount}}元</span>
-            <span class="float-right small-text mt-2">{{item.channel}}</span>
+            <span class="card-text font-weight-bold align-middle h5">{{info.amount}}元</span>
           </div>
         </div>
-    </ng-container>
-  </div>
-
+      </ng-container>
+    </div>
+  </ng-container>
 </div>
-
