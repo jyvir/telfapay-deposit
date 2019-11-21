@@ -47,7 +47,7 @@ i{
 }
 
 .amount-cont {
-  height: 300px;
+  height: 480px;
   overflow: auto;
 }
 
@@ -93,4 +93,8 @@ i{
     display: inline-block;
     float: none;
   }
+}
+
+.amount-cont .col-md-3 {
+  width: 175px
 }
