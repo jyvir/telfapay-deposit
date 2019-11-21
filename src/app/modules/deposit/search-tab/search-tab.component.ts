@@ -49,29 +49,30 @@ export class SearchTabComponent implements OnInit {
                     const channels = Object.getOwnPropertyDescriptor(data, element).value;
                     if (channels.length > 0) {
                       channels.forEach(val => {
+                        const amount = parseFloat(element);
                         const formattedData = {
-                          amount: element,
+                          amount,
                           channel: val,
                           type: ''
                         };
                         if (val === 'VipChannel') {
                           datas.push({
-                            amount: element,
+                            amount,
                             channel:  'VIP - AliPayQR',
                             type: 'AliPayQR'
                           });
                           datas.push({
-                            amount: element,
+                            amount,
                             channel:  'VIP - WeChatQR',
                             type: 'WeChatQR'
                           });
                           datas.push({
-                            amount: element,
+                            amount,
                             channel:  'VIP - AliPayAccount',
                             type: 'AliPayAccount'
                           });
                           datas.push({
-                            amount: element,
+                            amount,
                             channel:  'VIP - BankCard',
                             type: 'BankCard'
                           });
