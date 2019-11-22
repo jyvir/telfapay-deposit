@@ -1,14 +1,21 @@
 
 <div class="col-md-12 row mb-2">
   <input class="form-control form-control-sm col-9" type="text" [(ngModel)]="amountSearch" placeholder="请输入金额"/>
-  <button type="submit" class="btn btn-sm btn-dark col-2 ml-2" (click)="initData()">查询</button>
+  <button type="submit" class="btn btn-sm btn-pay col-2 ml-2" (click)="initData()">查询</button>
 </div>
 
 <div class="row flex-row flex-nowrap amount-cont">
   <ng-container *ngFor="let item of channelList | groupBy:'channel'">
     <div class="col-md-3 channel-bg pt-3 mr-3" *ngIf="item.value.length">
-      <div class="text-nowrap">
-        {{item.key}}
+      <div class="channel-label text-nowrap text-center mb-1" >
+        <i ngClass="{{ item.key === 'WeChat' ? 'wechat' :
+          item.key === 'UnionPay'? 'unionpay-scan':
+          item.key === 'UnionPayH5'? 'unionpay':
+          item.key === 'AliPay'? 'alipay' : 'none-ico' }}"></i>
+        <h6>{{ item.key === 'WeChat' ? '微信' :
+          item.key === 'UnionPay'? '银联扫码':
+            item.key === 'UnionPayH5'? '云闪付':
+              item.key === 'AliPay'? '支付宝' : item.key }}</h6>
       </div>
       <ng-container *ngFor="let info of item.value | orderBy:'amount'">
         <div class="card mb-1 btn btn-pay" (click)="send(info)" *ngIf="!info.type">

@@ -41,9 +41,11 @@ export class RecommendTabComponent implements OnInit {
       ),
       mergeMap(
         resp => {
+          let vipCount = 1;
           paymentList.forEach((data, index) => {
             if (data.channel === 'VipChannel' ) {
-              data.agentType = resp[index + 1];
+              data.agentType = resp[vipCount];
+              vipCount++;
             }
           })
           const calls = [];
