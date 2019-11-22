@@ -273,6 +273,11 @@ i{
   background: rgba(255,255,255,0.1);
 }
 
+.amount-cont .channel-bg {
+  height: fit-content;
+  min-height: 480px;
+}
+
 .grad {
   background-image: linear-gradient(rgba(255,255,255,0), rgba(180,143,89,0.2), rgba(255,255,255,0)) !important;
   background-repeat: no-repeat;
