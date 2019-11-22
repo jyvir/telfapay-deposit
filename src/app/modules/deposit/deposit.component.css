@@ -66,3 +66,45 @@
 .cashier-container .menu-title {
   height: 60px;
 }
+
+.active {
+  background-repeat: no-repeat;
+  background-size: 256px 80px;
+  height: 80px;
+  width: 256px;
+  background-image: url("../../../assets/images/sidenav-btn-bg.png");
+  color: #4D2F00 !important;
+  font-weight: bold;
+  font-size: 24px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 256px;
+  padding-top: 23px;
+  padding-right: 3rem;
+}
+
+.sidenav .active {
+  background-size: 100% 80px !important;
+  max-width: 100%;
+  width: 100% !important;
+}
+
+.list-group-item.active, .list-group-item {
+  background-color: transparent!important;
+  border: none;
+}
+
+.list-group-item, .list-group-flush:last-child .list-group-item:last-child {
+  border-bottom: 1px solid;
+  border-image: linear-gradient(to right, rgba(255,255,255,0), rgba(153,153,153,0.3), rgba(255,255,255,0)) 1;
+}
+
+.grad .list-group {
+  border-right: 1px solid;
+  border-image: linear-gradient(to top, rgba(255,255,255,0), rgba(153,153,153,0.3), rgba(255,255,255,0)) 1;
+}
+
+.li-brown {
+  color: #B48E59;;
+}

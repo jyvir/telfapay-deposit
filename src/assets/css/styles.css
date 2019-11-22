@@ -21,31 +21,110 @@ i{
 }
 
 .alipay{
-  background-image: url("../icons/Alipay.svg");
+  background-image: url("../images/alipay.png");
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+  content: '';
+  right: 4px
 }
 
 .btc{
   background-image: url("../icons/btc.png");
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+  content: '';
+  right: 4px
 }
 
 .jd{
   background-image: url("../icons/jd.png");
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+  content: '';
+  right: 4px
 }
 
 .qq-wallet{
   background-image: url("../icons/QQWallet.png");
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+  content: '';
+  right: 4px
+}
+
+.unionpay-scan{
+  background-image: url("../images/unionpay.png");
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+  content: '';
+  right: 4px
 }
 
 .unionpay{
-  background-image: url("../icons/UnionPay.svg");
+  background-image: url("../images/unionpay-2.png");
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+  content: '';
+  right: 4px
 }
 
 .visa{
   background-image: url("../icons/visa.svg");
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+  content: '';
+  right: 4px
 }
 
 .wechat{
-  background-image: url("../icons/wechat.svg");
+  background: url("../images/wechat.png") no-repeat;
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+  content: '';
+  right: 4px
+}
+.none-ico{
+  height: 40px;
+  width: 0;
+  position: relative;
+  display: inline-block;
+  content: '';
+  right: 4px
+}
+
+
+.announce{
+  background: url("../images/announcement.png") no-repeat;
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+  content: '';
 }
 
 .refresh{
@@ -70,29 +149,36 @@ i{
   color: #CECECE !important;
 }
 
+.channel-label h5, .channel-label h6 {
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 8rem;
+}
+
 .amount-cont {
   height: 480px;
   overflow: auto;
 }
 
 /* width */
-::-webkit-scrollbar {
+::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #8c8c8c;
+}
+
+::-webkit-scrollbar
+{
   width: 10px;
+  background-color: #8c8c8c;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+::-webkit-scrollbar-thumb
+{
+  background-color: #000000;
+  border: 1px solid #555555;
 }
 
 .datatable-header-cell,
@@ -161,4 +247,68 @@ i{
 
 .datatable-row-group:hover {
   background-color: transparent !important;
+}
+
+.btn-pay {
+  color: #CECECE !important;
+  background-color: #1E1B12 !important;
+  border-radius: 0;
+  background-image: url("../../assets/images/dark-brown-bg.png");
+}
+
+.btn-pay:hover {
+  color: #CECECE !important;
+  background-image: url("../../assets/images/hi-brown-button.png");
+}
+
+
+.tab-bg {
+  background-image: url("../images/tab-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.channel-bg {
+  background: rgba(255,255,255,0.1);
+}
+
+.grad {
+  background-image: linear-gradient(rgba(255,255,255,0), rgba(180,143,89,0.2), rgba(255,255,255,0)) !important;
+  background-repeat: no-repeat;
+  background-size: 90% auto;
+}
+
+.grad .list-group {
+  width: 90%;
+}
+
+
+
+.modal-content, .modal-header, .modal-footer, .modal-body {
+  background-color: #2d2521 !important;
+  border-bottom: 1px solid #2d2521 !important;
+  border-top: 1px solid #2d2521 !important;
+}
+
+.modal-header .close {
+  color: #CECECE;
+  text-shadow: none !important;
+}
+
+.modal-header .close:hover {
+  color: #B48E59;
+}
+
+.modal-btn {
+  background: transparent !important;
+  color: #CECECE !important;
+  border: 1px solid #CECECE !important;
+  font-weight: bold;
+}
+.modal-btn:hover {
+  opacity: 1 !important;
+  background: #B48E59 !important;
+  color: #4D2F00 !important;
+  border: 1px solid #4D2F00 !important;
 }
