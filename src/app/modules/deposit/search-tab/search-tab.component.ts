@@ -96,7 +96,8 @@ export class SearchTabComponent implements OnInit {
   }
 
   filterResult(datas) {
-    return datas.filter(data => data.amount.indexOf(this.amountSearch) > -1);
+    return datas.filter(data =>
+      data.amount.toString().indexOf(this.amountSearch) > -1);
   }
 
   send(item) {
