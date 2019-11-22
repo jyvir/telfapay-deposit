@@ -1,46 +1,46 @@
 <div class="row flex-row flex-nowrap amount-cont">
-  <div class="col-md-3" *ngIf="vipAmountList.length">
+  <div class="col-md-3 channel-bg pt-3 mr-3" *ngIf="vipAmountList.length">
     <div class="text-nowrap">
       AliPay Account
     </div>
     <ng-container *ngFor="let item of vipAmountList | orderBy: ''">
-      <div class="card mb-1 btn btn-light" (click)="send(item, 'AliPayAccount')">
+      <div class="card mb-1 btn btn-pay" (click)="send(item, 'AliPayAccount')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{item}}元</span>
         </div>
       </div>
     </ng-container>
   </div>
-  <div class="col-md-3" *ngIf="vipAmountList.length">
+  <div class="col-md-3 channel-bg pt-3 mr-3" *ngIf="vipAmountList.length">
     <div class="text-nowrap">
       AliPayQR
     </div>
     <ng-container *ngFor="let item of vipAmountList | orderBy: ''">
-      <div class="card mb-1 btn btn-light" (click)="send(item, 'AliPayQR')">
+      <div class="card mb-1 btn btn-pay" (click)="send(item, 'AliPayQR')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5 text-nowrap text-nowrap">{{item}}元</span>
         </div>
       </div>
     </ng-container>
   </div>
-  <div class="col-md-3" *ngIf="vipAmountList.length">
+  <div class="col-md-3 channel-bg pt-3 mr-3" *ngIf="vipAmountList.length">
     <div class="text-nowrap">
       BankCard
     </div>
     <ng-container *ngFor="let item of vipAmountList | orderBy: ''">
-      <div class="card mb-1 btn btn-light" (click)="send(item, 'BankCard')">
+      <div class="card mb-1 btn btn-pay" (click)="send(item, 'BankCard')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{item}}元</span>
         </div>
       </div>
     </ng-container>
   </div>
-  <div class="col-md-3" *ngIf="vipAmountList.length">
+  <div class="col-md-3 channel-bg pt-3 mr-3" *ngIf="vipAmountList.length">
     <div class="text-nowrap">
       WeChatQR
     </div>
     <ng-container *ngFor="let item of vipAmountList | orderBy: ''">
-      <div class="card mb-1 btn btn-light" (click)="send(item, 'WeChatQR')">
+      <div class="card mb-1 btn btn-pay" (click)="send(item, 'WeChatQR')">
         <div class="card-body p-2 text-center">
           <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{item}}元</span>
         </div>

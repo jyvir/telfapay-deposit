@@ -1,12 +1,12 @@
 
 <div class="row flex-row flex-nowrap amount-cont">
   <ng-container *ngFor="let item of channelList | groupBy:'channel'">
-    <div class="col-md-3" *ngIf="item.value.length">
-      <div class="text-nowrap">
+    <div class="col-md-3 channel-bg pt-3 mr-3" *ngIf="item.value.length">
+      <div class="text-nowrap text-center mb-1">
         {{item.key}}
       </div>
       <ng-container *ngFor="let info of item.value | orderBy:'amount'">
-        <div class="card mb-1 btn btn-light" (click)="send(info)">
+        <div class="card mb-1 btn btn-pay" (click)="send(info)">
           <div class="card-body p-2 text-center">
             <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{info.amount}}元</span>
           </div>

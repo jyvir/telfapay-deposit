@@ -121,3 +121,38 @@ i{
   color: #4D2F00;
 }
 
+
+.btn-pay {
+  color: #CECECE !important;
+  background-color: #1E1B12 !important;
+  border-radius: 0;
+  background-image: url("../../assets/images/dark-brown-bg.png");
+}
+
+.btn-pay:hover {
+  color: #CECECE !important;
+  background-image: url("../../assets/images/hi-brown-button.png");
+}
+
+
+.tab-bg {
+  background-image: url("../images/tab-bg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.channel-bg {
+  background: rgba(255,255,255,0.1);
+}
+
+.grad {
+  background-image: linear-gradient(rgba(255,255,255,0), rgba(180,143,89,0.2), rgba(255,255,255,0)) !important;
+  background-repeat: no-repeat;
+  background-size: 90% auto;
+}
+
+.grad .list-group {
+  width: 90%;
+}
+

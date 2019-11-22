@@ -66,3 +66,21 @@
 .cashier-container .menu-title {
   height: 60px;
 }
+
+.active {
+  background-repeat: no-repeat;
+  background-size: 256px 80px;
+  height: 80px;
+  width: 256px;
+  background-image: url("../../../assets/images/sidenav-btn-bg.png");
+  color: #4D2F00 !important;
+  font-weight: bold;
+}
+
+.list-group-item.active, .list-group-item {
+  background-color: transparent!important;
+  border: none;
+}
+
+
+
