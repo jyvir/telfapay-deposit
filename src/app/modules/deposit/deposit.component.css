@@ -75,12 +75,19 @@
   background-image: url("../../../assets/images/sidenav-btn-bg.png");
   color: #4D2F00 !important;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 24px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   max-width: 256px;
   padding-top: 23px;
+  padding-right: 3rem;
+}
+
+.sidenav .active {
+  background-size: 100% 80px !important;
+  max-width: 100%;
+  width: 100% !important;
 }
 
 .list-group-item.active, .list-group-item {
@@ -96,4 +103,8 @@
 .grad .list-group {
   border-right: 1px solid;
   border-image: linear-gradient(to top, rgba(255,255,255,0), rgba(153,153,153,0.3), rgba(255,255,255,0)) 1;
+}
+
+.li-brown {
+  color: #B48E59;;
 }

@@ -14,7 +14,7 @@
           item.key === 'AliPay'? '支付宝' : item.key }}</h6>
       </div>
       <ng-container *ngFor="let info of item.value | orderBy:'amount'">
-        <div class="card mb-1 btn btn-pay" (click)="send(info)">
+        <div class="card mb-3 btn btn-pay" (click)="send(info)">
           <div class="card-body p-2 text-center">
             <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{info.amount}}元</span>
           </div>
