@@ -1,9 +1,13 @@
 <div class="row">
-  <div class="col-xs-12"></div>
-  <button type="button" class="btn btn-xs btn-outline-secondary" (click)="search('day')">今天</button>
-  <button type="button" class="btn btn-xs btn-outline-secondary mr-2 ml-2" (click)="search('week')">近一周</button>
-  <button type="button" class="btn btn-xs btn-outline-secondary" (click)="search('month')">近一月</button>
-  <ngx-datatable class="material "
+  <div class="col-xs-12 pd-10">
+    <button type="button" class="btn btn-xs btn-outline-secondary" [ngClass]="{'selected brown': mode === 'day'}"
+            (click)="search('day')">今天</button>
+    <button type="button" class="btn btn-xs btn-outline-secondary mr-2 ml-2" [ngClass]="{'selected brown': mode === 'week'}"
+            (click)="search('week')">近一周</button>
+    <button type="button" class="btn btn-xs btn-outline-secondary" [ngClass]="{'selected brown': mode === 'month'}"
+            (click)="search('month')">近一月</button>
+  </div>
+  <ngx-datatable class="material"
     [rows]="rows"
     [columns]="columns"
    [headerHeight]="50"
@@ -18,13 +22,21 @@
    (page)="setPage($event)"
    (sort)="onSort($event)">
 
-    <ngx-datatable-column *ngFor="let column of columns" prop="{{column.prop}}">
+    <ngx-datatable-column *ngFor="let column of columns" name={{column.name}} prop="{{column.prop}}">
+      <ng-template let-value="value" *ngIf="column.prop === 'amount'" ngx-datatable-cell-template>
+        <strong>{{value}}</strong>
+      </ng-template>
       <ng-template let-value="value" *ngIf="column.prop === 'providerReference'" ngx-datatable-cell-template>
         {{value}} &nbsp;
-        <button class="btn btn-xs btn-outline-primary" (click)="copy(value)">复制</button>
+        <button type="button" class="btn btn-xs gold" (click)="copy(value)">复制</button>
       </ng-template>
-      <ng-template let-value="value" *ngIf="column.prop === ''" ngx-datatable-cell-template>
-        <button class="btn btn-xs btn-secondary" (click)="search(null)">刷新</button>
+      <ng-template let-value="value" *ngIf="column.name === 'Status'" ngx-datatable-cell-template>
+        <td class="processing" *ngIf="value === 'PROCESSING'">{{value}}</td>
+        <td class="failed" *ngIf="value === 'FAILED'">{{value}}</td>
+        <td *ngIf="value !== 'FAILED' && value !== 'PROCESSING'">{{value}}</td>
+      </ng-template>
+      <ng-template let-value="value" *ngIf="column.name === ''" ngx-datatable-cell-template>
+        <button type="button" class="btn refresh" (click)="search(null)" *ngIf="value !== 'OK' && value !=='FAILED'"></button>
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>

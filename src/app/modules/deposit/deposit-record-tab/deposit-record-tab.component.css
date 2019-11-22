@@ -1,3 +1,13 @@
 ngx-datatable {
   width: 100%
 }
+
+.selected {
+  background-image: url("../../../../assets/images/light-brown-bg.png");
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.btn-xs {
+  padding: 1px 6px !important;
+}

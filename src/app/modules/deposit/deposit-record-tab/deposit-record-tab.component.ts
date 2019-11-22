@@ -13,12 +13,12 @@ export class DepositRecordTabComponent implements OnInit {
   ColumnMode = ColumnMode;
   loading = false;
   columns = [
-    { prop: 'amount' },
-    { prop: 'channel' },
-    { prop: 'providerReference' },
-    { prop: 'updateTime'},
-    { prop: 'status' },
-    { prop: '' }
+    { name: 'Amount', prop: 'amount' },
+    { name: 'Channel', prop: 'channel' },
+    { name: 'Provider Reference', prop: 'providerReference' },
+    { name: 'Update Time', prop: 'updateTime'},
+    { name: 'Status', prop: 'status' },
+    { name: '', prop: 'status'}
   ];
   rows = [];
   page = {
@@ -29,6 +29,7 @@ export class DepositRecordTabComponent implements OnInit {
     pageNumber: 0
   };
 
+  mode: any;
   searchData: any;
   fromDate: any;
   toDate: any;
@@ -45,6 +46,7 @@ export class DepositRecordTabComponent implements OnInit {
   }
 
   search(mode) {
+    this.mode = mode;
     if (mode) {
       this.isSearch = true;
       this.toDate = new Date();
