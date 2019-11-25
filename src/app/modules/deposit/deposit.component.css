@@ -84,6 +84,20 @@
   padding-right: 3rem;
 }
 
+@media (max-width: 767.98px) {
+  .active {
+    width: 100%;
+    background-size: 100% 100%;
+    font-size: 18px;
+    white-space: normal;
+    text-overflow: unset;
+    padding: 1rem;
+  }
+  .grad .list-group {
+    width: 95%;
+  }
+}
+
 .sidenav .active {
   background-size: 100% 80px !important;
   max-width: 100%;
