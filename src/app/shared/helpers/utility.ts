@@ -216,5 +216,4 @@ export class Utility {
         break;
     }
   }
-
 }

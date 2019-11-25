@@ -19,6 +19,7 @@ export class SearchTabComponent implements OnInit {
   amountSearch = '';
 
   channelList = [];
+  columns: number;
   constructor(
     private commonService: CommonService,
     private cookie: CookieService,
@@ -28,6 +29,7 @@ export class SearchTabComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.columns = Number(this.cookie.get('columns'));
   }
 
   initData() {
@@ -154,6 +156,11 @@ export class SearchTabComponent implements OnInit {
       resp.type = type;
       this.openModal(resp);
     });
+  }
+
+  customComparator(itemA, itemB) {
+    const sortOrder = JSON.parse(localStorage.getItem('arrangement')).reverse();
+    return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
   }
 
 }

@@ -69,13 +69,13 @@
 
 .active {
   background-repeat: no-repeat;
-  background-size: 256px 80px;
-  height: 80px;
-  width: 256px;
+  background-size: 176px 60px;
+  height: 60px;
+  width: 176px;
   background-image: url("../../../assets/images/sidenav-btn-bg.png");
   color: #4D2F00 !important;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 1rem;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

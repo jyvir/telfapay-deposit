@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CommonService} from '../../core/common/common.service';
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import {catchError, flatMap, map, mergeMap} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 
@@ -24,6 +24,7 @@ export class DepositComponent implements OnInit {
   selectedId: number;
   @ViewChild('nav') nav: ElementRef;
   @ViewChild('contentDiv') contentDiv: ElementRef;
+  config: any;
 
 
   constructor(

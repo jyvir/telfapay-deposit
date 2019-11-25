@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
 import {catchError, flatMap, groupBy, map, mergeMap} from 'rxjs/operators';
 import {PageListModel} from '../../../shared/models/page-list.model';
@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import {ResponseModalComponent} from '../../modals/response-modal/response-modal.component';
 import {CookieService} from 'ngx-cookie-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'app-recommend-tab',
@@ -19,19 +20,32 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class RecommendTabComponent implements OnInit {
 
   channelList = [];
+  columns: number;
+  arrangement: any;
   constructor(
     private commonService: CommonService,
     private cookie: CookieService,
     private modalService: NgbModal
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.channelList = [];
     let paymentList = [];
-    this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5000', true).pipe(
+    this.commonService.retrieveConfigurations().pipe(
+      mergeMap(resp => {
+        this.cookie.set('announcement', resp.announcement);
+        this.cookie.set('columns', resp.columns);
+        localStorage.setItem('arrangement', JSON.stringify(resp.arrangement));
+
+        this.columns = resp.columns;
+        return this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5000', true);
+      }),
       mergeMap((resp: any) => {
         const calls = [];
-        paymentList = resp.content;
+        if (!Utility.isEmpty(resp)) {
+          paymentList = resp.content;
+        }
         calls.push(this.commonService.retrieveConfigList());
         for (const payment of paymentList) {
           if (payment.channel === 'VipChannel' ) {calls.push(this.commonService.retrieveAgentType(payment.id)); }
@@ -153,6 +167,11 @@ export class RecommendTabComponent implements OnInit {
   openModal(response) {
     const modalRef = this.modalService.open(ResponseModalComponent, { size: 'sm' });
     modalRef.componentInstance.data = response;
+  }
+
+  customComparator(itemA, itemB) {
+    const sortOrder = JSON.parse(localStorage.getItem('arrangement')).reverse();
+    return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
   }
 
 }

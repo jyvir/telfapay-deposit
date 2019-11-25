@@ -26,6 +26,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   visaGrp = [];
   bankGrp = [];
   btcGrp = [];
+  columns: number;
 
   constructor(
     private commonService: CommonService,
@@ -34,7 +35,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-
+    this.columns = Number(this.cookie.get('columns'));
   }
 
   fetchConfig(id) {
@@ -133,5 +134,10 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   openModal(response) {
     const modalRef = this.modalService.open(ResponseModalComponent, { size: 'sm' });
     modalRef.componentInstance.data = response;
+  }
+
+  customComparator(itemA, itemB) {
+    const sortOrder = JSON.parse(localStorage.getItem('arrangement')).reverse();
+    return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
   }
 }

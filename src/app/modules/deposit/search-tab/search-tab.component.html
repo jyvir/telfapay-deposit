@@ -5,8 +5,8 @@
 </div>
 
 <div class="row flex-row flex-nowrap amount-cont">
-  <ng-container *ngFor="let item of channelList | groupBy:'channel'">
-    <div class="col-md-3 channel-bg pt-3 mr-3" *ngIf="item.value.length">
+  <ng-container *ngFor="let item of channelList | groupBy:'channel' | orderBy: 'key' : false : false: customComparator; let i=index">
+    <div class="col-md-3 channel-bg pt-3 mr-3 pr-0" *ngIf="item.value.length && i < columns">
       <div class="channel-label text-nowrap text-center mb-1" >
         <i ngClass="{{ item.key === 'WeChat' ? 'wechat' :
           item.key === 'UnionPay'? 'unionpay-scan':
@@ -17,18 +17,20 @@
             item.key === 'UnionPayH5'? '云闪付':
               item.key === 'AliPay'? '支付宝' : item.key }}</h6>
       </div>
-      <ng-container *ngFor="let info of item.value | orderBy:'amount'">
-        <div class="card mb-3 btn btn-pay" (click)="send(info)" *ngIf="!info.type">
-          <div class="card-body p-2 text-center">
-            <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{info.amount}}元</span>
+      <div class="channel-scroll pr-3">
+        <ng-container *ngFor="let info of item.value | orderBy:'amount'">
+          <div class="card mb-3 btn btn-pay" (click)="send(info)" *ngIf="!info.type">
+            <div class="card-body p-2 text-center">
+              <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{info.amount}}元</span>
+            </div>
           </div>
-        </div>
-        <div class="card mb-3 btn btn-pay" (click)="sendVip(info.amount, info.type)" *ngIf="info.type">
-          <div class="card-body p-2 text-center">
-            <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{info.amount}}元</span>
+          <div class="card mb-3 btn btn-pay" (click)="sendVip(info.amount, info.type)" *ngIf="info.type">
+            <div class="card-body p-2 text-center">
+              <span class="card-text font-weight-bold align-middle h5 text-nowrap">{{info.amount}}元</span>
+            </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
     </div>
   </ng-container>
 </div>

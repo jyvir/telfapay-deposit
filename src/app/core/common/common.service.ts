@@ -85,8 +85,17 @@ export class CommonService {
   }
 
   public sendVipPayment(url, data): Observable<any> {
-    const token = this.cookie.get('token');
-    httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', token)
+    this.addTokenToHeaders();
     return this.http.post(`${environment.api}/online-pay/payment-deposit`, data, httpOptionsPay);
+  }
+
+  public retrieveConfigurations(): Observable<any> {
+    this.addTokenToHeaders();
+    return this.http.get(`${environment.api}/cashier/config/configurations`, httpOptions);
+  }
+
+  addTokenToHeaders() {
+    const token = this.cookie.get('token');
+    httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', token);
   }
 }
