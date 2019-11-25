@@ -251,6 +251,7 @@ i{
   background-color: #1E1B12 !important;
   border-radius: 0;
   background-image: url("../../assets/images/dark-brown-bg.png");
+  background-size: cover;
 }
 
 .btn-pay:hover {
