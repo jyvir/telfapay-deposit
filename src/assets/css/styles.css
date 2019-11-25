@@ -288,7 +288,9 @@ i{
   width: 90%;
 }
 
-
+datatable-header {
+  display: none !important;
+}
 
 .modal-content, .modal-header, .modal-footer, .modal-body {
   background-color: #2d2521 !important;
@@ -316,4 +318,8 @@ i{
   background: #B48E59 !important;
   color: #4D2F00 !important;
   border: 1px solid #4D2F00 !important;
+}
+
+datatable-footer {
+  height: 81px;
 }
