@@ -192,9 +192,6 @@ i{
 }
 
 @media (max-width: 767.98px) {
-  .cashier-container {
-    width: 100% !important;
-  }
   .card-body > .row {
     overflow-x: auto;
     white-space: nowrap;
@@ -320,6 +317,6 @@ datatable-header {
   border: 1px solid #4D2F00 !important;
 }
 
-datatable-footer {
-  height: 81px;
-}
+
+
+

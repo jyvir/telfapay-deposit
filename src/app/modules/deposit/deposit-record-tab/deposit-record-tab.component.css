@@ -11,3 +11,5 @@ ngx-datatable {
 .btn-xs {
   padding: 1px 6px !important;
 }
+
+datatable-scroller { width: 100% !important; }
