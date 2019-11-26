@@ -223,6 +223,18 @@ export class Utility {
       case 'no available agent account':
         err = '无可用账号，请联系客服';
         break;
+      case 'No available merchant for selected channel':
+        err = '所选通道暂无商户可用';
+        break;
+      case 'Amount must be less than or equal product max amount':
+        err = '金额超限';
+        break;
+      case 'An error has occurred please contact our customer support':
+        err = '出错了，请联系客服';
+        break;
+    }
+    if (msg.includes('is blacklisted')) {
+      err = '好像人品有问题，请联系客服';
     }
     return err;
   }
