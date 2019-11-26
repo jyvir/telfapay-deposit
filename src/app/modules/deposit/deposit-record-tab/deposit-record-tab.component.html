@@ -20,7 +20,8 @@
    [offset]="page.pageNumber"
    [limit]="page.size"
    (page)="setPage($event)"
-   (sort)="onSort($event)">
+   (sort)="onSort($event)"
+   [scrollbarH]="true">
 
     <ngx-datatable-column *ngFor="let column of columns" name={{column.name}} prop="{{column.prop}}">
       <ng-template let-value="value" *ngIf="column.prop === 'amount'" ngx-datatable-cell-template>
