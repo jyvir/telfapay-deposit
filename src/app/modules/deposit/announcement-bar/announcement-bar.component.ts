@@ -15,7 +15,7 @@ export class AnnouncementBarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.announcement = this.cookie.get('announcement');
+    this.announcement = localStorage.getItem('announcement');
   }
 
 }

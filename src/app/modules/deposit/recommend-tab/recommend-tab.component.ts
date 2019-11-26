@@ -37,6 +37,7 @@ export class RecommendTabComponent implements OnInit {
         this.cookie.set('announcement', resp.announcement);
         this.cookie.set('columns', resp.columns);
         localStorage.setItem('arrangement', JSON.stringify(resp.arrangement));
+        localStorage.setItem('announcement', resp.announcement);
 
         this.columns = resp.columns;
         return this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5000', true);
