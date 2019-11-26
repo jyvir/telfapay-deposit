@@ -115,7 +115,7 @@ export class SearchTabComponent implements OnInit {
     const req = Utility.generateSign(payload);
     this.commonService.sendPayment('', req).pipe(
       catchError((res: HttpErrorResponse) => {
-        const errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : '无可用账号，请联系客服';
+        const errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
         Swal.fire({
           html: errorMsg,
           icon: 'error'
@@ -145,7 +145,7 @@ export class SearchTabComponent implements OnInit {
     const req = Utility.generateSign(payload);
     this.commonService.sendVipPayment('', req).pipe(
       catchError((res: HttpErrorResponse) => {
-        const errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : '无可用账号，请联系客服';
+        const errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
         Swal.fire({
           html: errorMsg,
           icon: 'error'

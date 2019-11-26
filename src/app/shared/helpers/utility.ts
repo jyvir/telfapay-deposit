@@ -216,4 +216,14 @@ export class Utility {
         break;
     }
   }
+
+  static manualTranslateErrorMsg(msg) {
+    let err = msg;
+    switch (msg) {
+      case 'no available agent account':
+        err = '无可用账号，请联系客服';
+        break;
+    }
+    return err;
+  }
 }

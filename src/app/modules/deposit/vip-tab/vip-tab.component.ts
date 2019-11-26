@@ -64,7 +64,8 @@ export class VipTabComponent implements OnInit {
     const req = Utility.generateSign(payload);
     this.commonService.sendVipPayment('', req).pipe(
       catchError((res: HttpErrorResponse) => {
-        const errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : '无可用账号，请联系客服';
+        let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
+        errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
         Swal.fire({
           html: errorMsg,
           icon: 'error'
