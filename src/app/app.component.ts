@@ -25,7 +25,11 @@ export class AppComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (!Utility.isEmpty(params)) {
         this.cookie.set('token', params['token']);
-        this.router.navigate([''], { queryParams: null });
+        if (this.router.url.includes('mobile')) {
+          this.router.navigate(['mobile'], { queryParams: null });
+        } else {
+          this.router.navigate([''], { queryParams: null });
+        }
       }
     });
   }
