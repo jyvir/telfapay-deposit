@@ -1,10 +1,11 @@
 
-<div class="mb-3 mt-lg-4 mx-auto cashier-container tab-bg" *ngIf="!isExpired">
+<div class="mb-3 mt-lg-4 mx-auto cashier-container tab-bg" [ngClass]="{'mobile' : router.url === '/mobile'}" *ngIf="!isExpired">
   <div class="row no-gutters">
     <div class="col-md-12 p-0 menu-title">
+      <ng-material-icon *ngIf="router.url === '/mobile'" class="menu-icon align-middle d-md-none d-lg-none d-xl-none li-brown" icon="menu" size="4" (click)="openNav()"></ng-material-icon>
       <h4 class="text-center mt-2 font-weight-bold">充值</h4>
     </div>
-    <div class="col-2 grad ">
+    <div class="grad " [ngClass]=" router.url === '/mobile' ? 'col-md-2 d-none d-sm-none d-md-block d-lg-block d-xl-block' : 'col-2'">
       <ul class="list-group list-group-flush text-center h5 align-middle">
         <li class="list-group-item" [ngClass]="{'active ': tab === 'recommend'}" (click)="tab = 'recommend'">推荐</li>
         <ng-container  *ngFor="let item of configList">
@@ -17,8 +18,22 @@
         <li class="list-group-item" [ngClass]="{'active': tab === 'record'}" (click)="tab = 'record'">充值记录</li>
       </ul>
     </div>
+    <div id="mySidenav" *ngIf="router.url === '/mobile'" class="sidenav d-md-none d-lg-none d-xl-none" #nav>
+      <ng-material-icon class="closebtn li-brown" icon="close" size="1" (click)="closeNav()"></ng-material-icon>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'recommend'}" (click)="tab = 'recommend'">推荐</li>
+        <ng-container  *ngFor="let item of configList">
+          <li  class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'cashier' && item.id === selectedId}"
+               (click)="selectConfig(item.id);tab = 'cashier'">
+            {{item.name}}</li>
+        </ng-container >
+        <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'search'}" (click)="tab = 'search'">自选</li>
+        <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'vip'}" (click)="tab = 'vip'">VIP</li>
+        <li class="list-group-item bg-light h6" [ngClass]="{'active': tab === 'record'}" (click)="tab = 'record'">充值记录</li>
+      </ul>
+    </div>
 
-    <div class="col-10" id="main-card" #contentDiv>
+    <div [ngClass]=" router.url === '/mobile' ? 'col-md-10' : 'col-10'" id="main-card" #contentDiv>
       <app-announcement-bar></app-announcement-bar>
       <div class="card-body col-12">
         <app-recommend-tab *ngIf="tab === 'recommend'"></app-recommend-tab>

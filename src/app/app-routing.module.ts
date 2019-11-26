@@ -19,7 +19,8 @@ import {GroupByPipe} from './shared/pipes/group-by.pipe';
 
 const routes: Routes = [
     {path: '', component: DepositComponent},
-  { path: '**', redirectTo: '' }
+    { path: 'mobile', component: DepositComponent },
+    { path: '**', redirectTo: '' }
   ]
 
 const PAGES_COMPONENTS = [

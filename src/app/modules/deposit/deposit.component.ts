@@ -3,6 +3,7 @@ import {CommonService} from '../../core/common/common.service';
 import {catchError, flatMap, map, mergeMap} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-deposit',
@@ -28,6 +29,7 @@ export class DepositComponent implements OnInit {
 
 
   constructor(
+    public router: Router,
     private commonService: CommonService,
     private cookie: CookieService
   ) { }
