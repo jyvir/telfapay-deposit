@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     private router: Router
   ) {
   }
-  onActivate(event) {
+  onActivate (event) {
     window.scroll(0, 0);
   }
   ngOnInit(): void {
