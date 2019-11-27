@@ -95,6 +95,7 @@
 }
 
 .list-group-item, .list-group-flush:last-child .list-group-item:last-child {
+  word-wrap: break-word;
   border-bottom: 1px solid;
   border-image: linear-gradient(to right, rgba(255,255,255,0), rgba(153,153,153,0.3), rgba(255,255,255,0)) 1;
 }
