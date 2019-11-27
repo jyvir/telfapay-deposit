@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import {ResponseModalComponent} from '../../modals/response-modal/response-modal.component';
 import {CookieService} from 'ngx-cookie-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-search-tab',
@@ -21,6 +22,7 @@ export class SearchTabComponent implements OnInit {
   channelList = [];
   columns: number;
   constructor(
+    public router: Router,
     private commonService: CommonService,
     private cookie: CookieService,
     private modalService: NgbModal
