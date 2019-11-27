@@ -37,7 +37,7 @@
         <td *ngIf="value !== 'FAILED' && value !== 'PROCESSING'">{{value}}</td>
       </ng-template>
       <ng-template let-value="value" *ngIf="column.name === ''" ngx-datatable-cell-template>
-        <button type="button" class="btn refresh" (click)="search(null)" *ngIf="value !== 'OK' && value !=='FAILED'"></button>
+        <button type="button" class="btn refresh" (click)="search(null); showRefresh()" *ngIf="value !== 'OK' && value !=='FAILED'"></button>
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>

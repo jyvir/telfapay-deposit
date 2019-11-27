@@ -8,9 +8,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {ModalsModule} from './modules/modals/modals.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {OrderPipe} from "ngx-order-pipe";
-import { GroupByPipe } from './shared/pipes/group-by.pipe';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,11 +17,16 @@ import { GroupByPipe } from './shared/pipes/group-by.pipe';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     NgbModule,
     CoreModule,
     HttpClientModule,
-    ModalsModule
+    ModalsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-center-center',
+      preventDuplicates: true
+    })
   ],
   providers: [
     CookieService

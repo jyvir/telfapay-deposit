@@ -3,6 +3,7 @@ import {CommonService} from '../../../core/common/common.service';
 import {ColumnMode} from '@swimlane/ngx-datatable';
 import {Utility} from "../../../shared/helpers/utility";
 import {ClipboardService} from 'ngx-clipboard';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-deposit-record-tab',
@@ -37,7 +38,8 @@ export class DepositRecordTabComponent implements OnInit {
 
   constructor(
     private commonService: CommonService,
-    private clipboardService: ClipboardService
+    private clipboardService: ClipboardService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -108,6 +110,11 @@ export class DepositRecordTabComponent implements OnInit {
 
   copy(val) {
     this.clipboardService.copyFromContent(val);
+    this.toastr.success('已复制');
+  }
+
+  showRefresh() {
+    this.toastr.success('已刷新');
   }
 
 }
