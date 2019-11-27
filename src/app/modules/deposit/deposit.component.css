@@ -84,7 +84,7 @@
 }
 
 .sidenav .active {
-  background-size: 100% 60px !important;
+  background-size: 100% 100% !important;
   max-width: 100%;
   width: 100% !important;
 }

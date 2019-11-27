@@ -77,7 +77,7 @@ export class DepositComponent implements OnInit {
   }
 
   openNav() {
-    this.nav.nativeElement.style.width = '100%';
+    this.nav.nativeElement.style.width = '50%';
   }
 
   closeNav() {
