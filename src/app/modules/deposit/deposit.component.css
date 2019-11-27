@@ -69,19 +69,18 @@
 
 .active {
   background-repeat: no-repeat;
-  background-size: 176px 60px;
-  height: 60px;
+  background-size: 176px 100%;
+  height: 100%;
   width: 176px;
   background-image: url("../../../assets/images/sidenav-btn-bg.png");
   color: #4D2F00 !important;
   font-weight: bold;
   font-size: 1rem;
-  text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
   max-width: 256px;
   padding-top: 23px;
   padding-right: 3rem;
+  padding-bottom: 23px;
 }
 
 .sidenav .active {
