@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import {EMPTY, throwError} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ResponseModalComponent} from '../../modals/response-modal/response-modal.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-cashier-tab',
@@ -29,6 +30,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   columns: number;
 
   constructor(
+    public router: Router,
     private commonService: CommonService,
     private cookie: CookieService,
     private modalService: NgbModal

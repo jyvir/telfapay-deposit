@@ -11,6 +11,7 @@ import {ResponseModalComponent} from '../../modals/response-modal/response-modal
 import {CookieService} from 'ngx-cookie-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DOCUMENT} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-recommend-tab',
@@ -23,6 +24,7 @@ export class RecommendTabComponent implements OnInit {
   columns: number;
   arrangement: any;
   constructor(
+    public router: Router,
     private commonService: CommonService,
     private cookie: CookieService,
     private modalService: NgbModal

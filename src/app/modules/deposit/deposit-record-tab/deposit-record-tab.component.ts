@@ -4,6 +4,7 @@ import {ColumnMode} from '@swimlane/ngx-datatable';
 import {Utility} from "../../../shared/helpers/utility";
 import {ClipboardService} from 'ngx-clipboard';
 import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-deposit-record-tab',
@@ -37,6 +38,7 @@ export class DepositRecordTabComponent implements OnInit {
   isSearch = false;
 
   constructor(
+    public router: Router,
     private commonService: CommonService,
     private clipboardService: ClipboardService,
     private toastr: ToastrService

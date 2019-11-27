@@ -1,7 +1,7 @@
 
 <div class="row flex-row flex-nowrap amount-cont">
   <ng-container *ngFor="let item of channelList | groupBy:'channel' | orderBy: 'key' : false : false: customComparator;  let i=index">
-    <div class="col-md-3 channel-bg pt-3 mr-3 pr-0" *ngIf="item.value.length && i < columns">
+    <div class="channel-bg pt-3 mr-3 pr-0" [ngClass]=" router.url === '/mobile' ? 'col-md-3' : 'col-3'" *ngIf="item.value.length && i < columns">
       <div class="channel-label text-nowrap text-center mb-1" >
         <i ngClass="{{ item.key === 'WeChat' ? 'wechat' :
           item.key === 'UnionPay'? 'unionpay-scan':
