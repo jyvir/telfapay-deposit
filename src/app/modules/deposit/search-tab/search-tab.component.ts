@@ -98,12 +98,11 @@ export class SearchTabComponent implements OnInit {
   }
 
   filterResult(datas) {
-    let result = datas.filter(data => data.amount === this.amountSearch);
+    let result = datas.filter(data => data.amount === parseFloat(this.amountSearch));
     if (Utility.isEmpty(result)) {
       result =  datas.filter(data =>
-        (data.amount.toString().indexOf(this.amountSearch) > -1)
-        && data.amount.toString().substring(0, data.amount.toString().indexOf('.')).length <= this.amountSearch.length
-        && data.amount.toString().substring(0, data.amount.toString().indexOf('.')).length !== 0);
+        data.amount >= (parseFloat(this.amountSearch) - 10) && data.amount <= (parseFloat(this.amountSearch) + 10)
+      );
     }
     return result;
   }
