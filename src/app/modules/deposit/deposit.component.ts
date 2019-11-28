@@ -33,10 +33,11 @@ export class DepositComponent implements OnInit {
     public router: Router,
     private commonService: CommonService,
     private cookie: CookieService
-  ) { }
+  ) {
+    $('.next-icon').hide();
+  }
 
   ngOnInit() {
-    $('.next-icon').hide();
     this.commonService.retrieveToken().pipe(
       mergeMap(value => {
         if (!value) {
