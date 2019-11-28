@@ -34,7 +34,7 @@
   <ngx-qrcode *ngIf="data.type === 'QR_CODE'" qrc-class="qr-class" [qrc-element-type]="elementType" [qrc-value]="data.content" class="center"></ngx-qrcode>
 </div>
 
-<div class="modal-footer black-bg" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard';else other">
+<div class="modal-footer black-bg" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard'">
   <button type="button" class="btn modal-btn col-md-6" (click)="activeModal.close('Close click')">取消</button>
   <button type="button" class="btn modal-btn col-md-6" (click)="activeModal.close('Close click')">已完成转账</button>
 </div>
