@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
 import {catchError, flatMap, groupBy, map, mergeMap} from 'rxjs/operators';
 import {PageListModel} from '../../../shared/models/page-list.model';
@@ -12,6 +12,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DOCUMENT} from '@angular/common';
 import {Router} from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-recommend-tab',
@@ -112,6 +113,13 @@ export class RecommendTabComponent implements OnInit {
       )
     ).subscribe(resp => {
         this.channelList = resp;
+        setTimeout(function(){
+          if ($('.amount-cont').children('.channel-bg').length === 4) {
+            $('.next-icon').show();
+          } else {
+            $('.next-icon').hide();
+          }
+        },1000);
       }
     );
   }

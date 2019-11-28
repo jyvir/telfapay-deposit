@@ -25,7 +25,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ModalsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-center-center',
-      preventDuplicates: true
+      preventDuplicates: true,
+      timeOut: 1000
     })
   ],
   providers: [

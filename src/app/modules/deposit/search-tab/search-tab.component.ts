@@ -10,6 +10,7 @@ import {ResponseModalComponent} from '../../modals/response-modal/response-modal
 import {CookieService} from 'ngx-cookie-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-search-tab',
@@ -96,6 +97,13 @@ export class SearchTabComponent implements OnInit {
       )
     ).subscribe(resp => {
       this.channelList = resp;
+      setTimeout(function(){
+        if ($('.amount-cont').children('.channel-bg').length === 4) {
+          $('.next-icon').show();
+        } else {
+          $('.next-icon').hide();
+        }
+      },1000);
     });
   }
 

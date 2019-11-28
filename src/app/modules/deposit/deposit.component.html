@@ -5,7 +5,7 @@
       <ng-material-icon *ngIf="router.url === '/mobile'" class="menu-icon align-middle d-md-none d-lg-none d-xl-none li-brown" icon="menu" size="4" (click)="openNav()"></ng-material-icon>
       <h4 class="text-center mt-2 font-weight-bold">充值</h4>
     </div>
-    <div class="grad " [ngClass]=" router.url === '/mobile' ? 'col-md-2 d-none d-sm-none d-md-block d-lg-block d-xl-block' : 'col-2'">
+    <div class="grad " [ngClass]=" router.url === '/mobile' ? 'col-md-2 d-none d-sm-none d-md-block d-lg-block d-xl-block' : 'col-md-2 col-sm-2 col-3'">
       <ul class="list-group list-group-flush text-center h5 align-middle">
         <li class="list-group-item" [ngClass]="{'active ': tab === 'recommend'}" (click)="tab = 'recommend'">推荐</li>
         <ng-container  *ngFor="let item of configList">
@@ -33,7 +33,7 @@
       </ul>
     </div>
 
-    <div [ngClass]=" router.url === '/mobile' ? 'col-md-10' : 'col-10'" id="main-card" #contentDiv>
+    <div [ngClass]=" router.url === '/mobile' ? 'col-md-10' : 'col-md-10 col-sm-10 col-9'" id="main-card" #contentDiv>
       <app-announcement-bar></app-announcement-bar>
       <div class="card-body col-12">
         <app-recommend-tab *ngIf="tab === 'recommend'"></app-recommend-tab>
@@ -43,5 +43,10 @@
         <app-search-tab *ngIf="tab === 'search'"></app-search-tab>
       </div>
     </div>
+    <div class="next-icon" *ngIf="tab === 'recommend' || tab === 'cashier' || tab === 'vip' || tab === 'search'" (click)="scrollRight()">
+      <ng-material-icon class="align-middle li-brown" icon="chevron_right" size="3"></ng-material-icon>
+    </div>
   </div>
 </div>
+
+

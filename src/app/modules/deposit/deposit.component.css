@@ -63,9 +63,13 @@
   .sidenav a {font-size: 18px;}
 }
 
-.cashier-container .menu-title {
-  height: 60px;
+@media (max-width: 575.98px) {
+  .active {
+    background-size: 95px 100% !important;
+    width: 95px;
+  }
 }
+
 
 .active {
   background-repeat: no-repeat;
@@ -112,5 +116,29 @@
 @media (max-width: 767.98px) {
   .mobile {
     width: 100% !important;
+  }
+
+  .cashier-container {
+    width: 100%;
+  }
+
+  .list-group-item {
+    font-size: 12px;
+  }
+
+  .grad {
+    position: fixed;
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+
+  .active {
+    background-size: 111px 100%;
+    height: 100%;
+    width: 111px;
+    font-size: 12px;
+    padding-top: 15px;
+    padding-right: 3rem;
+    padding-bottom: 15px;
   }
 }

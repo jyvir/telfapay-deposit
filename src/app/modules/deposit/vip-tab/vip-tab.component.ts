@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import {ResponseModalComponent} from '../../modals/response-modal/response-modal.component';
 import {CookieService} from 'ngx-cookie-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-vip-tab',
@@ -46,6 +47,13 @@ export class VipTabComponent implements OnInit {
             }
           });
         };
+        setTimeout(function(){
+          if ($('.amount-cont').children('.channel-bg').length === 4) {
+            $('.next-icon').show();
+          } else {
+            $('.next-icon').hide();
+          }
+        },1000);
       }
     );
   }

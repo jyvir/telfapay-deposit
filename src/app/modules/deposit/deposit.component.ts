@@ -1,9 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CommonService} from '../../core/common/common.service';
 import {catchError, flatMap, map, mergeMap} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-deposit',
@@ -35,6 +36,7 @@ export class DepositComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    $('.next-icon').hide();
     this.commonService.retrieveToken().pipe(
       mergeMap(value => {
         if (!value) {
@@ -83,4 +85,11 @@ export class DepositComponent implements OnInit {
   closeNav() {
     this.nav.nativeElement.style.width = '0';
   }
+
+  public scrollRight(): void {
+    $('.amount-cont').animate({
+      scrollLeft: '+=200px'
+    }, 'slow');
+  }
+
 }

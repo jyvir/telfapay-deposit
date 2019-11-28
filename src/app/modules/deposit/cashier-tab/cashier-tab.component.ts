@@ -10,6 +10,7 @@ import {EMPTY, throwError} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ResponseModalComponent} from '../../modals/response-modal/response-modal.component';
 import {Router} from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-cashier-tab',
@@ -66,6 +67,14 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
     ).subscribe(
       res => {
         this.channelList = res;
+
+        setTimeout(function(){
+          if ($('.amount-cont').children('.channel-bg').length === 4) {
+            $('.next-icon').show();
+          } else {
+            $('.next-icon').hide();
+          }
+        },1000);
       }
     );
   }
