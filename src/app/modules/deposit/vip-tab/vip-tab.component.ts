@@ -87,7 +87,7 @@ export class VipTabComponent implements OnInit {
 
   openModal(response, type) {
     response.type = type;
-    const modalRef = this.modalService.open(ResponseModalComponent, { size: 'sm' });
+    const modalRef = this.modalService.open(ResponseModalComponent);
     modalRef.componentInstance.data = response;
   }
 

@@ -25,16 +25,22 @@
     </div>
   </div>
 </div>
+
+<div class="modal-body text-center" *ngIf="data.type === 'AliPayQR' || data.type === 'WeChatQR' || data.type === 'QR_CODE'
+|| data.type === 'FORM_DOC' || data.type === 'HTML' || data.type === 'REDIRECT'">
+  <iframe *ngIf="data.type === 'REDIRECT'" [src]="sanitizer.bypassSecurityTrustResourceUrl(data.content)" sandbox="allow-forms allow-scripts allow-same-origin" height="1000px" width="100%"></iframe>
+  <iframe *ngIf="data.type === 'FORM_DOC' || data.type === 'HTML'" #iframe height="1000px" width="100%"></iframe>
+  <img class="qr-code-img" *ngIf="data.type === 'AliPayQR' || data.type === 'WeChatQR'" [src]="'data:image/png;base64,' + data.base64"/>
+  <ngx-qrcode *ngIf="data.type === 'QR_CODE'" qrc-class="qr-class" [qrc-element-type]="elementType" [qrc-value]="data.content" class="center"></ngx-qrcode>
+</div>
+
 <div class="modal-footer black-bg" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard';else other">
   <button type="button" class="btn modal-btn col-md-6" (click)="activeModal.close('Close click')">取消</button>
   <button type="button" class="btn modal-btn col-md-6" (click)="activeModal.close('Close click')">已完成转账</button>
 </div>
-<ng-template #other>
+<ng-template *ngIf="data.type === 'REDIRECTS'">
   <div class="modal-footer black-bg" >
-    <a  *ngIf="data.content && data.type !== 'HTML' && data.type !== 'FORM_DOC'; else _content"
-        class="btn modal-btn" href="{{data.content}}" target="_blank">
-      打开APP支付</a>
-    <ng-template #_content>
+    <ng-template>
       <button class="btn modal-btn" (click)="openNewTab()">打开APP支付</button>
     </ng-template>
   </div>

@@ -144,7 +144,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   }
 
   openModal(response) {
-    const modalRef = this.modalService.open(ResponseModalComponent, { size: 'sm' });
+    const modalRef = this.modalService.open(ResponseModalComponent);
     modalRef.componentInstance.data = response;
   }
 

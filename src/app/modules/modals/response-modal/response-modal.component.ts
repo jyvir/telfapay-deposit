@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Utility} from '../../../shared/helpers/utility';
 import {ClipboardService} from 'ngx-clipboard';
+import {DomSanitizer} from '@angular/platform-browser';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-response-modal',
@@ -9,16 +11,32 @@ import {ClipboardService} from 'ngx-clipboard';
   styleUrls: ['./response-modal.component.css']
 })
 export class ResponseModalComponent implements OnInit {
+  @ViewChild('iframe') iframe: ElementRef;
   @Input() public data;
+  elementType: 'url' | 'canvas' | 'img' = 'url';
   constructor(
     public activeModal: NgbActiveModal,
-    private clipboardService: ClipboardService
+    private clipboardService: ClipboardService,
+    public sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
     if (this.data.type === 'AliPayAccount' || this.data.type === 'BankCard') {
       this.data.bankAccount = this.data.accountId;
       this.data.bankAccountName = this.data.accountOwner;
+    }
+
+    if (this.data.type === 'FORM_DOC' || this.data.type === 'HTML') {
+      setTimeout(() => {
+        this.setIframeReady(this.iframe);
+      }, 1000);
+    }
+    if (this.data.type === 'REDIRECT' && this.data.content.includes('https')) {
+      setTimeout(() => {
+        this.setIframeReady(this.iframe);
+      }, 1000);
+    } else {
+      this.data.type === 'REDIRECTS';
     }
   }
 
@@ -35,6 +53,14 @@ export class ResponseModalComponent implements OnInit {
     } else {
       newTab.open(this.data.content, '_blank');
     }
+  }
+
+  setIframeReady(iframe: ElementRef): void {
+    const win: Window = iframe.nativeElement.contentWindow;
+    const doc: Document = win.document;
+    doc.open();
+    doc.write(this.data.content);
+    doc.close();
   }
 
 }

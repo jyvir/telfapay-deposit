@@ -16,6 +16,7 @@ import {AnnouncementBarComponent} from "./modules/deposit/announcement-bar/annou
 import {ModalsModule} from "./modules/modals/modals.module";
 import {OrderModule, OrderPipe} from "ngx-order-pipe";
 import {GroupByPipe} from './shared/pipes/group-by.pipe';
+import {NgxQRCodeModule} from 'ngx-qrcode2';
 
 const routes: Routes = [
     {path: '', component: DepositComponent},

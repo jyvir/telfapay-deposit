@@ -420,3 +420,7 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
   top: 50%;
   display: none;
 }
+
+.qr-class img {
+  min-width: 300px !important;
+}
