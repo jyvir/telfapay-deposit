@@ -7,10 +7,10 @@
     {{ i === 4 ?  addNext() : ''}}
     <div class="channel-bg pt-3 mr-3 pr-0" [ngClass]=" router.url === '/mobile' ? 'col-md-3' : 'col-md-3 col-sm-3 col-3'" *ngIf="item.value.length && i < columns">
       <div class="channel-label text-nowrap text-center mb-1" >
-        <i ngClass="{{ item.key === 'WeChat' ? 'wechat' :
+        <i ngClass="{{ item.key === 'WeChat' || item.key === 'VIP - WeChatQR' || item.key === 'WeChatH5' ? 'wechat' :
           item.key === 'UnionPay'? 'unionpay-scan':
           item.key === 'UnionPayH5'? 'unionpay':
-          item.key === 'AliPay'? 'alipay' :
+          item.key === 'AliPay' || item.key === 'VIP - AliPayQR' || item.key === 'VIP - AliPayAccount'? 'alipay' :
           item.key === 'BTC'? 'btc' : 'none-ico' }}"></i>
         <h6>{{ item.key === 'WeChat' ? '微信扫码' :
           item.key === 'UnionPay'? '银联扫码':
