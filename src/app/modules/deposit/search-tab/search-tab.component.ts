@@ -36,6 +36,7 @@ export class SearchTabComponent implements OnInit {
   }
 
   initData() {
+    $('.next-icon').hide();
     this.channelList = [];
     this.commonService.retrieveConfigList().pipe(
       mergeMap(
@@ -179,5 +180,10 @@ export class SearchTabComponent implements OnInit {
     const sortOrder = JSON.parse(localStorage.getItem('arrangement')).reverse();
     return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
   }
+
+  addNext() {
+    $('.next-icon').show();
+  }
+
 
 }

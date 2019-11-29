@@ -26,6 +26,7 @@ export class VipTabComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    $('.next-icon').show();
     this.vipAmountList = [];
     this.commonService.retrieveConfigList().pipe(
       mergeMap(
@@ -47,13 +48,6 @@ export class VipTabComponent implements OnInit {
             }
           });
         };
-        setTimeout(function(){
-          if ($('.amount-cont').children('.channel-bg').length === 4) {
-            $('.next-icon').show();
-          } else {
-            $('.next-icon').hide();
-          }
-        },1000);
       }
     );
   }

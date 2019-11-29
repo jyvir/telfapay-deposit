@@ -5,6 +5,7 @@
 </div>
 
 <div #scrollContent class="row flex-row flex-nowrap amount-cont">
+  {{ i === 4 ?  addNext() : ''}}
   <ng-container *ngFor="let item of channelList | groupBy:'channel' | orderBy: 'key' : false : false: customComparator; let i=index">
     <div class="channel-bg pt-3 mr-3 pr-0"  [ngClass]=" router.url === '/mobile' ? 'col-md-3' : 'col-md-3 col-sm-3 col-3'" *ngIf="item.value.length && i < columns">
       <div class="channel-label text-nowrap text-center mb-1" >
@@ -13,10 +14,19 @@
           item.key === 'UnionPayH5'? 'unionpay':
           item.key === 'AliPay'? 'alipay' :
           item.key === 'BTC'? 'btc' : 'none-ico' }}"></i>
-        <h6>{{ item.key === 'WeChat' ? '微信' :
+        <h6>{{ item.key === 'WeChat' ? '微信扫码' :
           item.key === 'UnionPay'? '银联扫码':
-            item.key === 'UnionPayH5'? '云闪付':
-              item.key === 'AliPay'? '支付宝' : item.key }}</h6>
+            item.key === 'UnionPayH5'? '银联快捷':
+              item.key === 'AliPay'? '支付宝扫码' :
+                item.key === 'QQWallet'? 'QQ钱包' :
+                  item.key === 'WeChatH5'? '微信跳转' :
+                    item.key === 'AliPayH5'? '支付宝跳转' :
+                      item.key === 'BTC'? '比特币' :
+                        item.key === 'OFFLINE_BANK'? '银行卡存款' :
+                          item.key === 'VIP - AliPayAccount'? '支付宝转账' :
+                            item.key === 'VIP - AliPayQR'? '支付宝扫码' :
+                              item.key === 'VIP - BankCard'? '银行卡' :
+                                item.key === 'VIP - WeChatQR'? '微信扫码' : item.key }}</h6>
       </div>
       <div class="channel-scroll pr-3">
         <ng-container *ngFor="let info of item.value | orderBy:'amount'">

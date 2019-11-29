@@ -42,6 +42,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   }
 
   fetchConfig(id) {
+    $('.next-icon').hide();
     this.channelList = [];
     this.commonService.retrieveConfig(id).pipe(
       map(data => {
@@ -67,14 +68,6 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
     ).subscribe(
       res => {
         this.channelList = res;
-
-        setTimeout(function(){
-          if ($('.amount-cont').children('.channel-bg').length === 4) {
-            $('.next-icon').show();
-          } else {
-            $('.next-icon').hide();
-          }
-        },1000);
       }
     );
   }
@@ -151,5 +144,9 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   customComparator(itemA, itemB) {
     const sortOrder = JSON.parse(localStorage.getItem('arrangement')).reverse();
     return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
+  }
+
+  addNext() {
+      $('.next-icon').show();
   }
 }

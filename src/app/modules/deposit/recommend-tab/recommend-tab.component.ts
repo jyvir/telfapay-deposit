@@ -33,6 +33,7 @@ export class RecommendTabComponent implements OnInit {
   }
 
   ngOnInit() {
+    $('.next-icon').hide();
     this.channelList = [];
     let paymentList = [];
     this.commonService.retrieveConfigurations().pipe(
@@ -113,13 +114,6 @@ export class RecommendTabComponent implements OnInit {
       )
     ).subscribe(resp => {
         this.channelList = resp;
-        setTimeout(function(){
-          if ($('.amount-cont').children('.channel-bg').length === 4) {
-            $('.next-icon').show();
-          } else {
-            $('.next-icon').hide();
-          }
-        },1000);
       }
     );
   }
@@ -185,6 +179,10 @@ export class RecommendTabComponent implements OnInit {
   customComparator(itemA, itemB) {
     const sortOrder = JSON.parse(localStorage.getItem('arrangement')).reverse();
     return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
+  }
+
+  addNext() {
+    $('.next-icon').show();
   }
 
 }
