@@ -13,7 +13,7 @@
    [headerHeight]="50"
    [footerHeight]="81"
    rowHeight="auto"
-   [columnMode]="ColumnMode.flex"
+   [columnMode]="ColumnMode.force"
    [externalPaging]="true"
    [count]="page.totalElements"
    [loadingIndicator]="loading"
@@ -23,20 +23,36 @@
    (sort)="onSort($event)"
    [scrollbarH]="true">
 
-    <ngx-datatable-column *ngFor="let column of columns" name={{column.name}} prop="{{column.prop}}">
-      <ng-template let-value="value" *ngIf="column.prop === 'amount'" ngx-datatable-cell-template>
+    <ngx-datatable-column name="Amount" [width]="75">
+      <ng-template let-value="value" ngx-datatable-cell-template>
         <strong>{{value}}</strong>
       </ng-template>
-      <ng-template let-value="value" *ngIf="column.prop === 'providerReference'" ngx-datatable-cell-template>
-        {{value}} &nbsp;
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Channel" [width]="125">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <td>{{value}}</td>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Provider Reference" [width]="175">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <td>{{value}}</td>
         <button type="button" class="btn btn-xs gold" (click)="copy(value)">复制</button>
       </ng-template>
-      <ng-template let-value="value" *ngIf="column.name === 'Status'" ngx-datatable-cell-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Update Time" [width]="150">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <td>{{value}}</td>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Status" [width]="150">
+      <ng-template let-value="value" ngx-datatable-cell-template>
         <td class="processing" *ngIf="value === 'PROCESSING'">{{value}}</td>
         <td class="failed" *ngIf="value === 'FAILED'">{{value}}</td>
         <td *ngIf="value !== 'FAILED' && value !== 'PROCESSING'">{{value}}</td>
       </ng-template>
-      <ng-template let-value="value" *ngIf="column.name === ''" ngx-datatable-cell-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="" prop="status" [width]="100">
+      <ng-template let-value="value" ngx-datatable-cell-template>
         <button type="button" class="btn refresh" (click)="search(null); showRefresh()" *ngIf="value !== 'OK' && value !=='FAILED'"></button>
       </ng-template>
     </ngx-datatable-column>
