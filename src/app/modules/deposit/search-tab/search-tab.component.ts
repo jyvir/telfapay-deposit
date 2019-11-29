@@ -38,74 +38,69 @@ export class SearchTabComponent implements OnInit {
   initData() {
     $('.next-icon').hide();
     this.channelList = [];
-    this.commonService.retrieveConfigList().pipe(
-      mergeMap(
-        (resp: any) => {
-          const calls = [];
-          Object.keys(resp).forEach((element, index) => {
-            calls.push(this.commonService.retrieveConfig(element));
-            calls.push(this.commonService.retrieveVipConfig(element));
-          });
-          return forkJoin(calls).pipe(
-            map(
-              dataList => {
-                let datas = [];
-                for (const data of dataList) {
-                  Object.keys(data).forEach((element, index) => {
-                    const channels = Object.getOwnPropertyDescriptor(data, element).value;
-                    if (channels.length > 0) {
-                      channels.forEach(val => {
-                        const amount = parseFloat(element);
-                        const formattedData = {
-                          amount,
-                          channel: val,
-                          type: ''
-                        };
-                        if (val === 'VipChannel') {
-                          datas.push({
+    if (!Utility.isEmpty(this.amountSearch)) {
+      this.commonService.retrieveConfigList().pipe(
+        mergeMap(
+          (resp: any) => {
+            const calls = [];
+            Object.keys(resp).forEach((element, index) => {
+              calls.push(this.commonService.retrieveConfig(element));
+              calls.push(this.commonService.retrieveVipConfig(element));
+            });
+            return forkJoin(calls).pipe(
+              map(
+                dataList => {
+                  let datas = [];
+                  for (const data of dataList) {
+                    Object.keys(data).forEach((element, index) => {
+                      const channels = Object.getOwnPropertyDescriptor(data, element).value;
+                      if (channels.length > 0) {
+                        channels.forEach(val => {
+                          const amount = parseFloat(element);
+                          const formattedData = {
                             amount,
-                            channel:  'VIP - AliPayQR',
-                            type: 'AliPayQR'
-                          });
-                          datas.push({
-                            amount,
-                            channel:  'VIP - WeChatQR',
-                            type: 'WeChatQR'
-                          });
-                          datas.push({
-                            amount,
-                            channel:  'VIP - AliPayAccount',
-                            type: 'AliPayAccount'
-                          });
-                          datas.push({
-                            amount,
-                            channel:  'VIP - BankCard',
-                            type: 'BankCard'
-                          });
-                        } else {
-                          datas.push(formattedData);
-                        }
-                      });
-                    }
-                  });
-                };
-                if (!Utility.isEmpty(this.amountSearch)) { datas = this.filterResult(datas); };
-                return datas;
-              }
-            )
-          );
-        }
-      )
-    ).subscribe(resp => {
-      this.channelList = resp;
-      setTimeout(function(){
-        if ($('.amount-cont').children('.channel-bg').length === 4) {
-          $('.next-icon').show();
-        } else {
-          $('.next-icon').hide();
-        }
-      },1000);
-    });
+                            channel: val,
+                            type: ''
+                          };
+                          if (val === 'VipChannel') {
+                            datas.push({
+                              amount,
+                              channel:  'VIP - AliPayQR',
+                              type: 'AliPayQR'
+                            });
+                            datas.push({
+                              amount,
+                              channel:  'VIP - WeChatQR',
+                              type: 'WeChatQR'
+                            });
+                            datas.push({
+                              amount,
+                              channel:  'VIP - AliPayAccount',
+                              type: 'AliPayAccount'
+                            });
+                            datas.push({
+                              amount,
+                              channel:  'VIP - BankCard',
+                              type: 'BankCard'
+                            });
+                          } else {
+                            datas.push(formattedData);
+                          }
+                        });
+                      }
+                    });
+                  };
+                  if (!Utility.isEmpty(this.amountSearch)) { datas = this.filterResult(datas); };
+                  return datas;
+                }
+              )
+            );
+          }
+        )
+      ).subscribe(resp => {
+        this.channelList = resp;
+      });
+    }
   }
 
   filterResult(datas) {
