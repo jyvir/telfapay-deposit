@@ -34,7 +34,6 @@ export class DepositComponent implements OnInit {
     private commonService: CommonService,
     private cookie: CookieService
   ) {
-    $('.next-icon').hide();
   }
 
   ngOnInit() {
