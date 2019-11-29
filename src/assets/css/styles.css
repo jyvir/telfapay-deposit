@@ -431,3 +431,19 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
 datatable-scroller {
   width: 100% !important;
 }
+
+.datatable-body-cell {
+  padding: 0px !important;
+}
+
+.truncate {
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+
+.word-break {
+  word-break: break-all;
+}
+
+

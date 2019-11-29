@@ -13,3 +13,7 @@ ngx-datatable {
 }
 
 datatable-scroller { width: 100% !important; }
+
+p {
+  margin-bottom: 5px;
+}

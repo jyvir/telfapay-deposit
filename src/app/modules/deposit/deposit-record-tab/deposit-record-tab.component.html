@@ -20,38 +20,41 @@
    [offset]="page.pageNumber"
    [limit]="page.size"
    (page)="setPage($event)"
-   (sort)="onSort($event)"
-   [scrollbarH]="true">
+   (sort)="onSort($event)">
 
-    <ngx-datatable-column name="Amount" [width]="75">
+    <ngx-datatable-column name="Amount" [width]="20">
       <ng-template let-value="value" ngx-datatable-cell-template>
-        <strong>{{value}}</strong>
+        <p class="word-break"><strong>{{value}}</strong></p>
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="Channel" [width]="125">
+    <ngx-datatable-column name="Channel" [width]="50">
       <ng-template let-value="value" ngx-datatable-cell-template>
-        <td>{{value}}</td>
+        <p class="word-break">{{value}}</p>
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="Provider Reference" [width]="175">
+    <ngx-datatable-column name="Provider Reference" [width]="50">
       <ng-template let-value="value" ngx-datatable-cell-template>
-        <td>{{value}}</td>
+        <p class="truncate">{{value}}</p>
         <button type="button" class="btn btn-xs gold" (click)="copy(value)">复制</button>
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="Update Time" [width]="150">
+    <ngx-datatable-column name="Update Time" [width]="50">
       <ng-template let-value="value" ngx-datatable-cell-template>
-        <td>{{value}}</td>
+        <p>{{value}}</p>
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="Status" [width]="150">
+    <ngx-datatable-column name="Status" [width]="20">
       <ng-template let-value="value" ngx-datatable-cell-template>
-        <td class="processing" *ngIf="value === 'PROCESSING'">{{value}}</td>
-        <td class="failed" *ngIf="value === 'FAILED'">{{value}}</td>
-        <td *ngIf="value !== 'FAILED' && value !== 'PROCESSING'">{{value}}</td>
+        <p class="word-break processing" *ngIf="value === 'PROCESSING'">处理中</p>
+        <p class="word-break failed" *ngIf="value === 'FAILED'">失败</p>
+        <span *ngIf="value !== 'FAILED' && value !== 'PROCESSING'">
+          <p *ngIf="value === 'PENDING'">等待</p>
+          <p *ngIf="value === 'OK'">完成</p>
+          <p *ngIf="value === 'AUDIT'">等审核</p>
+        </span>
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="" prop="status" [width]="100">
+    <ngx-datatable-column name="" prop="status" [width]="50">
       <ng-template let-value="value" ngx-datatable-cell-template>
         <button type="button" class="btn refresh" (click)="search(null); showRefresh()" *ngIf="value !== 'OK' && value !=='FAILED'"></button>
       </ng-template>
