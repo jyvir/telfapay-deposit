@@ -199,6 +199,9 @@ i{
     display: inline-block;
     float: none;
   }
+  .amount-cont {
+    margin-right: 1rem !important;
+  }
 }
 
 .amount-cont .col-md-3 {
