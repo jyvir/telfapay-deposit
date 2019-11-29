@@ -424,3 +424,7 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
 .qr-class img {
   width: 200px !important;
 }
+
+datatable-scroller {
+  width: 100% !important;
+}
