@@ -63,7 +63,7 @@
         </span>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="" prop="status" [width]="2">
+      <ngx-datatable-column name="" prop="status" [width]="1">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <button type="button" class="btn refresh" (click)="search(null); showRefresh()" *ngIf="value !== 'OK' && value !=='FAILED'"></button>
         </ng-template>
