@@ -30,7 +30,7 @@
       </ngx-datatable-column>
       <ngx-datatable-column name="Channel" [width]="10">
         <ng-template let-value="value" ngx-datatable-cell-template>
-          <p class="word-break">{{ value === 'WeChat' ? '微信扫码' :
+          <p class="word-break pr-1">{{ value === 'WeChat' ? '微信扫码' :
             value === 'UnionPay'? '银联扫码':
               value === 'UnionPayH5'? '银联快捷':
                 value === 'AliPay'? '支付宝扫码' :
