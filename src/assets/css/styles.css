@@ -372,6 +372,7 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
   #main-card {
     margin-left: 112px;
     padding-top: 0 !important;
+    padding-right: 0 !important;
   }
 
   .btn-pay .card-text{
