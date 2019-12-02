@@ -4,6 +4,7 @@ import {Utility} from '../../../shared/helpers/utility';
 import {ClipboardService} from 'ngx-clipboard';
 import {DomSanitizer} from '@angular/platform-browser';
 import * as $ from 'jquery';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-response-modal',
@@ -17,7 +18,8 @@ export class ResponseModalComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private clipboardService: ClipboardService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -42,6 +44,7 @@ export class ResponseModalComponent implements OnInit {
 
   copy(val) {
     this.clipboardService.copyFromContent(val);
+    this.toastr.success('已复制');
   }
 
   openNewTab() {
