@@ -10,3 +10,9 @@
 iframe{
   background: white;
 }
+
+.qr-code-img {
+  background: white;
+  padding: 3px;
+}
+
