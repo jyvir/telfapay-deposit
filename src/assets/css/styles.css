@@ -428,7 +428,7 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
   width: 200px !important;
 }
 
-datatable-scroller {
+datatable-scroller, .datatable-scroll {
   width: 100% !important;
 }
 
@@ -449,5 +449,11 @@ datatable-scroller {
 .font-18 {
   font-size: 18px !important;
 }
+datatable-body-row .datatable-row-center, ngx-datatable {
+  width: 100% !important;
+}
 
+.ml-neg-19 {
+  margin-left: -18px;
+}
 

@@ -1,10 +1,9 @@
-<div class="col-xs-12">
+<div class="col-xs-12 ml-neg-19">
   <h6 class="card-title"><strong>为您推荐</strong></h6>
 </div>
 
 <div #scrollContent class="row flex-row flex-nowrap amount-cont">
   <ng-container *ngFor="let item of channelList | groupBy:'channel' | orderBy: 'key' : false : false: customComparator; let i=index">
-    {{ i === 4 ?  addNext() : ''}}
     <div class="channel-bg pt-3 mr-3 pr-0" [ngClass]=" router.url === '/mobile' ? 'col-md-3' : 'col-md-3 col-sm-3 col-3'" *ngIf="item.value.length && i < columns">
       <div class="channel-label text-nowrap text-center mb-1" >
         <i ngClass="{{ item.key === 'WeChat' || item.key === 'VIP - WeChatQR' || item.key === 'WeChatH5' ? 'wechat' :
@@ -28,6 +27,7 @@
       </div>
 
       <div class="channel-scroll pr-3">
+        {{ i === 4 ?  addNext() : ''}}
         <ng-container *ngFor="let info of item.value | orderBy:'amount'">
           <div class="card mb-3 btn btn-pay" (click)="send(info)" *ngIf="!info.type">
             <div class="card-body p-2 text-center">

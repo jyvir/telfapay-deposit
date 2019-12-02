@@ -1,4 +1,4 @@
-<div class="row ml-3">
+<div class="row ml-0">
   <div class="col-xs-12 pd-10">
     <button type="button" class="btn btn-xs btn-outline-secondary" [ngClass]="{'selected brown': mode === 'day'}"
             (click)="search('day')">今天</button>
@@ -7,57 +7,60 @@
     <button type="button" class="btn btn-xs btn-outline-secondary" [ngClass]="{'selected brown': mode === 'month'}"
             (click)="search('month')">近一月</button>
   </div>
-  <ngx-datatable class="material"
-    [rows]="rows"
-    [columns]="columns"
-   [headerHeight]="50"
-   [footerHeight]="81"
-   rowHeight="auto"
-   [columnMode]="ColumnMode.force"
-   [externalPaging]="true"
-   [count]="page.totalElements"
-   [loadingIndicator]="loading"
-   [offset]="page.pageNumber"
-   [limit]="page.size"
-   (page)="setPage($event)"
-   (sort)="onSort($event)">
+  <div class="col-12 p-0">
+    <ngx-datatable class="material"
+                   [rows]="rows"
+                   [columns]="columns"
+                   [headerHeight]="50"
+                   [footerHeight]="81"
+                   rowHeight="auto"
+                   [columnMode]="ColumnMode.force"
+                   [externalPaging]="true"
+                   [count]="page.totalElements"
+                   [loadingIndicator]="loading"
+                   [offset]="page.pageNumber"
+                   [limit]="page.size"
+                   (page)="setPage($event)"
+                   (sort)="onSort($event)">
 
-    <ngx-datatable-column name="Amount" [width]="38">
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        <p class="word-break ml-2"><strong>{{value}}</strong></p>
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="Channel" [width]="51">
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        <p class="word-break">{{value}}</p>
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="Provider Reference" [width]="108">
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        <p class="truncate">{{value}}</p>
-        <button type="button" class="btn btn-xs gold" (click)="copy(value)">复制</button>
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="Update Time" [width]="80">
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        <p>{{value}}</p>
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="Status" [width]="30">
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        <p class="word-break processing font-18" *ngIf="value === 'PROCESSING'">处理中</p>
-        <p class="word-break failed font-18" *ngIf="value === 'FAILED'">失败</p>
-        <span *ngIf="value !== 'FAILED' && value !== 'PROCESSING'">
+      <ngx-datatable-column name="Amount" [width]="38">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <p class="word-break ml-2"><strong>{{value}}</strong></p>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Channel" [width]="51">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <p class="word-break">{{value}}</p>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Provider Reference" [width]="108">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <p class="truncate">{{value}}</p>
+          <button type="button" class="btn btn-xs gold" (click)="copy(value)">复制</button>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Update Time" [width]="80">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <p  class="word-break">{{value}}</p>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Status" [width]="10">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <p class="word-break processing font-18" *ngIf="value === 'PROCESSING'">处理中</p>
+          <p class="word-break failed font-18" *ngIf="value === 'FAILED'">失败</p>
+          <span *ngIf="value !== 'FAILED' && value !== 'PROCESSING'">
           <p class="font-18" *ngIf="value === 'PENDING'">等待</p>
           <p class="font-18" *ngIf="value === 'OK'">完成</p>
           <p class="font-18" *ngIf="value === 'AUDIT'">等审核</p>
         </span>
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="" prop="status" [width]="50">
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        <button type="button" class="btn refresh" (click)="search(null); showRefresh()" *ngIf="value !== 'OK' && value !=='FAILED'"></button>
-      </ng-template>
-    </ngx-datatable-column>
-  </ngx-datatable>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="" prop="status" [width]="1">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <button type="button" class="btn refresh" (click)="search(null); showRefresh()" *ngIf="value !== 'OK' && value !=='FAILED'"></button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+
 </div>

@@ -34,7 +34,7 @@
 
     <div [ngClass]=" router.url === '/mobile' ? 'col-md-10' : 'col-md-10 col-sm-10 col-9'" id="main-card" #contentDiv>
       <app-announcement-bar></app-announcement-bar>
-      <div class="card-body col-12">
+      <div class="card-body col-12" [ngClass]="tab === 'record' ? 'pl-0': 'pl-3'">
         <app-recommend-tab *ngIf="tab === 'recommend'"></app-recommend-tab>
         <app-cashier-tab *ngIf="tab === 'cashier'" #config></app-cashier-tab>
         <app-deposit-record-tab *ngIf="tab === 'record'"></app-deposit-record-tab>
@@ -42,9 +42,9 @@
         <app-search-tab *ngIf="tab === 'search'"></app-search-tab>
       </div>
     </div>
-    <button class="next-icon" *ngIf="tab === 'recommend' || tab === 'cashier' || tab === 'vip' || tab === 'search'" (click)="scrollRight()">
+    <div class="btn next-icon" *ngIf="tab === 'recommend' || tab === 'cashier' || tab === 'vip' || tab === 'search'" (click)="scrollRight()">
       <ng-material-icon class="align-middle li-brown" icon="chevron_right" size="4"></ng-material-icon>
-    </button>
+    </div>
   </div>
 </div>
 

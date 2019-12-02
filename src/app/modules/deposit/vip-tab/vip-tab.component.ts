@@ -26,7 +26,6 @@ export class VipTabComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    $('.next-icon').show();
     this.vipAmountList = [];
     this.commonService.retrieveConfigList().pipe(
       mergeMap(
