@@ -52,7 +52,7 @@
           <p  class="word-break">{{value}}</p>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Status" [width]="10">
+      <ngx-datatable-column name="Status" [width]="1">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <p class="word-break processing font-18" *ngIf="value === 'PROCESSING'">处理中</p>
           <p class="word-break failed font-18" *ngIf="value === 'FAILED'">失败</p>
@@ -63,7 +63,7 @@
         </span>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="" prop="status" [width]="1">
+      <ngx-datatable-column name="" prop="status" [width]="2">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <button type="button" class="btn refresh" (click)="search(null); showRefresh()" *ngIf="value !== 'OK' && value !=='FAILED'"></button>
         </ng-template>

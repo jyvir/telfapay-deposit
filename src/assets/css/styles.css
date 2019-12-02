@@ -131,6 +131,8 @@ i{
   background-image: url("../images/refresh-icon.png");
   padding: 20px !important;
   box-shadow: none !important;
+  background-size: 35px 35px;
+  background-repeat: no-repeat;
 }
 
 .ngx-datatable.material,
