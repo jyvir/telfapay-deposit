@@ -21,6 +21,9 @@ export class AppComponent implements OnInit {
     window.scroll(0, 0);
   }
   ngOnInit(): void {
+    window.addEventListener('orientationchange', function() {
+      window.location.reload();
+    }, false);
 
     this.route.queryParams.subscribe(params => {
       if (!Utility.isEmpty(params)) {
