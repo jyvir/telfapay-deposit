@@ -446,4 +446,8 @@ datatable-scroller {
   word-break: break-all;
 }
 
+.font-18 {
+  font-size: 18px !important;
+}
+
 
