@@ -23,23 +23,31 @@
                    (page)="setPage($event)"
                    (sort)="onSort($event)">
 
-      <ngx-datatable-column name="Amount" [width]="38">
+      <ngx-datatable-column name="Amount" [width]="20">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <p class="word-break ml-2"><strong>{{value}}</strong></p>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Channel" [width]="51">
+      <ngx-datatable-column name="Channel" [width]="10">
         <ng-template let-value="value" ngx-datatable-cell-template>
-          <p class="word-break">{{value}}</p>
+          <p class="word-break">{{ value === 'WeChat' ? '微信扫码' :
+            value === 'UnionPay'? '银联扫码':
+              value === 'UnionPayH5'? '银联快捷':
+                value === 'AliPay'? '支付宝扫码' :
+                  value === 'QQWallet'? 'QQ钱包' :
+                    value === 'WeChatH5'? '微信跳转' :
+                      value === 'AliPayH5'? '支付宝跳转' :
+                        value === 'BTC'? '比特币' :
+                          value === 'OFFLINE_BANK'? '银行卡存款' : value }}</p>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Provider Reference" [width]="108">
+      <ngx-datatable-column name="Provider Reference" [width]="110">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <p class="truncate">{{value}}</p>
           <button type="button" class="btn btn-xs gold" (click)="copy(value)">复制</button>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Update Time" [width]="80">
+      <ngx-datatable-column name="Update Time" [width]="100">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <p  class="word-break">{{value}}</p>
         </ng-template>
