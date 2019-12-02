@@ -145,15 +145,23 @@
 
 
 
-@media (max-width: 568px ) {
+@media screen and (max-width: 620px ) and (min-width: 569px),
+  screen and (max-width: 527px ) {
+  .active {
+    background-size: 94px 100%;
+    width: 94px;
+  }
+}
+@media screen and (max-width: 568px ) {
   .active {
     background-size: 137px 100% !important;
-    width: 137px !important;
+    width: 137px;
   }
 }
 
-@media screen and (min-width: 640px ) {
+
+@media screen and (max-width: 640px ) {
   .active {
-    background-size: 107px 100% !important;
+    background-size: 107px 100%;
   }
 }
