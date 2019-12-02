@@ -201,6 +201,17 @@ i{
   }
 }
 
+@media screen and (max-width: 640px) {
+  #main-card {
+    padding-left: 0 !important;
+  }
+}
+
+@media screen and (max-width: 568px ) {
+  #main-card {
+    padding-left: 2rem !important;
+  }
+}
 .amount-cont .col-md-3 {
    min-width: 175px;
 }
