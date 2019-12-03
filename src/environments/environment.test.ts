@@ -1,4 +1,4 @@
 export const environment = {
-  api: 'http://telfa-api-test.ap-northeast-1.elasticbeanstalk.com',
+  api: 'telfapay-cashier.fyjutnxsbd.ap-east-1.elasticbeanstalk.com',
   production: true
 };
