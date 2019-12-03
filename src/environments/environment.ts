@@ -4,6 +4,7 @@
 
 export const environment = {
   api: 'http://localhost:9191',
+  cashier_api: 'http://localhost:9292',
   production: false
 };
 

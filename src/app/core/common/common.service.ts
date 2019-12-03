@@ -33,27 +33,27 @@ export class CommonService {
   public retrieveToken(): Observable<any> {
     const token = this.cookie.get('token');
     httpOptions.headers = httpOptions.headers.set('CashierToken', `Cashier:${token}`)
-    return this.http.get(`${environment.api}/cashier/token`, httpOptions);
+    return this.http.get(`${environment.cashier_api}/cashier/token`, httpOptions);
   }
 
   public retrieveConfigList(): Observable<any> {
-    return this.http.get(`${environment.api}/cashier/config/list`, httpOptions);
+    return this.http.get(`${environment.cashier_api}/cashier/config/list`, httpOptions);
   }
 
   public retrieveVipConfig(id): Observable<any> {
-    return this.http.get(`${environment.api}/cashier/config/${id}?isVip=true`, httpOptions);
+    return this.http.get(`${environment.cashier_api}/cashier/config/${id}?isVip=true`, httpOptions);
   }
 
   public retrieveConfig(id): Observable<any> {
-    return this.http.get(`${environment.api}/cashier/config/${id}?isVip=false`, httpOptions);
+    return this.http.get(`${environment.cashier_api}/cashier/config/${id}?isVip=false`, httpOptions);
   }
 
   public retrievePayment(id): Observable<any> {
-    return this.http.get(`${environment.api}/cashier/payment/${id}`, httpOptions);
+    return this.http.get(`${environment.cashier_api}/cashier/payment/${id}`, httpOptions);
   }
 
   public retrieveAgentType(id): Observable<any> {
-    return this.http.get(`${environment.api}/cashier/payment/agent-account/${id}`, httpOptions);
+    return this.http.get(`${environment.cashier_api}/cashier/payment/agent-account/${id}`, httpOptions);
   }
 
   public retrievePaymentList(data: any, sort, search): Observable<PageListModel<any>> {
@@ -75,7 +75,7 @@ export class CommonService {
         }
       });
     }
-    return this.http.post<PageListModel<any>>(`${environment.api}/cashier/payment?sort=${sort}`, JSON.stringify(this.searchData), httpOptions);
+    return this.http.post<PageListModel<any>>(`${environment.cashier_api}/cashier/payment?sort=${sort}`, JSON.stringify(this.searchData), httpOptions);
   }
 
   public sendPayment(url, data): Observable<any> {
@@ -91,7 +91,7 @@ export class CommonService {
 
   public retrieveConfigurations(): Observable<any> {
     this.addTokenToHeaders();
-    return this.http.get(`${environment.api}/cashier/config/configurations`, httpOptions);
+    return this.http.get(`${environment.cashier_api}/cashier/config/configurations`, httpOptions);
   }
 
   addTokenToHeaders() {
