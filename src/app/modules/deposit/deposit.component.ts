@@ -44,6 +44,8 @@ export class DepositComponent implements OnInit {
         } else {
           this.cookie.set('username', value.username);
           this.cookie.set('product_id', value.product_id);
+          this.cookie.set('ip', value.ip);
+          this.cookie.set('productIp', value.product_ip);
         }
         return this.commonService.retrieveConfigList();
       }),

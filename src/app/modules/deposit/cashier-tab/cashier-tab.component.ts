@@ -118,7 +118,9 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
       amount: item.amount,
       channel: item.channel,
       sign: '',
-      payment_reference: ref
+      payment_reference: ref,
+      ip: this.cookie.get('ip'),
+      product_ip: this.cookie.get('productIp')
     };
     const req = Utility.generateSign(payload);
     this.commonService.sendPayment('', req).pipe(
