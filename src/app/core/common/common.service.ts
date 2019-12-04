@@ -80,13 +80,13 @@ export class CommonService {
 
   public sendPayment(url, data): Observable<any> {
     const token = this.cookie.get('token');
-    httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', token)
-    return this.http.post(`${environment.api}/online-pay/deposit`, data, httpOptionsPay);
+    httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', `Cashier:${token}`);
+    return this.http.post(`${environment.cashier_api}/cashier/deposit`, data, httpOptionsPay);
   }
 
   public sendVipPayment(url, data): Observable<any> {
     this.addTokenToHeaders();
-    return this.http.post(`${environment.api}/online-pay/payment-deposit`, data, httpOptionsPay);
+    return this.http.post(`${environment.cashier_api}/cashier/payment-deposit`, data, httpOptionsPay);
   }
 
   public retrieveConfigurations(): Observable<any> {
@@ -96,6 +96,6 @@ export class CommonService {
 
   addTokenToHeaders() {
     const token = this.cookie.get('token');
-    httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', token);
+    httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', `Cashier:${token}`);
   }
 }
