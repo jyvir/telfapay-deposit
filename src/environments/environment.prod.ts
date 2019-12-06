@@ -1,5 +1,5 @@
 export const environment = {
-  api: 'http://localhost:9292',
-  cashier_api: 'http://localhost:9292',
+  api: 'http://telfapay-cashier-prod.2fmtttmiex.ap-east-1.elasticbeanstalk.com',
+  cashier_api: 'http://telfapay-cashier-prod.2fmtttmiex.ap-east-1.elasticbeanstalk.com',
   production: true
 };
