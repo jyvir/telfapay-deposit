@@ -19,6 +19,7 @@ import {CommonService} from '../../../core/common/common.service';
 export class ResponseModalComponent implements OnInit {
   @ViewChild('iframe') iframe: ElementRef;
   @Input() public data;
+  isLoading = false;
   elementType: 'url' | 'canvas' | 'img' = 'url';
   constructor(
     public activeModal: NgbActiveModal,
@@ -35,6 +36,7 @@ export class ResponseModalComponent implements OnInit {
   }
 
   initialize() {
+    this.isLoading = false;
     if (this.data.type === 'AliPayAccount' || this.data.type === 'BankCard') {
       this.data.bankAccount = this.data.accountId;
       this.data.bankAccountName = this.data.accountOwner;
@@ -78,6 +80,7 @@ export class ResponseModalComponent implements OnInit {
   }
 
   sendToAPI(channelSel) {
+    this.isLoading = true;
     const payload = this.data.payload;
     for (const channel of this.data.channels) {
       if (channelSel === 'H5' && channel.includes('H5') ) {

@@ -5,6 +5,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
+<div class="text-center loader" *ngIf="isLoading"></div>
 <div class="modal-body" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard'">
   <div>
     <div class="row">
