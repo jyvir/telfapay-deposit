@@ -1,6 +1,7 @@
 <div class="modal-header black-bg">
   <h6 class="modal-title"*ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK'">请转至以下银行卡</h6>
   <h6 class="modal-title"*ngIf="data.type !== 'OFFLINE_BANK' && data.type !== 'BANK'">选择付款方式</h6>
+  <h6 class="modal-title" *ngIf="data.type !== 'UNSECURED'">尴尬！网页被浏览器阻止掉了，请点击下面按钮在新窗口打开。谢谢!</h6>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close('Close click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -43,7 +44,7 @@
   <a class="btn modal-btn" href="{{data.content}}" target="_blank">打开APP支付</a>
 </div>
 <div class="modal-footer black-bg" *ngIf="data.type === 'UNSECURED'">
-  <button class="btn modal-btn" (click)="openNewTab()">打开APP支付</button>
+  <button class="btn modal-btn" (click)="openNewTab()">强制打开</button>
 </div>
 
 <div class="modal-footer black-bg" *ngIf="data.hasMoreChannel">
