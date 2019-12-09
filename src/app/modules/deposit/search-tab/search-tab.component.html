@@ -13,13 +13,13 @@
           item.key === 'UnionPayH5'? 'unionpay-scan':
           item.key === 'AliPay' || item.key === 'VIP - AliPayQR' || item.key === 'VIP - AliPayAccount'? 'alipay' :
           item.key === 'BTC'? 'btc' : item.key === 'OFFLINE_BANK'? 'offline' : 'none-ico' }}"></i>
-        <h6>{{ item.key === 'WeChat' ? '微信扫码' :
+        <h6>{{ item.key === 'WeChat' ? '微信' :
           item.key === 'UnionPay'? '云闪付':
             item.key === 'UnionPayH5'? '银联快捷':
-              item.key === 'AliPay'? '支付宝扫码' :
+              item.key === 'AliPay'? '支付宝' :
                 item.key === 'QQWallet'? 'QQ钱包' :
-                  item.key === 'WeChatH5'? '微信跳转' :
-                    item.key === 'AliPayH5'? '支付宝跳转' :
+                  item.key === 'WeChatH5'? '微信' :
+                    item.key === 'AliPayH5'? '支付宝' :
                       item.key === 'BTC'? '比特币' :
                         item.key === 'OFFLINE_BANK'? '银行卡' :
                           item.key === 'VIP - AliPayAccount'? '支付宝转账' :
