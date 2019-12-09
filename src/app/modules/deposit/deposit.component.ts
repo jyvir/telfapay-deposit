@@ -27,6 +27,7 @@ export class DepositComponent implements OnInit {
   @ViewChild('nav') nav: ElementRef;
   @ViewChild('contentDiv') contentDiv: ElementRef;
   config: any;
+  vipEnabled: boolean;
 
 
   constructor(
@@ -47,8 +48,14 @@ export class DepositComponent implements OnInit {
           this.cookie.set('ip', value.ip);
           this.cookie.set('productIp', value.product_ip);
         }
-        return this.commonService.retrieveConfigList();
+        return this.commonService.retrieveConfigurations();
       }),
+      mergeMap(
+        resp => {
+          this.vipEnabled = resp.vip_enabled;
+          return this.commonService.retrieveConfigList();
+        }
+      ),
       map(resp => resp),
       catchError(
         error => throwError(error.toString()
@@ -71,7 +78,9 @@ export class DepositComponent implements OnInit {
     this.tab = 'recommend';
   }
 
-
+  changeHide(val: boolean) {
+    this.vipEnabled = val;
+  }
   selectConfig(id) {
     this.selectedId = id;
     if (this.configChild) {

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
 import {catchError, flatMap, groupBy, map, mergeMap} from 'rxjs/operators';
 import {PageListModel} from '../../../shared/models/page-list.model';
@@ -20,10 +20,11 @@ import * as $ from 'jquery';
   styleUrls: ['./recommend-tab.component.css']
 })
 export class RecommendTabComponent implements OnInit {
-
+  @Output() onHide = new EventEmitter<boolean>();
   channelList = [];
   columns: number;
   arrangement: any;
+  vipEnabled: boolean;
   constructor(
     public router: Router,
     private commonService: CommonService,
@@ -42,7 +43,8 @@ export class RecommendTabComponent implements OnInit {
         this.cookie.set('columns', resp.columns);
         localStorage.setItem('arrangement', JSON.stringify(resp.arrangement));
         localStorage.setItem('announcement', resp.announcement);
-
+        localStorage.setItem('vip_enabled', resp.vip_enabled);
+        this.vipEnabled = resp.vip_enabled;
         this.columns = resp.columns;
         return this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5000', true);
       }),
@@ -66,11 +68,11 @@ export class RecommendTabComponent implements OnInit {
               data.agentType = resp[vipCount];
               vipCount++;
             }
-          })
+          });
           const calls = [];
           Object.keys(resp[0]).forEach((element, index) => {
             calls.push(this.commonService.retrieveConfig(element));
-            calls.push(this.commonService.retrieveVipConfig(element));
+            // calls.push(this.commonService.retrieveVipConfig(element));
           });
           return forkJoin(calls).pipe(
             map(
@@ -82,25 +84,38 @@ export class RecommendTabComponent implements OnInit {
                     if (channels.length > 0) {
                       channels.forEach(val => {
                         const formattedData = {
-                          amount: element,
-                          channel: val,
-                          type: ''
+                          amount: val.amount,
+                          channel: element,
+                          type: '',
+                          channels: val.channel
                         };
                         if (paymentList.length > 0) {
                           const findItem = paymentList.find(item => {
-                            if (item.channel === val && parseFloat(element) === item.amount) {
+                            if (item.channel === element && parseFloat(val.amount) === item.amount) {
                               if (item.channel === 'VipChannel') {
-                                formattedData.type  = item.agentType;
-                                formattedData.channel = `VIP - ${item.agentType}`;
+                                if (this.vipEnabled) {
+                                  formattedData.type  = item.agentType;
+                                  formattedData.channel = `VIP - ${item.agentType}`;
+                                } else {
+                                  return null;
+                                }
                               }
                               return item;
                             }
                           });
                           if (!Utility.isEmpty(findItem)) {
+                            const find = datas.filter(x => x.channel === formattedData.channel
+                              &&  parseFloat(x.amount) ===  parseFloat(formattedData.amount));
+                            if (find.length === 0) {
+                              datas.push(formattedData);
+                            }
+                          }
+                        } else if (parseFloat(val.amount) < 500) {
+                          const find = datas.filter(x => x.channel === formattedData.channel
+                            &&  parseFloat(x.amount) ===  parseFloat(formattedData.amount));
+                          if (find.length === 0) {
                             datas.push(formattedData);
                           }
-                        } else if (parseFloat(element) < 500) {
-                          datas.push(formattedData);
                         }
                       });
                     }
@@ -131,19 +146,28 @@ export class RecommendTabComponent implements OnInit {
       product_ip: this.cookie.get('productIp')
     };
     const req = Utility.generateSign(payload);
-    this.commonService.sendPayment('', req).pipe(
-      catchError((res: HttpErrorResponse) => {
-        let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
-        errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
-        Swal.fire({
-          html: errorMsg,
-          icon: 'error'
-        });
-        return throwError(JSON.stringify(res));
-      })
-    ).subscribe(resp => {
-      this.openModal(resp);
-    });
+    if (item.channels.length > 1) {
+      const data = {
+        hasMoreChannel: true,
+        payload,
+        channels: item.channels
+      };
+      this.openModal(data);
+    } else {
+      this.commonService.sendPayment('', req).pipe(
+        catchError((res: HttpErrorResponse) => {
+          let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
+          errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
+          Swal.fire({
+            html: errorMsg,
+            icon: 'error'
+          });
+          return throwError(JSON.stringify(res));
+        })
+      ).subscribe(resp => {
+        this.openModal(resp);
+      });
+    }
   }
 
   sendVip(item, type) {

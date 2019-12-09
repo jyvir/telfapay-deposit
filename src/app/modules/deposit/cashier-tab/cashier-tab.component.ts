@@ -42,6 +42,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   }
 
   fetchConfig(id) {
+    const includedChannel = JSON.parse(localStorage.getItem('arrangement'))
     $('.next-icon').hide();
     this.channelList = [];
     this.commonService.retrieveConfig(id).pipe(
@@ -49,11 +50,12 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
         const datas = [];
         Object.keys(data).forEach((element, index) => {
           const channels = Object.getOwnPropertyDescriptor(data, element).value;
-          if (channels.length > 0) {
+          if (channels.length > 0 && includedChannel.includes(element)) {
             channels.forEach(val => {
               const formattedData = {
-                amount: parseFloat(element),
-                channel: val
+                amount: parseFloat(val.amount),
+                channel: element,
+                channels: val.channel
               };
               datas.push(formattedData);
             });
@@ -123,19 +125,28 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
       product_ip: this.cookie.get('productIp')
     };
     const req = Utility.generateSign(payload);
-    this.commonService.sendPayment('', req).pipe(
-      catchError((res: HttpErrorResponse) => {
-        let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
-        errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
-        Swal.fire({
-          html: errorMsg,
-          icon: 'error'
-        });
-        return throwError(JSON.stringify(res));
-      })
-    ).subscribe(resp => {
-      this.openModal(resp);
-    });
+    if (item.channels.length > 1) {
+      const data = {
+        hasMoreChannel: true,
+        payload,
+        channels: item.channels
+      };
+      this.openModal(data);
+    } else {
+      this.commonService.sendPayment('', req).pipe(
+        catchError((res: HttpErrorResponse) => {
+          let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
+          errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
+          Swal.fire({
+            html: errorMsg,
+            icon: 'error'
+          });
+          return throwError(JSON.stringify(res));
+        })
+      ).subscribe(resp => {
+        this.openModal(resp);
+      });
+    }
   }
 
   openModal(response) {

@@ -5,6 +5,11 @@ import {ClipboardService} from 'ngx-clipboard';
 import {DomSanitizer} from '@angular/platform-browser';
 import * as $ from 'jquery';
 import {ToastrService} from 'ngx-toastr';
+import {catchError} from 'rxjs/operators';
+import {HttpErrorResponse} from '@angular/common/http';
+import Swal from "sweetalert2";
+import {throwError} from 'rxjs';
+import {CommonService} from '../../../core/common/common.service';
 
 @Component({
   selector: 'app-response-modal',
@@ -19,10 +24,17 @@ export class ResponseModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private clipboardService: ClipboardService,
     public sanitizer: DomSanitizer,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private commonService: CommonService
   ) { }
 
   ngOnInit() {
+    if (!this.data.hasMoreChannel) {
+      this.initialize();
+    }
+  }
+
+  initialize() {
     if (this.data.type === 'AliPayAccount' || this.data.type === 'BankCard') {
       this.data.bankAccount = this.data.accountId;
       this.data.bankAccountName = this.data.accountOwner;
@@ -38,10 +50,9 @@ export class ResponseModalComponent implements OnInit {
         this.setIframeReady(this.iframe);
       }, 1000);
     } else {
-      this.data.type === 'REDIRECTS';
+      this.data.type = 'REDIRECTS';
     }
   }
-
   copy(val) {
     this.clipboardService.copyFromContent(val);
     this.toastr.success('已复制');
@@ -64,6 +75,33 @@ export class ResponseModalComponent implements OnInit {
     doc.open();
     doc.write(this.data.content);
     doc.close();
+  }
+
+  sendToAPI(channelSel) {
+    const payload = this.data.payload;
+    for (const channel of this.data.channels) {
+      if (channelSel === 'H5' && channel.includes('H5') ) {
+        payload.channel = channel;
+      } else if (channelSel === 'send' && !channel.includes('H5')) {
+        payload.channel = channel;
+      }
+    }
+    const req = Utility.generateSign(payload);
+    this.commonService.sendPayment('', req).pipe(
+      catchError((res: HttpErrorResponse) => {
+        let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
+        errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
+        Swal.fire({
+          html: errorMsg,
+          icon: 'error'
+        });
+        return throwError(JSON.stringify(res));
+      })
+    ).subscribe(resp => {
+      this.data.hasMoreChannel = false;
+      this.data = resp;
+      this.initialize();
+    });
   }
 
 }

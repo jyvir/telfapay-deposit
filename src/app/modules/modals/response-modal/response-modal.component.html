@@ -38,10 +38,13 @@
   <button type="button" class="btn modal-btn col-md-6" (click)="activeModal.close('Close click')">取消</button>
   <button type="button" class="btn modal-btn col-md-6" (click)="activeModal.close('Close click')">已完成转账</button>
 </div>
-<ng-template *ngIf="data.type === 'REDIRECTS'">
-  <div class="modal-footer black-bg" >
-    <ng-template>
-      <button class="btn modal-btn" (click)="openNewTab()">打开APP支付</button>
-    </ng-template>
-  </div>
-</ng-template>
+<div class="modal-footer black-bg" *ngIf="data.type === 'REDIRECTS'">
+  <ng-template>
+    <button class="btn modal-btn" (click)="openNewTab()">打开APP支付</button>
+  </ng-template>
+</div>
+
+<div class="modal-footer black-bg" *ngIf="data.hasMoreChannel">
+  <button type="button" class="btn modal-btn col-md-6" (click)="sendToAPI('send')">扫码支付</button>
+  <button type="button" class="btn modal-btn col-md-6" (click)="sendToAPI('H5')">打开APP支付</button>
+</div>

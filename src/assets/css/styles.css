@@ -85,7 +85,16 @@ i{
   content: '';
   right: 4px
 }
-
+.offline{
+  background-image: url("../images/OfflineBank.jpg");
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+  content: '';
+  right: 4px
+}
 .visa{
   background-image: url("../icons/visa.svg");
   background-size: contain;

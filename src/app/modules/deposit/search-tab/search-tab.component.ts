@@ -19,7 +19,7 @@ import * as $ from 'jquery';
 })
 export class SearchTabComponent implements OnInit {
   amountSearch = '';
-
+  vipEnabled: boolean;
   channelList = [];
   columns: number;
   constructor(
@@ -36,6 +36,7 @@ export class SearchTabComponent implements OnInit {
   }
 
   initData() {
+    this.vipEnabled = localStorage.getItem('vip_enabled') === 'true';
     $('.next-icon').hide();
     this.channelList = [];
     if (!Utility.isEmpty(this.amountSearch)) {
@@ -56,35 +57,57 @@ export class SearchTabComponent implements OnInit {
                       const channels = Object.getOwnPropertyDescriptor(data, element).value;
                       if (channels.length > 0) {
                         channels.forEach(val => {
-                          const amount = parseFloat(element);
+                          const amount = parseFloat(val.amount);
                           const formattedData = {
                             amount,
-                            channel: val,
-                            type: ''
+                            channel: element,
+                            type: '',
+                            channels : val.channel
                           };
-                          if (val === 'VipChannel') {
-                            datas.push({
-                              amount,
-                              channel:  'VIP - AliPayQR',
-                              type: 'AliPayQR'
-                            });
-                            datas.push({
-                              amount,
-                              channel:  'VIP - WeChatQR',
-                              type: 'WeChatQR'
-                            });
-                            datas.push({
-                              amount,
-                              channel:  'VIP - AliPayAccount',
-                              type: 'AliPayAccount'
-                            });
-                            datas.push({
-                              amount,
-                              channel:  'VIP - BankCard',
-                              type: 'BankCard'
-                            });
+                          let find = [];
+                          if (val === 'VipChannel' && this.vipEnabled) {
+                            find = datas.filter(x => x.channel === 'VIP - AliPayQR'
+                              &&  x.amount ===  formattedData.amount);
+                            if (find.length === 0) {
+                              datas.push({
+                                amount,
+                                channel:  'VIP - AliPayQR',
+                                type: 'AliPayQR'
+                              });
+                            }
+                            find = datas.filter(x => x.channel === 'VIP - WeChatQR'
+                              &&  x.amount ===  formattedData.amount);
+                            if (find.length === 0) {
+                              datas.push({
+                                amount,
+                                channel:  'VIP - WeChatQR',
+                                type: 'WeChatQR'
+                              });
+                            }
+                            find = datas.filter(x => x.channel === 'VIP - AliPayAccount'
+                              &&  x.amount ===  formattedData.amount);
+                            if (find.length === 0) {
+                              datas.push({
+                                amount,
+                                channel:  'VIP - AliPayAccount',
+                                type: 'AliPayAccount'
+                              });
+                            }
+                            find = datas.filter(x => x.channel === 'VIP - BankCard'
+                              &&  x.amount ===  formattedData.amount);
+                            if (find.length === 0) {
+                              datas.push({
+                                amount,
+                                channel:  'VIP - BankCard',
+                                type: 'BankCard'
+                              });
+                            }
                           } else {
-                            datas.push(formattedData);
+                            find = datas.filter(x => x.channel === formattedData.channel
+                              &&  x.amount ===  formattedData.amount);
+                            if (find.length === 0) {
+                              datas.push(formattedData);
+                            }
                           }
                         });
                       }
@@ -126,19 +149,28 @@ export class SearchTabComponent implements OnInit {
       product_ip: this.cookie.get('productIp')
     };
     const req = Utility.generateSign(payload);
-    this.commonService.sendPayment('', req).pipe(
-      catchError((res: HttpErrorResponse) => {
-        let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
-        errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
-        Swal.fire({
-          html: errorMsg,
-          icon: 'error'
-        });
-        return throwError(JSON.stringify(res));
-      })
-    ).subscribe(resp => {
-      this.openModal(resp);
-    });
+    if (item.channels.length > 1) {
+      const data = {
+        hasMoreChannel: true,
+        payload,
+        channels: item.channels
+      };
+      this.openModal(data);
+    } else {
+      this.commonService.sendPayment('', req).pipe(
+        catchError((res: HttpErrorResponse) => {
+          let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
+          errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
+          Swal.fire({
+            html: errorMsg,
+            icon: 'error'
+          });
+          return throwError(JSON.stringify(res));
+        })
+      ).subscribe(resp => {
+        this.openModal(resp);
+      });
+    }
   }
 
   openModal(response) {
