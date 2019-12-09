@@ -49,7 +49,7 @@ export class ResponseModalComponent implements OnInit {
       setTimeout(() => {
         this.setIframeReady(this.iframe);
       }, 1000);
-    } else {
+    } else if (this.data.type === 'REDIRECT') {
       this.data.type = 'REDIRECTS';
     }
   }
