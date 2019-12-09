@@ -44,7 +44,11 @@ export class VipTabComponent implements OnInit {
           Object.keys(data).forEach((element, index) => {
             const channels = Object.getOwnPropertyDescriptor(data, element).value;
             if (channels.length > 0) {
-              this.vipAmountList.push(parseFloat(element));
+              channels.forEach(val => {
+                if (!this.vipAmountList.includes(parseFloat(val.amount))) {
+                  this.vipAmountList.push(parseFloat(val.amount));
+                };
+              });
             }
           });
         };

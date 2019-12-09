@@ -85,7 +85,16 @@ i{
   content: '';
   right: 4px
 }
-
+.offline{
+  background-image: url("../images/OfflineBank.png");
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+  content: '';
+  right: 4px
+}
 .visa{
   background-image: url("../icons/visa.svg");
   background-size: contain;
@@ -468,3 +477,18 @@ datatable-body-row .datatable-row-center, ngx-datatable {
   margin-left: -18px;
 }
 
+.loader {
+  border: 5px solid #f3f3f3;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+  border-top: 5px solid #555;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin:auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

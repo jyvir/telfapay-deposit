@@ -32,7 +32,7 @@ export class CommonService {
 
   public retrieveToken(): Observable<any> {
     const token = this.cookie.get('token');
-    httpOptions.headers = httpOptions.headers.set('CashierToken', `Cashier:${token}`)
+    httpOptions.headers = httpOptions.headers.set('CashierToken', `Cashier:${token}`);
     return this.http.get(`${environment.cashier_api}/cashier/token`, httpOptions);
   }
 
@@ -46,6 +46,7 @@ export class CommonService {
 
   public retrieveConfig(id): Observable<any> {
     return this.http.get(`${environment.cashier_api}/cashier/config/${id}?isVip=false`, httpOptions);
+    // return this.http.get(`http://www.mocky.io/v2/5dedbb513300006d002b91bf`, httpOptions);
   }
 
   public retrievePayment(id): Observable<any> {

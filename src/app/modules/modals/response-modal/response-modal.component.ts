@@ -5,6 +5,11 @@ import {ClipboardService} from 'ngx-clipboard';
 import {DomSanitizer} from '@angular/platform-browser';
 import * as $ from 'jquery';
 import {ToastrService} from 'ngx-toastr';
+import {catchError} from 'rxjs/operators';
+import {HttpErrorResponse} from '@angular/common/http';
+import Swal from "sweetalert2";
+import {throwError} from 'rxjs';
+import {CommonService} from '../../../core/common/common.service';
 
 @Component({
   selector: 'app-response-modal',
@@ -14,15 +19,24 @@ import {ToastrService} from 'ngx-toastr';
 export class ResponseModalComponent implements OnInit {
   @ViewChild('iframe') iframe: ElementRef;
   @Input() public data;
+  isLoading = false;
   elementType: 'url' | 'canvas' | 'img' = 'url';
   constructor(
     public activeModal: NgbActiveModal,
     private clipboardService: ClipboardService,
     public sanitizer: DomSanitizer,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private commonService: CommonService
   ) { }
 
   ngOnInit() {
+    if (!this.data.hasMoreChannel) {
+      this.initialize();
+    }
+  }
+
+  initialize() {
+    this.isLoading = false;
     if (this.data.type === 'AliPayAccount' || this.data.type === 'BankCard') {
       this.data.bankAccount = this.data.accountId;
       this.data.bankAccountName = this.data.accountOwner;
@@ -37,23 +51,24 @@ export class ResponseModalComponent implements OnInit {
       setTimeout(() => {
         this.setIframeReady(this.iframe);
       }, 1000);
-    } else {
-      this.data.type === 'REDIRECTS';
+    } else if (this.data.type === 'REDIRECT') {
+      this.data.type = 'REDIRECTS';
     }
   }
-
   copy(val) {
     this.clipboardService.copyFromContent(val);
     this.toastr.success('已复制');
   }
 
   openNewTab() {
-    const newTab = window.open();
     if (this.data.type.includes('QR') && this.data.type !== 'QR_CODE') {
+      const newTab = window.open();
       newTab.document.body.innerHTML = `<img src="data:image/png;base64,${this.data.base64}" >`;
     } else if (this.data.type === 'HTML' || this.data.type ===  'FORM_DOC') {
+      const newTab = window.open();
       newTab.document.write(this.data.content);
     } else {
+      const newTab = window.open();
       newTab.open(this.data.content, '_blank');
     }
   }
@@ -64,6 +79,35 @@ export class ResponseModalComponent implements OnInit {
     doc.open();
     doc.write(this.data.content);
     doc.close();
+  }
+
+  sendToAPI(channelSel) {
+    this.isLoading = true;
+    const payload = this.data.payload;
+    for (const channel of this.data.channels) {
+      if (channelSel === 'H5' && channel.includes('H5') ) {
+        payload.channel = channel;
+      } else if (channelSel === 'send' && !channel.includes('H5')) {
+        payload.channel = channel;
+      }
+    }
+    const req = Utility.generateSign(payload);
+    this.commonService.sendPayment('', req).pipe(
+      catchError((res: HttpErrorResponse) => {
+        this.isLoading = false;
+        let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
+        errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
+        Swal.fire({
+          html: errorMsg,
+          icon: 'error'
+        });
+        return throwError(JSON.stringify(res));
+      })
+    ).subscribe(resp => {
+      this.data.hasMoreChannel = false;
+      this.data = resp;
+      this.initialize();
+    });
   }
 
 }
