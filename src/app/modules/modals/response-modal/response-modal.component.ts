@@ -43,9 +43,13 @@ export class ResponseModalComponent implements OnInit {
     }
 
     if (this.data.type === 'FORM_DOC' || this.data.type === 'HTML') {
-      setTimeout(() => {
-        this.setIframeReady(this.iframe);
-      }, 1000);
+      if (!this.data.content.includes('http://')) {
+        setTimeout(() => {
+          this.setIframeReady(this.iframe);
+        }, 1000);
+      } else {
+        this.data.type = 'UNSECURED';
+      }
     }
     if (this.data.type === 'REDIRECT' && this.data.content.includes('https')) {
       setTimeout(() => {
@@ -64,7 +68,7 @@ export class ResponseModalComponent implements OnInit {
     if (this.data.type.includes('QR') && this.data.type !== 'QR_CODE') {
       const newTab = window.open();
       newTab.document.body.innerHTML = `<img src="data:image/png;base64,${this.data.base64}" >`;
-    } else if (this.data.type === 'HTML' || this.data.type ===  'FORM_DOC') {
+    } else if (this.data.type === 'HTML' || this.data.type ===  'FORM_DOC' || this.data.type ===  'UNSECURED') {
       const newTab = window.open();
       newTab.document.write(this.data.content);
     } else {
