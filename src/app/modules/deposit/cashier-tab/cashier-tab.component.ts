@@ -42,7 +42,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   }
 
   fetchConfig(id) {
-    const includedChannel = JSON.parse(localStorage.getItem('arrangement'))
+    const includedChannel = JSON.parse(localStorage.getItem('arrangement'));
     $('.next-icon').hide();
     this.channelList = [];
     this.commonService.retrieveConfig(id).pipe(

@@ -36,6 +36,7 @@ export class SearchTabComponent implements OnInit {
   }
 
   initData() {
+    const includedChannel = JSON.parse(localStorage.getItem('arrangement'));
     this.vipEnabled = localStorage.getItem('vip_enabled') === 'true';
     $('.next-icon').hide();
     this.channelList = [];
@@ -55,7 +56,7 @@ export class SearchTabComponent implements OnInit {
                   for (const data of dataList) {
                     Object.keys(data).forEach((element, index) => {
                       const channels = Object.getOwnPropertyDescriptor(data, element).value;
-                      if (channels.length > 0) {
+                      if (channels.length > 0  && includedChannel.includes(element)) {
                         channels.forEach(val => {
                           const amount = parseFloat(val.amount);
                           const formattedData = {

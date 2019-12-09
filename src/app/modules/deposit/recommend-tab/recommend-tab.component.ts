@@ -34,6 +34,7 @@ export class RecommendTabComponent implements OnInit {
   }
 
   ngOnInit() {
+    let includedChannel: any;
     $('.next-icon').hide();
     this.channelList = [];
     let paymentList = [];
@@ -46,6 +47,7 @@ export class RecommendTabComponent implements OnInit {
         localStorage.setItem('vip_enabled', resp.vip_enabled);
         this.vipEnabled = resp.vip_enabled;
         this.columns = resp.columns;
+        includedChannel = JSON.stringify(resp.arrangement);
         return this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5000', true);
       }),
       mergeMap((resp: any) => {
@@ -81,7 +83,7 @@ export class RecommendTabComponent implements OnInit {
                 for (const data of dataList) {
                   Object.keys(data).forEach((element, index) => {
                     const channels = Object.getOwnPropertyDescriptor(data, element).value;
-                    if (channels.length > 0) {
+                    if (channels.length > 0 && includedChannel.includes(element)) {
                       channels.forEach(val => {
                         const formattedData = {
                           amount: val.amount,
