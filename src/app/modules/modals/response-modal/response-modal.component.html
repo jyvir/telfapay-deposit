@@ -1,7 +1,7 @@
 <div class="modal-header black-bg">
-  <h6 class="modal-title" *ngIf="(data.type === 'OFFLINE_BANK' || data.type === 'BANK') &&  data.type !== 'UNSECURED'">请转至以下银行卡</h6>
-  <h6 class="modal-title" *ngIf="data.type !== 'OFFLINE_BANK' && data.type !== 'BANK' &&  data.type !== 'UNSECURED'">选择付款方式</h6>
-  <h6 class="modal-title" *ngIf="data.type === 'UNSECURED'">尴尬！网页被浏览器阻止掉了，请点击下面按钮在新窗口继续支付。谢谢！</h6>
+  <h6 class="modal-title" *ngIf="(data.type === 'OFFLINE_BANK' || data.type === 'BANK') &&  data.type !== 'UNSECURED' && data.type !== 'REDIRECTS'">请转至以下银行卡</h6>
+  <h6 class="modal-title" *ngIf="data.type !== 'OFFLINE_BANK' && data.type !== 'BANK' &&  data.type !== 'UNSECURED' && data.type !== 'REDIRECTS'">选择付款方式</h6>
+  <h6 class="modal-title" *ngIf="data.type === 'UNSECURED' || data.type === 'REDIRECTS'">尴尬！网页被浏览器阻止掉了，请点击下面按钮在新窗口继续支付。谢谢！</h6>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close('Close click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -41,7 +41,7 @@
   <button type="button" class="btn modal-btn col-md-6" (click)="activeModal.close('Close click')">已完成转账</button>
 </div>
 <div class="modal-footer black-bg" *ngIf="data.type === 'REDIRECTS'">
-  <a class="btn modal-btn" href="{{data.content}}" target="_blank">强制打开</a>
+  <a class="btn modal-btn" href="{{data.content}}" target="_blank">强制开启</a>
 </div>
 <div class="modal-footer black-bg" *ngIf="data.type === 'UNSECURED'">
   <button class="btn modal-btn" (click)="openNewTab()">强制开启</button>
