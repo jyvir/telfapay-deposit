@@ -40,9 +40,7 @@
   <button type="button" class="btn modal-btn col-md-6" (click)="activeModal.close('Close click')">已完成转账</button>
 </div>
 <div class="modal-footer black-bg" *ngIf="data.type === 'REDIRECTS'">
-  <ng-template>
-    <button class="btn modal-btn" (click)="openNewTab()">打开APP支付</button>
-  </ng-template>
+  <a class="btn modal-btn" href="{{data.content}}" target="_blank">打开APP支付</a>
 </div>
 
 <div class="modal-footer black-bg" *ngIf="data.hasMoreChannel">

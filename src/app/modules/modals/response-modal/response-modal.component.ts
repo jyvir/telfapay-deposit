@@ -61,12 +61,14 @@ export class ResponseModalComponent implements OnInit {
   }
 
   openNewTab() {
-    const newTab = window.open();
     if (this.data.type.includes('QR') && this.data.type !== 'QR_CODE') {
+      const newTab = window.open();
       newTab.document.body.innerHTML = `<img src="data:image/png;base64,${this.data.base64}" >`;
     } else if (this.data.type === 'HTML' || this.data.type ===  'FORM_DOC') {
+      const newTab = window.open();
       newTab.document.write(this.data.content);
     } else {
+      const newTab = window.open();
       newTab.open(this.data.content, '_blank');
     }
   }
