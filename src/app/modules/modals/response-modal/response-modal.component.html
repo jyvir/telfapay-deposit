@@ -42,6 +42,9 @@
 <div class="modal-footer black-bg" *ngIf="data.type === 'REDIRECTS'">
   <a class="btn modal-btn" href="{{data.content}}" target="_blank">打开APP支付</a>
 </div>
+<div class="modal-footer black-bg" *ngIf="data.type === 'UNSECURED'">
+  <button class="btn modal-btn" (click)="openNewTab()">打开APP支付</button>
+</div>
 
 <div class="modal-footer black-bg" *ngIf="data.hasMoreChannel">
   <button type="button" class="btn modal-btn col-md-6" (click)="sendToAPI('send')">扫码支付</button>
