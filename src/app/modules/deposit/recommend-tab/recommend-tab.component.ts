@@ -48,7 +48,7 @@ export class RecommendTabComponent implements OnInit {
         this.vipEnabled = resp.vip_enabled;
         this.columns = resp.columns;
         includedChannel = JSON.stringify(resp.arrangement);
-        return this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5000', true);
+        return this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5', true);
       }),
       mergeMap((resp: any) => {
         const calls = [];

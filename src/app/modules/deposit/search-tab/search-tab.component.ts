@@ -11,6 +11,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
+import {log} from 'util';
 
 @Component({
   selector: 'app-search-tab',
@@ -128,11 +129,32 @@ export class SearchTabComponent implements OnInit {
   }
 
   filterResult(datas) {
-    let result = datas.filter(data => data.amount === parseFloat(this.amountSearch));
+    const amount = parseFloat(this.amountSearch);
+    const result = datas.filter(data => data.amount === parseFloat(this.amountSearch));
     if (Utility.isEmpty(result)) {
-      result =  datas.filter(data =>
-        data.amount >= (parseFloat(this.amountSearch) - 10) && data.amount <= (parseFloat(this.amountSearch) + 10)
-      );
+        const distinctChannel = [];
+        datas.forEach(item => {
+          if (!distinctChannel.includes(item.channel)) {
+            distinctChannel.push(item.channel);
+          }
+        });
+        log(distinctChannel);
+        distinctChannel.forEach( item => {
+          const currChannel = datas.filter( res => res.channel === item);
+          const firstVal = currChannel.reduce( (prev, curr, index) => {
+            if (Math.abs(curr.amount - amount) < Math.abs(prev.amount - amount)) {
+              currChannel.splice(index, 1);
+              return curr;
+            }
+            return prev;
+          });
+          const secondVal = currChannel.reduce( (prev, curr) => {
+            return (Math.abs(curr.amount - amount) < Math.abs(prev.amount - amount) ? curr : prev);
+          });
+          result.push(firstVal);
+          result.push(secondVal);
+          log(result)
+        });
     }
     return result;
   }
