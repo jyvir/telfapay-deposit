@@ -48,7 +48,9 @@ export class ResponseModalComponent implements OnInit {
           this.setIframeReady(this.iframe);
         }, 1000);
       } else {
-        this.data.type = 'UNSECURED';
+        const newTab = window.open();
+        newTab.open(this.data.content, '_blank');
+        this.activeModal.close();
       }
     }
     if (this.data.type === 'REDIRECT' && this.data.content.includes('https')) {
@@ -56,7 +58,9 @@ export class ResponseModalComponent implements OnInit {
         this.setIframeReady(this.iframe);
       }, 1000);
     } else if (this.data.type === 'REDIRECT') {
-      this.data.type = 'REDIRECTS';
+      const newTab = window.open();
+      newTab.open(this.data.content, '_blank');
+      this.activeModal.close();
     }
   }
   copy(val) {
