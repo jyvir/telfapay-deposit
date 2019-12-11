@@ -45,6 +45,9 @@ export class RecommendTabComponent implements OnInit {
         localStorage.setItem('arrangement', JSON.stringify(resp.arrangement));
         localStorage.setItem('announcement', resp.announcement);
         localStorage.setItem('vip_enabled', resp.vip_enabled);
+        (<any>window).announcement = resp.announcement;
+        (<any>window).arrangement = JSON.stringify(resp.arrangement);
+        (<any>window).vip_enabled = resp.vip_enabled;
         this.vipEnabled = resp.vip_enabled;
         this.columns = resp.columns;
         includedChannel = JSON.stringify(resp.arrangement);
@@ -138,14 +141,14 @@ export class RecommendTabComponent implements OnInit {
   send(item) {
     const ref = moment().format('YYYYMMDDHHmmss');
     const payload = {
-      login_name: this.cookie.get('username'),
-      product_id: this.cookie.get('product_id'),
+      username: (<any>window).username,
+      product_id:  (<any>window).product_id,
       amount: item.amount,
       channel: item.channel,
       sign: '',
       payment_reference: ref,
-      ip: this.cookie.get('ip'),
-      product_ip: this.cookie.get('productIp')
+      ip:  (<any>window).ip,
+      product_ip:  (<any>window).productIp
     };
     const req = Utility.generateSign(payload);
     if (item.channels.length > 1) {
@@ -175,14 +178,14 @@ export class RecommendTabComponent implements OnInit {
   sendVip(item, type) {
     const ref = moment().format('YYYYMMDDHHmmss');
     const payload = {
-      username: this.cookie.get('username'),
-      product_id: this.cookie.get('product_id'),
+      username: (<any>window).username,
+      product_id:  (<any>window).product_id,
       amount: item,
       channel: type,
       sign: '',
       payment_reference: ref,
-      ip: this.cookie.get('ip'),
-      product_ip: this.cookie.get('productIp')
+      ip:  (<any>window).ip,
+      product_ip:  (<any>window).productIp
     };
     const req = Utility.generateSign(payload);
     this.commonService.sendVipPayment('', req).pipe(
@@ -207,7 +210,7 @@ export class RecommendTabComponent implements OnInit {
   }
 
   customComparator(itemA, itemB) {
-    const sortOrder = JSON.parse(localStorage.getItem('arrangement')).reverse();
+    const sortOrder = JSON.parse((<any>window).arrangement).reverse();
     return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
   }
 

@@ -31,7 +31,7 @@ export class CommonService {
   }
 
   public retrieveToken(): Observable<any> {
-    const token = this.cookie.get('token');
+    const token = (<any>window).token ? (<any>window).token : this.cookie.get('token');
     httpOptions.headers = httpOptions.headers.set('CashierToken', `Cashier:${token}`);
     return this.http.get(`${environment.cashier_api}/cashier/token`, httpOptions);
   }
@@ -80,7 +80,7 @@ export class CommonService {
   }
 
   public sendPayment(url, data): Observable<any> {
-    const token = this.cookie.get('token');
+    const token = (<any>window).token ? (<any>window).token : this.cookie.get('token');
     httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', `Cashier:${token}`);
     return this.http.post(`${environment.cashier_api}/cashier/deposit`, data, httpOptionsPay);
   }
@@ -96,7 +96,7 @@ export class CommonService {
   }
 
   addTokenToHeaders() {
-    const token = this.cookie.get('token');
+    const token = (<any>window).token ? (<any>window).token : this.cookie.get('token');
     httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', `Cashier:${token}`);
   }
 }

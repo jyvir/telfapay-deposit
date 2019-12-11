@@ -60,14 +60,14 @@ export class VipTabComponent implements OnInit {
   send(item, type) {
     const ref = moment().format('YYYYMMDDHHmmss');
     const payload = {
-      username: this.cookie.get('username'),
-      product_id: this.cookie.get('product_id'),
+      username: (<any>window).username,
+      product_id:  (<any>window).product_id,
       amount: item,
       channel: type,
       sign: '',
       payment_reference: ref,
-      ip: this.cookie.get('ip'),
-      product_ip: this.cookie.get('productIp')
+      ip:  (<any>window).ip,
+      product_ip:  (<any>window).productIp
     };
     const req = Utility.generateSign(payload);
     this.commonService.sendVipPayment('', req).pipe(

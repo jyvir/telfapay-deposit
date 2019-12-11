@@ -28,8 +28,6 @@ export class DepositComponent implements OnInit {
   @ViewChild('contentDiv') contentDiv: ElementRef;
   config: any;
   vipEnabled: boolean;
-
-
   constructor(
     public router: Router,
     private commonService: CommonService,
@@ -47,6 +45,10 @@ export class DepositComponent implements OnInit {
           this.cookie.set('product_id', value.product_id);
           this.cookie.set('ip', value.ip);
           this.cookie.set('productIp', value.product_ip);
+          (<any>window).username = value.username;
+          (<any>window).product_id = value.product_id;
+          (<any>window).ip = value.ip;
+          (<any>window).productIp = value.product_ip;
         }
         return this.commonService.retrieveConfigurations();
       }),
