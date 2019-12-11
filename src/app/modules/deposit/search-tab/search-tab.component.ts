@@ -138,22 +138,25 @@ export class SearchTabComponent implements OnInit {
             distinctChannel.push(item.channel);
           }
         });
-        log(distinctChannel);
+        let firstVal = null;
+        let secondVal = null;
         distinctChannel.forEach( item => {
-          const currChannel = datas.filter( res => res.channel === item);
-          const firstVal = currChannel.reduce( (prev, curr, index) => {
-            if (Math.abs(curr.amount - amount) < Math.abs(prev.amount - amount)) {
-              currChannel.splice(index, 1);
-              return curr;
-            }
-            return prev;
-          });
-          const secondVal = currChannel.reduce( (prev, curr) => {
+          firstVal = null;
+          secondVal = null;
+          let currChannel = datas.filter( res => res.channel === item);
+          firstVal = currChannel.reduce( (prev, curr) => {
             return (Math.abs(curr.amount - amount) < Math.abs(prev.amount - amount) ? curr : prev);
           });
-          result.push(firstVal);
-          result.push(secondVal);
-          log(result)
+          currChannel = currChannel.filter(res => res.amount !== firstVal.amount);
+          secondVal = currChannel.reduce( (prev, curr) => {
+            return (Math.abs(curr.amount - amount) < Math.abs(prev.amount - amount) ? curr : prev);
+          });
+          if (firstVal && firstVal.amount > 0) {
+            result.push(firstVal);
+          }
+          if (secondVal && secondVal.amount > 0) {
+            result.push(secondVal);
+          }
         });
     }
     return result;

@@ -50,7 +50,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
         const datas = [];
         Object.keys(data).forEach((element, index) => {
           const channels = Object.getOwnPropertyDescriptor(data, element).value;
-          if (channels.length > 0 && includedChannel.includes(element)) {
+          if (channels.length > 0 && includedChannel.includes(element) && element !== 'VipChannel') {
             channels.forEach(val => {
               const formattedData = {
                 amount: parseFloat(val.amount),
