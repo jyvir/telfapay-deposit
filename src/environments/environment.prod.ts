@@ -1,5 +1,5 @@
 export const environment = {
-  api: 'http://localhost:9292',
-  cashier_api: 'http://localhost:9292',
+  api: 'https://cashier.marginpayment.com',
+  cashier_api: 'https://cashier.marginpayment.com',
   production: true
 };
