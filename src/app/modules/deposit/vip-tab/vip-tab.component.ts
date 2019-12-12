@@ -43,7 +43,7 @@ export class VipTabComponent implements OnInit {
         for (const data of dataList) {
           Object.keys(data).forEach((element, index) => {
             const channels = Object.getOwnPropertyDescriptor(data, element).value;
-            if (channels.length > 0) {
+            if (channels.length > 0 && element === 'VipChannel') {
               channels.forEach(val => {
                 if (!this.vipAmountList.includes(parseFloat(val.amount))) {
                   this.vipAmountList.push(parseFloat(val.amount));
@@ -67,7 +67,9 @@ export class VipTabComponent implements OnInit {
       sign: '',
       payment_reference: ref,
       ip: this.cookie.get('ip'),
-      product_ip: this.cookie.get('productIp')
+      product_ip: this.cookie.get('productIp'),
+      prepayment_url: this.cookie.get('prepayment_url') ? this.cookie.get('prepayment_url') : '',
+      device_id: this.cookie.get('device_id') ? this.cookie.get('device_id') : ''
     };
     const req = Utility.generateSign(payload);
     this.commonService.sendVipPayment('', req).pipe(

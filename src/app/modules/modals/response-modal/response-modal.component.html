@@ -10,22 +10,49 @@
 <div class="modal-body" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard'">
   <div>
     <div class="row">
-      <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankAccount">
-        <label>{{data.bankAccount}}</label>
-        <div class="float-right blue h5" (click)="copy(data.bankAccount)">复制</div>
+      <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankCode">
+        <label>银行: {{data.bankCode === 'BOCM' ? '交通银行' :
+                        data.bankCode === 'Others' ? '其他' :
+                          data.bankCode === 'ALIPAY' ? '支付宝' :
+                            data.bankCode === 'NBBC' ? '宁波银行' :
+                              data.bankCode === 'HZBC' ? '杭州银行' :
+                                data.bankCode === 'GDB' ? '广东银行' :
+                                  data.bankCode === 'CGB' ? '广发银行' :
+                                    data.bankCode === 'CEB' ? '光大银行' :
+                                      data.bankCode === 'CIB' ? '兴业银行' :
+                                        data.bankCode === 'PAB' ? '平安银行' :
+                                          data.bankCode === 'BOC' ? '中国银行' :
+                                            data.bankCode === 'PSBC' ? '邮政银行' :
+                                              data.bankCode === 'SPDB' ? '浦发银行' :
+                                                data.bankCode === 'BOCOM' ? '交通银行' :
+                                                  data.bankCode === 'HXB' ? '华夏银行' :
+                                                    data.bankCode === 'CITIC' ? '中信银行' :
+                                                      data.bankCode === 'CMBC' ? '民生银行' :
+                                                        data.bankCode === 'CMB' ? '招商银行' :
+                                                          data.bankCode === 'CCB' ? '建设银行' :
+                                                            data.bankCode === 'ABC' ? '农业银行' :
+                                                              data.bankCode === 'ICBC' ? '工商银行' : data.bankCode}}
+        </label>
       </div>
       <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.accountNumber">
-        <label>{{data.accountNumber}}</label>
+        <label>卡号: {{data.accountNumber}}</label>
         <div class="float-right blue h5" (click)="copy(data.accountNumber)">复制</div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 h5">
-        <label>{{data.bankAccountName}}</label>
+      <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankAccount">
+        <label>卡号: {{data.bankAccount}}</label>
+        <div class="float-right blue h5" (click)="copy(data.bankAccount)">复制</div>
+      </div>
+      <div class="col-md-12 h5"  *ngIf="data.bankAccountName">
+        <label>姓名: {{data.bankAccountName}}</label>
         <div class="float-right blue" (click)="copy(data.bankAccountName)">复制</div>
+      </div>
+      <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.note">
+        <label>附言：{{data.note}}</label>
+        <div class="float-right blue h5" (click)="copy(data.note)">复制</div>
       </div>
     </div>
   </div>
+
 </div>
 
 <div class="modal-body text-center" *ngIf="data.type === 'AliPayQR' || data.type === 'WeChatQR' || data.type === 'QR_CODE'

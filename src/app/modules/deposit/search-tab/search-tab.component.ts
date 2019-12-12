@@ -11,6 +11,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
+import {log} from 'util';
 
 @Component({
   selector: 'app-search-tab',
@@ -25,7 +26,7 @@ export class SearchTabComponent implements OnInit {
   constructor(
     public router: Router,
     private commonService: CommonService,
-    private cookie: CookieService,
+    public cookie: CookieService,
     private modalService: NgbModal
   ) {
     this.initData();
@@ -36,8 +37,8 @@ export class SearchTabComponent implements OnInit {
   }
 
   initData() {
-    const includedChannel = JSON.parse(localStorage.getItem('arrangement'));
-    this.vipEnabled = localStorage.getItem('vip_enabled') === 'true';
+    const includedChannel = JSON.parse(this.cookie.get('arrangement'));
+    this.vipEnabled = this.cookie.get('vip_enabled') === 'true';
     $('.next-icon').hide();
     this.channelList = [];
     if (!Utility.isEmpty(this.amountSearch)) {
@@ -128,11 +129,35 @@ export class SearchTabComponent implements OnInit {
   }
 
   filterResult(datas) {
-    let result = datas.filter(data => data.amount === parseFloat(this.amountSearch));
+    const amount = parseFloat(this.amountSearch);
+    const result = datas.filter(data => data.amount === parseFloat(this.amountSearch));
     if (Utility.isEmpty(result)) {
-      result =  datas.filter(data =>
-        data.amount >= (parseFloat(this.amountSearch) - 10) && data.amount <= (parseFloat(this.amountSearch) + 10)
-      );
+        const distinctChannel = [];
+        datas.forEach(item => {
+          if (!distinctChannel.includes(item.channel)) {
+            distinctChannel.push(item.channel);
+          }
+        });
+        let firstVal = null;
+        let secondVal = null;
+        distinctChannel.forEach( item => {
+          firstVal = null;
+          secondVal = null;
+          let currChannel = datas.filter( res => res.channel === item);
+          firstVal = currChannel.reduce( (prev, curr) => {
+            return (Math.abs(curr.amount - amount) < Math.abs(prev.amount - amount) ? curr : prev);
+          });
+          currChannel = currChannel.filter(res => res.amount !== firstVal.amount);
+          secondVal = currChannel.reduce( (prev, curr) => {
+            return (Math.abs(curr.amount - amount) < Math.abs(prev.amount - amount) ? curr : prev);
+          });
+          if (firstVal && firstVal.amount > 0) {
+            result.push(firstVal);
+          }
+          if (secondVal && secondVal.amount > 0) {
+            result.push(secondVal);
+          }
+        });
     }
     return result;
   }
@@ -147,7 +172,9 @@ export class SearchTabComponent implements OnInit {
       sign: '',
       payment_reference: ref,
       ip: this.cookie.get('ip'),
-      product_ip: this.cookie.get('productIp')
+      product_ip: this.cookie.get('productIp'),
+      prepayment_url: this.cookie.get('prepayment_url') ? this.cookie.get('prepayment_url') : '',
+      device_id: this.cookie.get('device_id') ? this.cookie.get('device_id') : ''
     };
     const req = Utility.generateSign(payload);
     if (item.channels.length > 1) {
@@ -209,7 +236,12 @@ export class SearchTabComponent implements OnInit {
   }
 
   customComparator(itemA, itemB) {
-    const sortOrder = JSON.parse(localStorage.getItem('arrangement')).reverse();
+    let value: any;
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    value = ca.find(val => val.includes('arrangement'));
+    value = value ? JSON.parse(value.replace('arrangement=', '')) : [];
+    const sortOrder = value.reverse();
     return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
   }
 
