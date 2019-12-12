@@ -47,6 +47,7 @@ export class DepositComponent implements OnInit {
           this.cookie.set('product_id', value.product_id);
           this.cookie.set('ip', value.ip);
           this.cookie.set('productIp', value.product_ip);
+          this.cookie.set('prepayment_url', value.prepayment_url);
         }
         return this.commonService.retrieveConfigurations();
       }),

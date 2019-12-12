@@ -143,7 +143,8 @@ export class RecommendTabComponent implements OnInit {
       sign: '',
       payment_reference: ref,
       ip: this.cookie.get('ip'),
-      product_ip: this.cookie.get('productIp')
+      product_ip: this.cookie.get('productIp'),
+      prepayment_url: this.cookie.get('prepayment_url')
     };
     const req = Utility.generateSign(payload);
     if (item.channels.length > 1) {

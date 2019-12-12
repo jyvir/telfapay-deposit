@@ -11,18 +11,18 @@
   <div>
     <div class="row">
       <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankAccount">
-        <label>{{data.bankAccount}}</label>
+        <label>Account Holder Name 账户名: {{data.bankAccount}}</label>
         <div class="float-right blue h5" (click)="copy(data.bankAccount)">复制</div>
       </div>
       <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.accountNumber">
-        <label>{{data.accountNumber}}</label>
+        <label>Card No 账号: {{data.accountNumber}}</label>
         <div class="float-right blue h5" (click)="copy(data.accountNumber)">复制</div>
       </div>
       <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankCode">
-        <label>{{data.bankCode}}</label>
+        <label>Bank 银行名称: {{data.bankCode}}</label>
       </div>
       <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.note">
-        <label>{{data.note}}</label>
+        <label>Note 备注：{{data.note}}</label>
         <div class="float-right blue h5" (click)="copy(data.note)">复制</div>
       </div>
     </div>
