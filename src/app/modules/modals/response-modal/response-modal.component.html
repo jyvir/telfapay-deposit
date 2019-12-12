@@ -21,18 +21,17 @@
         <label>姓名: {{data.bankAccount}}</label>
         <div class="float-right blue h5" (click)="copy(data.bankAccount)">复制</div>
       </div>
+      <div class="col-md-12 h5"  *ngIf="data.bankAccountName">
+        <label>姓名: {{data.bankAccountName}}</label>
+        <div class="float-right blue" (click)="copy(data.bankAccountName)">复制</div>
+      </div>
       <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.note">
         <label>附言：{{data.note}}</label>
         <div class="float-right blue h5" (click)="copy(data.note)">复制</div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12 h5">
-        <label>{{data.bankAccountName}}</label>
-        <div class="float-right blue" (click)="copy(data.bankAccountName)">复制</div>
-      </div>
-    </div>
   </div>
+
 </div>
 
 <div class="modal-body text-center" *ngIf="data.type === 'AliPayQR' || data.type === 'WeChatQR' || data.type === 'QR_CODE'
