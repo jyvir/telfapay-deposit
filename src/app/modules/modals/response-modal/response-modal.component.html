@@ -10,19 +10,19 @@
 <div class="modal-body" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard'">
   <div>
     <div class="row">
-      <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankAccount">
-        <label>Account Holder Name 账户名: {{data.bankAccount}}</label>
-        <div class="float-right blue h5" (click)="copy(data.bankAccount)">复制</div>
+      <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankCode">
+        <label>银行: {{data.bankCode}}</label>
       </div>
       <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.accountNumber">
-        <label>Card No 账号: {{data.accountNumber}}</label>
+        <label>卡号: {{data.accountNumber}}</label>
         <div class="float-right blue h5" (click)="copy(data.accountNumber)">复制</div>
       </div>
-      <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankCode">
-        <label>Bank 银行名称: {{data.bankCode}}</label>
+      <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankAccount">
+        <label>姓名: {{data.bankAccount}}</label>
+        <div class="float-right blue h5" (click)="copy(data.bankAccount)">复制</div>
       </div>
       <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.note">
-        <label>Note 备注：{{data.note}}</label>
+        <label>附言：{{data.note}}</label>
         <div class="float-right blue h5" (click)="copy(data.note)">复制</div>
       </div>
     </div>
