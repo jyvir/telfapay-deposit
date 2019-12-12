@@ -5,6 +5,7 @@ import {throwError} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
+import {Utility} from '../../shared/helpers/utility';
 
 @Component({
   selector: 'app-deposit',
@@ -41,14 +42,15 @@ export class DepositComponent implements OnInit {
         if (!value) {
           this.isExpired = true;
         } else {
-          this.cookie.set('username', value.username);
-          this.cookie.set('product_id', value.product_id);
-          this.cookie.set('ip', value.ip);
-          this.cookie.set('productIp', value.product_ip);
-          (<any>window).username = value.username;
-          (<any>window).product_id = value.product_id;
-          (<any>window).ip = value.ip;
-          (<any>window).productIp = value.product_ip;
+          let store = new Object();
+          if (!Utility.isEmpty(window.name)) {
+            store = JSON.parse(window.name);
+          }
+          store['username'] = value.username;
+          store['product_id'] = value.product_id;
+          store['ip'] = value.ip;
+          store['productIp'] = value.product_ip;
+          window.name = JSON.stringify(store);
         }
         return this.commonService.retrieveConfigurations();
       }),

@@ -38,11 +38,11 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.columns = Number(this.cookie.get('columns'));
   }
 
   fetchConfig(id) {
-    const includedChannel = JSON.parse((<any>window).arrangement);
+    const store = JSON.parse(window.name);
+    const includedChannel = JSON.parse(store.arrangement);
     $('.next-icon').hide();
     this.channelList = [];
     this.commonService.retrieveConfig(id).pipe(
@@ -113,16 +113,18 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   }
 
   send(item) {
+    const store = JSON.parse(window.name);
+
     const ref = moment().format('YYYYMMDDHHmmss');
     const payload = {
-      username: (<any>window).username,
-      product_id:  (<any>window).product_id,
+      username: store.username,
+      product_id:  store.product_id,
       amount: item.amount,
       channel: item.channel,
       sign: '',
       payment_reference: ref,
-      ip:  (<any>window).ip,
-      product_ip:  (<any>window).productIp
+      ip:  store.ip,
+      product_ip:  store.productIp
     };
     const req = Utility.generateSign(payload);
     if (item.channels.length > 1) {
@@ -155,7 +157,8 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   }
 
   customComparator(itemA, itemB) {
-    const sortOrder = JSON.parse((<any>window).arrangement).reverse();
+    const store = JSON.parse(window.name);
+    const sortOrder = JSON.parse(store.arrangement).reverse();
     return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
   }
 

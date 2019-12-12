@@ -58,16 +58,18 @@ export class VipTabComponent implements OnInit {
 
 
   send(item, type) {
+    const store = JSON.parse(window.name);
+
     const ref = moment().format('YYYYMMDDHHmmss');
     const payload = {
-      username: (<any>window).username,
-      product_id:  (<any>window).product_id,
+      username: store.username,
+      product_id:  store.product_id,
       amount: item,
       channel: type,
       sign: '',
       payment_reference: ref,
-      ip:  (<any>window).ip,
-      product_ip:  (<any>window).productIp
+      ip:  store.ip,
+      product_ip:  store.productIp
     };
     const req = Utility.generateSign(payload);
     this.commonService.sendVipPayment('', req).pipe(

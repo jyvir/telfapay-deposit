@@ -13,6 +13,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DOCUMENT} from '@angular/common';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
+import {log} from 'util';
 
 @Component({
   selector: 'app-recommend-tab',
@@ -40,14 +41,14 @@ export class RecommendTabComponent implements OnInit {
     let paymentList = [];
     this.commonService.retrieveConfigurations().pipe(
       mergeMap(resp => {
-        this.cookie.set('announcement', resp.announcement);
-        this.cookie.set('columns', resp.columns);
-        localStorage.setItem('arrangement', JSON.stringify(resp.arrangement));
-        localStorage.setItem('announcement', resp.announcement);
-        localStorage.setItem('vip_enabled', resp.vip_enabled);
-        (<any>window).announcement = resp.announcement;
-        (<any>window).arrangement = JSON.stringify(resp.arrangement);
-        (<any>window).vip_enabled = resp.vip_enabled;
+        let store = new Object();
+        if (!Utility.isEmpty(window.name)) {
+          store = JSON.parse(window.name);
+        }
+        store['announcement'] = resp.announcement;
+        store['arrangement'] = JSON.stringify(resp.arrangement);
+        store['vip_enabled'] = resp.vip_enabled;
+        window.name = JSON.stringify(store);
         this.vipEnabled = resp.vip_enabled;
         this.columns = resp.columns;
         includedChannel = JSON.stringify(resp.arrangement);
@@ -139,16 +140,18 @@ export class RecommendTabComponent implements OnInit {
   }
 
   send(item) {
+    const store = JSON.parse(window.name);
+
     const ref = moment().format('YYYYMMDDHHmmss');
     const payload = {
-      username: (<any>window).username,
-      product_id:  (<any>window).product_id,
+      username: store.username,
+      product_id:  store.product_id,
       amount: item.amount,
       channel: item.channel,
       sign: '',
       payment_reference: ref,
-      ip:  (<any>window).ip,
-      product_ip:  (<any>window).productIp
+      ip:  store.ip,
+      product_ip:  store.productIp
     };
     const req = Utility.generateSign(payload);
     if (item.channels.length > 1) {
@@ -176,16 +179,18 @@ export class RecommendTabComponent implements OnInit {
   }
 
   sendVip(item, type) {
+    const store = JSON.parse(window.name);
+
     const ref = moment().format('YYYYMMDDHHmmss');
     const payload = {
-      username: (<any>window).username,
-      product_id:  (<any>window).product_id,
+      username: store.username,
+      product_id:  store.product_id,
       amount: item,
       channel: type,
       sign: '',
       payment_reference: ref,
-      ip:  (<any>window).ip,
-      product_ip:  (<any>window).productIp
+      ip:  store.ip,
+      product_ip:  store.productIp
     };
     const req = Utility.generateSign(payload);
     this.commonService.sendVipPayment('', req).pipe(
@@ -210,7 +215,8 @@ export class RecommendTabComponent implements OnInit {
   }
 
   customComparator(itemA, itemB) {
-    const sortOrder = JSON.parse((<any>window).arrangement).reverse();
+    const store = JSON.parse(window.name);
+    const sortOrder = JSON.parse(store.arrangement).reverse();
     return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
   }
 

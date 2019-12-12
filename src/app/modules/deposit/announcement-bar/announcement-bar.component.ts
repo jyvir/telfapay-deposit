@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
 import {CookieService} from 'ngx-cookie-service';
+import {Utility} from '../../../shared/helpers/utility';
 
 @Component({
   selector: 'app-announcement-bar',
@@ -15,7 +16,8 @@ export class AnnouncementBarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.announcement = (<any>window).announcement ? (<any>window).announcement : localStorage.getItem('announcement');
+    const store = JSON.parse(window.name);
+    this.announcement = store.announcement;
   }
 
 }
