@@ -158,7 +158,7 @@ export class RecommendTabComponent implements OnInit {
     } else {
       this.commonService.sendPayment('', req).pipe(
         catchError((res: HttpErrorResponse) => {
-          let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
+          let errorMsg = res.error && res.error.messages && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
           errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
           Swal.fire({
             html: errorMsg,
@@ -187,7 +187,7 @@ export class RecommendTabComponent implements OnInit {
     const req = Utility.generateSign(payload);
     this.commonService.sendVipPayment('', req).pipe(
       catchError((res: HttpErrorResponse) => {
-        let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
+        let errorMsg = res.error && res.error.messages && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
         errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
         Swal.fire({
           html: errorMsg,

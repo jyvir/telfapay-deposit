@@ -141,7 +141,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
     } else {
       this.commonService.sendPayment('', req).pipe(
         catchError((res: HttpErrorResponse) => {
-          let errorMsg = res.error && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
+          let errorMsg = res.error && res.error.messages && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
           errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
           Swal.fire({
             html: errorMsg,
