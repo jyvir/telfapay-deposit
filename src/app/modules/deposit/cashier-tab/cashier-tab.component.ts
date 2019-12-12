@@ -11,6 +11,10 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {ResponseModalComponent} from '../../modals/response-modal/response-modal.component';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
+import {parseCookieValue} from '@angular/common/src/cookie';
+import {ɵparseCookieValue} from '@angular/common';
+import {log} from 'util';
+import * as cookies from 'cookie';
 
 @Component({
   selector: 'app-cashier-tab',
@@ -42,7 +46,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   }
 
   fetchConfig(id) {
-    const includedChannel = JSON.parse(localStorage.getItem('arrangement'));
+    const includedChannel = JSON.parse(this.cookie.get('arrangement'));
     $('.next-icon').hide();
     this.channelList = [];
     this.commonService.retrieveConfig(id).pipe(
@@ -155,7 +159,12 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   }
 
   customComparator(itemA, itemB) {
-    const sortOrder = JSON.parse(localStorage.getItem('arrangement')).reverse();
+    let value: any;
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    value = ca.find(val => val.includes('arrangement'));
+    value = value ? JSON.parse(value.replace('arrangement=', '')) : [];
+    const sortOrder = value.reverse();
     return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
   }
 

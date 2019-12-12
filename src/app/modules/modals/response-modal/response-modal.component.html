@@ -18,6 +18,13 @@
         <label>{{data.accountNumber}}</label>
         <div class="float-right blue h5" (click)="copy(data.accountNumber)">复制</div>
       </div>
+      <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankCode">
+        <label>{{data.bankCode}}</label>
+      </div>
+      <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.note">
+        <label>{{data.note}}</label>
+        <div class="float-right blue h5" (click)="copy(data.note)">复制</div>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-12 h5">

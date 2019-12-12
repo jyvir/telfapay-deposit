@@ -28,7 +28,7 @@ export class RecommendTabComponent implements OnInit {
   constructor(
     public router: Router,
     private commonService: CommonService,
-    private cookie: CookieService,
+    public cookie: CookieService,
     private modalService: NgbModal
   ) {
   }
@@ -41,10 +41,8 @@ export class RecommendTabComponent implements OnInit {
     this.commonService.retrieveConfigurations().pipe(
       mergeMap(resp => {
         this.cookie.set('announcement', resp.announcement);
-        this.cookie.set('columns', resp.columns);
-        localStorage.setItem('arrangement', JSON.stringify(resp.arrangement));
-        localStorage.setItem('announcement', resp.announcement);
-        localStorage.setItem('vip_enabled', resp.vip_enabled);
+        this.cookie.set('arrangement', JSON.stringify(resp.arrangement));
+        this.cookie.set('vip_enabled', resp.vip_enabled);
         this.vipEnabled = resp.vip_enabled;
         this.columns = resp.columns;
         includedChannel = JSON.stringify(resp.arrangement);
@@ -207,7 +205,12 @@ export class RecommendTabComponent implements OnInit {
   }
 
   customComparator(itemA, itemB) {
-    const sortOrder = JSON.parse(localStorage.getItem('arrangement')).reverse();
+    let value: any;
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    value = ca.find(val => val.includes('arrangement'));
+    value = value ? JSON.parse(value.replace('arrangement=', '')) : [];
+    const sortOrder = value.reverse();
     return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
   }
 

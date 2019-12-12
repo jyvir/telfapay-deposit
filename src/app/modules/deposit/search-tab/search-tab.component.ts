@@ -26,7 +26,7 @@ export class SearchTabComponent implements OnInit {
   constructor(
     public router: Router,
     private commonService: CommonService,
-    private cookie: CookieService,
+    public cookie: CookieService,
     private modalService: NgbModal
   ) {
     this.initData();
@@ -37,8 +37,8 @@ export class SearchTabComponent implements OnInit {
   }
 
   initData() {
-    const includedChannel = JSON.parse(localStorage.getItem('arrangement'));
-    this.vipEnabled = localStorage.getItem('vip_enabled') === 'true';
+    const includedChannel = JSON.parse(this.cookie.get('arrangement'));
+    this.vipEnabled = this.cookie.get('vip_enabled') === 'true';
     $('.next-icon').hide();
     this.channelList = [];
     if (!Utility.isEmpty(this.amountSearch)) {
@@ -234,7 +234,12 @@ export class SearchTabComponent implements OnInit {
   }
 
   customComparator(itemA, itemB) {
-    const sortOrder = JSON.parse(localStorage.getItem('arrangement')).reverse();
+    let value: any;
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    value = ca.find(val => val.includes('arrangement'));
+    value = value ? JSON.parse(value.replace('arrangement=', '')) : [];
+    const sortOrder = value.reverse();
     return sortOrder.indexOf(itemB) - sortOrder.indexOf(itemA);
   }
 
