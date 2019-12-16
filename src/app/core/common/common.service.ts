@@ -99,4 +99,9 @@ export class CommonService {
     const token = this.cookie.get('token');
     httpOptionsPay.headers = httpOptionsPay.headers.set('CashierToken', `Cashier:${token}`);
   }
+
+  public retrieveRecommended(): Observable<any> {
+    this.addTokenToHeaders();
+    return this.http.get(`${environment.cashier_api}/cashier/config/recommended`, httpOptions);
+  }
 }
