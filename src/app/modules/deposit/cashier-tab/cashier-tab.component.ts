@@ -130,7 +130,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
       login_name: this.cookie.get('username'),
       product_id: this.cookie.get('product_id'),
       amount: item.amount,
-      channel: item.channel,
+      channel: item.channels,
       sign: '',
       payment_reference: ref,
       ip: this.cookie.get('ip'),
@@ -146,6 +146,9 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
       };
       this.openModal(data);
     } else {
+      if (item.channels) {
+        payload.channel = item.channels[0];
+      }
       this.commonService.sendPayment('', req).pipe(
         catchError((res: HttpErrorResponse) => {
           let errorMsg = res.error && res.error.messages && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
