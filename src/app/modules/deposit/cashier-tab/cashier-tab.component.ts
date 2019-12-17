@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
 import {catchError, map} from 'rxjs/operators';
 import {CookieService} from 'ngx-cookie-service';
@@ -33,12 +33,14 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   bankGrp = [];
   btcGrp = [];
   columns: number;
+  loading: boolean;
 
   constructor(
     public router: Router,
     private commonService: CommonService,
     private cookie: CookieService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -46,6 +48,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   }
 
   fetchConfig(id) {
+    this.loading = true;
     const includedChannel = JSON.parse(this.cookie.get('arrangement'));
     $('.next-icon').hide();
     this.channelList = [];
@@ -73,7 +76,10 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
       })
     ).subscribe(
       res => {
+        this.loading = false;
         this.channelList = res;
+      },error => {
+        this.loading = false;
       }
     );
   }
@@ -114,6 +120,8 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.loading = true;
+    this.cdr.detectChanges();
   }
 
   send(item) {

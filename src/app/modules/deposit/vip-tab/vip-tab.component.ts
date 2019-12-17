@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
 import {catchError, flatMap, map, mergeMap} from 'rxjs/operators';
 import {Utility} from '../../../shared/helpers/utility';
@@ -16,16 +16,19 @@ import * as $ from 'jquery';
   templateUrl: './vip-tab.component.html',
   styleUrls: ['./vip-tab.component.css']
 })
-export class VipTabComponent implements OnInit {
+export class VipTabComponent implements OnInit, AfterViewInit {
   vipAmountList = [];
+  loading: boolean;
 
   constructor(
     private commonService: CommonService,
     private cookie: CookieService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
+    this.loading = true;
     $('.next-icon').hide();
     this.vipAmountList = [];
     this.commonService.retrieveConfigList().pipe(
@@ -52,6 +55,9 @@ export class VipTabComponent implements OnInit {
             }
           });
         };
+        this.loading = false;
+      }, error => {
+        this.loading = false;
       }
     );
   }
@@ -91,6 +97,10 @@ export class VipTabComponent implements OnInit {
     response.type = type;
     const modalRef = this.modalService.open(ResponseModalComponent);
     modalRef.componentInstance.data = response;
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 
 

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
 import {catchError, flatMap, groupBy, map, mergeMap} from 'rxjs/operators';
 import {PageListModel} from '../../../shared/models/page-list.model';
@@ -19,21 +19,24 @@ import * as $ from 'jquery';
   templateUrl: './recommend-tab.component.html',
   styleUrls: ['./recommend-tab.component.css']
 })
-export class RecommendTabComponent implements OnInit {
+export class RecommendTabComponent implements OnInit, AfterViewInit {
   @Output() onHide = new EventEmitter<boolean>();
   channelList = [];
   columns: number;
   arrangement: any;
   vipEnabled: boolean;
+  loading: boolean;
   constructor(
     public router: Router,
     private commonService: CommonService,
     public cookie: CookieService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
   ngOnInit() {
+    this.loading = true;
     let includedChannel: any;
     $('.next-icon').hide();
     this.channelList = [];
@@ -69,58 +72,40 @@ export class RecommendTabComponent implements OnInit {
               vipCount++;
             }
           });
-          const calls = [];
-          Object.keys(resp[0]).forEach((element, index) => {
-            calls.push(this.commonService.retrieveConfig(element));
-            // calls.push(this.commonService.retrieveVipConfig(element));
-          });
-          return forkJoin(calls).pipe(
+          return this.commonService.retrieveRecommended().pipe(
             map(
-              dataList => {
+              data => {
                 const datas = [];
-                for (const data of dataList) {
-                  Object.keys(data).forEach((element, index) => {
-                    const channels = Object.getOwnPropertyDescriptor(data, element).value;
-                    if (channels.length > 0 && includedChannel.includes(element)) {
-                      channels.forEach(val => {
-                        const formattedData = {
-                          amount: val.amount,
-                          channel: element,
-                          type: '',
-                          channels: val.channel
-                        };
-                        if (paymentList.length > 0) {
-                          const findItem = paymentList.find(item => {
-                            if (item.channel === element && parseFloat(val.amount) === item.amount) {
-                              if (item.channel === 'VipChannel') {
-                                if (this.vipEnabled) {
-                                  formattedData.type  = item.agentType;
-                                  formattedData.channel = `VIP - ${item.agentType}`;
-                                } else {
-                                  return null;
-                                }
-                              }
-                              return item;
-                            }
-                          });
-                          if (!Utility.isEmpty(findItem)) {
-                            const find = datas.filter(x => x.channel === formattedData.channel
-                              &&  parseFloat(x.amount) ===  parseFloat(formattedData.amount));
-                            if (find.length === 0) {
-                              datas.push(formattedData);
-                            }
+                Object.keys(data).forEach((element, index) => {
+                  const channels = Object.getOwnPropertyDescriptor(data, element).value;
+                  if (channels.length > 0 && includedChannel.includes(element)) {
+                    channels.forEach(val => {
+                      const formattedData = {
+                        amount: val,
+                        channel: element,
+                        type: ''
+                      };
+                      if (paymentList.length > 0 && element === 'VipChannel' && this.vipEnabled) {
+                        const findItem = paymentList.find(item => {
+                          if (item.channel === element && parseFloat(val) === item.amount) {
+                            formattedData.type  = item.agentType;
+                            formattedData.channel = `VIP - ${item.agentType}`;
+                            return item;
                           }
-                        } else if (parseFloat(val.amount) < 500) {
+                        });
+                        if (!Utility.isEmpty(findItem)) {
                           const find = datas.filter(x => x.channel === formattedData.channel
                             &&  parseFloat(x.amount) ===  parseFloat(formattedData.amount));
                           if (find.length === 0) {
                             datas.push(formattedData);
                           }
                         }
-                      });
-                    }
-                  });
-                }
+                      } else {
+                        datas.push(formattedData);
+                      }
+                    });
+                  }
+                });
                 return datas;
               }
             )
@@ -129,6 +114,9 @@ export class RecommendTabComponent implements OnInit {
       )
     ).subscribe(resp => {
         this.channelList = resp;
+        this.loading = false;
+      }, error => {
+        this.loading = false;
       }
     );
   }
@@ -218,6 +206,10 @@ export class RecommendTabComponent implements OnInit {
 
   addNext() {
     $('.next-icon').show();
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 
 }
