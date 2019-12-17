@@ -5,7 +5,7 @@ import {PageListModel} from '../../../shared/models/page-list.model';
 import {Utility} from '../../../shared/helpers/utility';
 import {HttpErrorResponse} from '@angular/common/http';
 import Swal from "sweetalert2";
-import {forkJoin, Observable, throwError} from 'rxjs';
+import {empty, EMPTY, forkJoin, Observable, throwError} from 'rxjs';
 import * as moment from 'moment';
 import {ResponseModalComponent} from '../../modals/response-modal/response-modal.component';
 import {CookieService} from 'ngx-cookie-service';
@@ -13,6 +13,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DOCUMENT} from '@angular/common';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
+import {EMPTY_ARRAY} from '@angular/core/src/view';
 
 @Component({
   selector: 'app-recommend-tab',
@@ -49,7 +50,7 @@ export class RecommendTabComponent implements OnInit, AfterViewInit {
         this.vipEnabled = resp.vip_enabled;
         this.columns = resp.columns;
         includedChannel = JSON.stringify(resp.arrangement);
-        return this.commonService.retrievePaymentList({status: 'OK'}, 'updateTime,desc&page=0&size=5', true);
+        return this.commonService.retrievePaymentList({status: 'OK', channel: 'VipChannel'}, 'updateTime,desc&page=0&size=5', true);
       }),
       mergeMap((resp: any) => {
         const calls = [];
@@ -81,13 +82,14 @@ export class RecommendTabComponent implements OnInit, AfterViewInit {
                   if (channels.length > 0 && includedChannel.includes(element)) {
                     channels.forEach(val => {
                       const formattedData = {
-                        amount: val,
+                        amount: val.amount,
                         channel: element,
-                        type: ''
+                        type: '',
+                        channels: val.channel
                       };
                       if (paymentList.length > 0 && element === 'VipChannel' && this.vipEnabled) {
                         const findItem = paymentList.find(item => {
-                          if (item.channel === element && parseFloat(val) === item.amount) {
+                          if (item.channel === element && parseFloat(val.amount) === item.amount) {
                             formattedData.type  = item.agentType;
                             formattedData.channel = `VIP - ${item.agentType}`;
                             return item;
@@ -100,7 +102,7 @@ export class RecommendTabComponent implements OnInit, AfterViewInit {
                             datas.push(formattedData);
                           }
                         }
-                      } else {
+                      } else if (element !== 'VipChannel') {
                         datas.push(formattedData);
                       }
                     });
