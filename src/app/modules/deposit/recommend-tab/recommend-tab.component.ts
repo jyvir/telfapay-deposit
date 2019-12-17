@@ -136,7 +136,6 @@ export class RecommendTabComponent implements OnInit, AfterViewInit {
       product_ip: this.cookie.get('productIp'),
       device_id: this.cookie.get('device_id') ? this.cookie.get('device_id') : ''
     };
-    const req = Utility.generateSign(payload);
     if (item.channels && item.channels.length > 1) {
       const data = {
         hasMoreChannel: true,
@@ -148,6 +147,7 @@ export class RecommendTabComponent implements OnInit, AfterViewInit {
       if (item.channels) {
         payload.channel = item.channels[0];
       }
+      const req = Utility.generateSign(payload);
       this.commonService.sendPayment('', req).pipe(
         catchError((res: HttpErrorResponse) => {
           let errorMsg = res.error && res.error.messages && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
