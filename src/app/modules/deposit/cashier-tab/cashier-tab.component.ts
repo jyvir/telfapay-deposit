@@ -139,7 +139,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
       device_id: this.cookie.get('device_id') ? this.cookie.get('device_id') : ''
     };
     const req = Utility.generateSign(payload);
-    if (item.channels.length > 1) {
+    if (item.channels && item.channels.length > 1) {
       const data = {
         hasMoreChannel: true,
         payload,
