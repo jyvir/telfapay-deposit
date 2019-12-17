@@ -74,7 +74,6 @@ export class VipTabComponent implements OnInit, AfterViewInit {
       payment_reference: ref,
       ip: this.cookie.get('ip'),
       product_ip: this.cookie.get('productIp'),
-      prepayment_url: this.cookie.get('prepayment_url') ? this.cookie.get('prepayment_url') : '',
       device_id: this.cookie.get('device_id') ? this.cookie.get('device_id') : ''
     };
     const req = Utility.generateSign(payload);
