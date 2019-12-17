@@ -1,17 +1,18 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CommonService} from '../../core/common/common.service';
 import {catchError, flatMap, map, mergeMap} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-deposit',
   templateUrl: './deposit.component.html',
   styleUrls: ['./deposit.component.css']
 })
-export class DepositComponent implements OnInit {
+export class DepositComponent implements OnInit, AfterViewInit {
 
   private configChild: ElementRef;
 
@@ -33,7 +34,8 @@ export class DepositComponent implements OnInit {
   constructor(
     public router: Router,
     private commonService: CommonService,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -103,6 +105,10 @@ export class DepositComponent implements OnInit {
     $('.amount-cont').animate({
       scrollLeft: '+=200px'
     }, 'slow');
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 
 }

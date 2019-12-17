@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {forkJoin, throwError} from 'rxjs';
@@ -18,16 +18,18 @@ import {log} from 'util';
   templateUrl: './search-tab.component.html',
   styleUrls: ['./search-tab.component.css']
 })
-export class SearchTabComponent implements OnInit {
+export class SearchTabComponent implements OnInit, AfterViewInit {
   amountSearch = '';
   vipEnabled: boolean;
   channelList = [];
   columns: number;
+  loading: boolean;
   constructor(
     public router: Router,
     private commonService: CommonService,
     public cookie: CookieService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private cdr: ChangeDetectorRef
   ) {
     this.initData();
   }
@@ -37,18 +39,19 @@ export class SearchTabComponent implements OnInit {
   }
 
   initData() {
+    const configIds = [];
     const includedChannel = JSON.parse(this.cookie.get('arrangement'));
     this.vipEnabled = this.cookie.get('vip_enabled') === 'true';
     $('.next-icon').hide();
     this.channelList = [];
     if (!Utility.isEmpty(this.amountSearch)) {
+      this.loading = true;
       this.commonService.retrieveConfigList().pipe(
         mergeMap(
           (resp: any) => {
             const calls = [];
             Object.keys(resp).forEach((element, index) => {
               calls.push(this.commonService.retrieveConfig(element));
-              calls.push(this.commonService.retrieveVipConfig(element));
             });
             return forkJoin(calls).pipe(
               map(
@@ -124,6 +127,9 @@ export class SearchTabComponent implements OnInit {
         )
       ).subscribe(resp => {
         this.channelList = resp;
+        this.loading = false;
+      },error => {
+        this.loading = false;
       });
     }
   }
@@ -247,6 +253,10 @@ export class SearchTabComponent implements OnInit {
 
   addNext() {
     $('.next-icon').show();
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 
 

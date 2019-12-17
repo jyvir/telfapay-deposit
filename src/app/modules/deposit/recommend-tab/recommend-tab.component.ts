@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {CommonService} from '../../../core/common/common.service';
 import {catchError, flatMap, groupBy, map, mergeMap} from 'rxjs/operators';
 import {PageListModel} from '../../../shared/models/page-list.model';
@@ -19,21 +19,24 @@ import * as $ from 'jquery';
   templateUrl: './recommend-tab.component.html',
   styleUrls: ['./recommend-tab.component.css']
 })
-export class RecommendTabComponent implements OnInit {
+export class RecommendTabComponent implements OnInit, AfterViewInit {
   @Output() onHide = new EventEmitter<boolean>();
   channelList = [];
   columns: number;
   arrangement: any;
   vipEnabled: boolean;
+  loading: boolean;
   constructor(
     public router: Router,
     private commonService: CommonService,
     public cookie: CookieService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
   ngOnInit() {
+    this.loading = true;
     let includedChannel: any;
     $('.next-icon').hide();
     this.channelList = [];
@@ -111,6 +114,9 @@ export class RecommendTabComponent implements OnInit {
       )
     ).subscribe(resp => {
         this.channelList = resp;
+        this.loading = false;
+      }, error => {
+        this.loading = false;
       }
     );
   }
@@ -200,6 +206,10 @@ export class RecommendTabComponent implements OnInit {
 
   addNext() {
     $('.next-icon').show();
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 
 }

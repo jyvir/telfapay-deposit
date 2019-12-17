@@ -5,3 +5,9 @@
 .small-text {
   font-size: 12px;
 }
+
+.loader {
+  height: 100px;
+  width: 100px;
+  margin-top: 10%
+}
