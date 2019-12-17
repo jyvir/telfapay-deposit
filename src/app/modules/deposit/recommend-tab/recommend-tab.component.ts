@@ -145,6 +145,9 @@ export class RecommendTabComponent implements OnInit, AfterViewInit {
       };
       this.openModal(data);
     } else {
+      if (item.channels) {
+        payload.channel = item.channels[0];
+      }
       this.commonService.sendPayment('', req).pipe(
         catchError((res: HttpErrorResponse) => {
           let errorMsg = res.error && res.error.messages && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
