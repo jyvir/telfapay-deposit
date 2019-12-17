@@ -55,7 +55,6 @@
       <ngx-datatable-column name="Status" [width]="1">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <p class="word-break processing font-18" *ngIf="value === 'PROCESSING'">处理中</p>
-          <p class="word-break failed font-18" *ngIf="value === 'FAILED'">失败</p>
           <span *ngIf="value !== 'FAILED' && value !== 'PROCESSING'">
           <p class="font-18" *ngIf="value === 'PENDING'">等待</p>
           <p class="font-18" *ngIf="value === 'OK'">完成</p>
@@ -66,7 +65,7 @@
       </ngx-datatable-column>
       <ngx-datatable-column name="" prop="status" [width]="1">
         <ng-template let-value="value" ngx-datatable-cell-template>
-          <button type="button" class="btn refresh" (click)="search(null); showRefresh()" *ngIf="value !== 'OK' && value !=='FAILED'"></button>
+          <button type="button" class="btn refresh" (click)="search(null); showRefresh()" *ngIf="value !== 'OK' && value !=='ERROR'"></button>
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>
