@@ -188,6 +188,7 @@ export class SearchTabComponent implements OnInit, AfterViewInit {
         payload,
         channels: item.channels
       };
+      this.loading = false;
       this.openModal(data);
     } else {
       if (item.channels) {
