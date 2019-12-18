@@ -29,6 +29,7 @@ export class DepositComponent implements OnInit, AfterViewInit {
   @ViewChild('contentDiv') contentDiv: ElementRef;
   config: any;
   vipEnabled: boolean;
+  isDataLoaded: boolean;
 
 
   constructor(
@@ -55,6 +56,9 @@ export class DepositComponent implements OnInit, AfterViewInit {
       }),
       mergeMap(
         resp => {
+          this.cookie.set('announcement', resp.announcement);
+          this.cookie.set('arrangement', JSON.stringify(resp.arrangement));
+          this.cookie.set('vip_enabled', resp.vip_enabled);
           this.vipEnabled = resp.vip_enabled;
           return this.commonService.retrieveConfigList();
         }
@@ -70,15 +74,23 @@ export class DepositComponent implements OnInit, AfterViewInit {
           const data = {
             name: value,
             id: element
-          }
+          };
           this.configList.push(data);
         });
+        this.isDataLoaded = true;
+        if (this.configList) {
+          this.tab = 'cashier';
+          this.selectConfig(this.configList[0].id);
+        } else {
+          this.tab = 'recommend';
+        }
       },
       error1 => {
         this.isExpired = true;
+        this.isDataLoaded = true;
+        this.tab = 'recommend';
       }
-    )
-    this.tab = 'recommend';
+    );
   }
 
   changeHide(val: boolean) {

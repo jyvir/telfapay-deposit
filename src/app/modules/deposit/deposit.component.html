@@ -35,11 +35,11 @@
     <div [ngClass]=" router.url === '/mobile' ? 'col-md-10' : 'col-md-10 col-sm-10 col-9'" id="main-card" #contentDiv>
       <app-announcement-bar></app-announcement-bar>
       <div class="card-body col-12" [ngClass]="tab === 'record' ? 'pl-0': 'pl-3'">
-        <app-recommend-tab *ngIf="tab === 'recommend'"></app-recommend-tab>
-        <app-cashier-tab *ngIf="tab === 'cashier'" #config></app-cashier-tab>
-        <app-deposit-record-tab *ngIf="tab === 'record'"></app-deposit-record-tab>
-        <app-vip-tab *ngIf="tab === 'vip'" ></app-vip-tab>
-        <app-search-tab *ngIf="tab === 'search'"></app-search-tab>
+        <app-recommend-tab *ngIf="tab === 'recommend' && isDataLoaded"></app-recommend-tab>
+        <app-cashier-tab *ngIf="tab === 'cashier' && isDataLoaded" #config></app-cashier-tab>
+        <app-deposit-record-tab *ngIf="tab === 'record' && isDataLoaded"></app-deposit-record-tab>
+        <app-vip-tab *ngIf="tab === 'vip' && isDataLoaded" ></app-vip-tab>
+        <app-search-tab *ngIf="tab === 'search' && isDataLoaded"></app-search-tab>
       </div>
     </div>
     <div class="btn next-icon" *ngIf="tab === 'recommend' || tab === 'cashier' || tab === 'vip' || tab === 'search'" (click)="scrollRight()">
