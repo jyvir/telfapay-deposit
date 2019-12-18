@@ -423,11 +423,11 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
   }
 
   .datatable-body-cell {
-    font-size: 10px !important;
+    font-size: 11px !important;
   }
 
   .btn {
-    font-size: 10px !important;
+    font-size: 11px !important;
   }
 
   .refresh {
