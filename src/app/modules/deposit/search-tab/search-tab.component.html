@@ -13,7 +13,7 @@
           item.key === 'UnionPay'? 'unionpay':
           item.key === 'UnionPayH5'? 'unionpay-scan':
           item.key === 'AliPay' || item.key === 'VIP - AliPayQR' || item.key === 'VIP - AliPayAccount'? 'alipay' :
-          item.key === 'BTC'? 'btc' : item.key === 'OFFLINE_BANK'? 'offline' : 'none-ico' }}"></i>
+          item.key === 'BTC'? 'btc' : item.key === 'OFFLINE_BANK' || item.key === 'BANK'? 'offline' : 'none-ico' }}"></i>
         <h6>{{ item.key === 'WeChat' ? '微信' :
           item.key === 'UnionPay'? '云闪付':
             item.key === 'UnionPayH5'? '银联快捷':
