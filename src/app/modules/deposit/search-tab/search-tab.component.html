@@ -5,7 +5,7 @@
 </div>
 
 <div class="text-center loader" *ngIf="loading"></div>
-<div #scrollContent class="row flex-row flex-nowrap amount-cont">
+<div #scrollContent class="row flex-row flex-nowrap amount-cont"  *ngIf="!loading">
   <ng-container *ngFor="let item of channelList | groupBy:'channel' | orderBy: 'key' : false : false: customComparator; let i=index">
     <div class="channel-bg pt-3 mr-3 pr-0"  [ngClass]=" router.url === '/mobile' ? 'col-md-3' : 'col-md-3 col-sm-3 col-3'">
       <div class="channel-label text-nowrap text-center mb-1" >

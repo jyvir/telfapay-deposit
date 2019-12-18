@@ -125,6 +125,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
   }
 
   send(item) {
+    this.loading = true;
     const ref = moment().format('YYYYMMDDHHmmss');
     const payload = {
       login_name: this.cookie.get('username'),
@@ -151,6 +152,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
       const req = Utility.generateSign(payload);
       this.commonService.sendPayment('', req).pipe(
         catchError((res: HttpErrorResponse) => {
+          this.loading = false;
           let errorMsg = res.error && res.error.messages && res.error.messages[0] ? res.error.messages[0] : 'Something went wrong';
           errorMsg = Utility.manualTranslateErrorMsg(errorMsg);
           Swal.fire({
@@ -160,6 +162,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
           return throwError(JSON.stringify(res));
         })
       ).subscribe(resp => {
+        this.loading = false;
         this.openModal(resp);
       });
     }
