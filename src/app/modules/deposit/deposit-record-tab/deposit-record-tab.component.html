@@ -43,7 +43,7 @@
       </ngx-datatable-column>
       <ngx-datatable-column name="Provider Reference" [width]="110">
         <ng-template let-value="value" ngx-datatable-cell-template>
-          <p class="truncate">{{value}}</p>
+          {{value}}
           <button type="button" class="btn btn-xs gold" (click)="copy(value)">复制</button>
         </ng-template>
       </ngx-datatable-column>
@@ -54,12 +54,12 @@
       </ngx-datatable-column>
       <ngx-datatable-column name="Status" [width]="1">
         <ng-template let-value="value" ngx-datatable-cell-template>
-          <p class="word-break processing font-18" *ngIf="value === 'PROCESSING'">处理中</p>
+          <p class="word-break processing" *ngIf="value === 'PROCESSING'">处理中</p>
           <span *ngIf="value !== 'FAILED' && value !== 'PROCESSING'">
-          <p class="font-18" *ngIf="value === 'PENDING'">等待</p>
-          <p class="font-18" *ngIf="value === 'OK'">完成</p>
-          <p class="font-18" *ngIf="value === 'AUDIT'">等审核</p>
-          <p class="font-18" *ngIf="value === 'ERROR'">失败</p>
+          <p *ngIf="value === 'PENDING'">等待</p>
+          <p *ngIf="value === 'OK'">完成</p>
+          <p *ngIf="value === 'AUDIT'">等审核</p>
+          <p *ngIf="value === 'ERROR'">失败</p>
         </span>
         </ng-template>
       </ngx-datatable-column>

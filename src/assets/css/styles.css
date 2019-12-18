@@ -421,6 +421,18 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
   .next-icon i{
     display: block !important;
   }
+
+  .datatable-body-cell {
+    font-size: 10px !important;
+  }
+
+  .btn {
+    font-size: 10px !important;
+  }
+
+  .refresh {
+    background-size: 25px 25px;
+  }
 }
 
 
