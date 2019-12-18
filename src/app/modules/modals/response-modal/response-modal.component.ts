@@ -73,11 +73,15 @@ export class ResponseModalComponent implements OnInit {
       const newTab = window.open();
       newTab.document.body.innerHTML = `<img src="data:image/png;base64,${this.data.base64}" >`;
     } else if (this.data.type === 'HTML' || this.data.type ===  'FORM_DOC' || this.data.type ===  'UNSECURED') {
-      const newTab = window.open();
-      newTab.document.write(this.data.content);
+      setTimeout(() => {
+        const newTab = window.open();
+        newTab.document.write(this.data.content);
+      }, 1000);
     } else {
-      const newTab = window.open();
-      newTab.open(this.data.content, '_blank');
+      setTimeout(() => {
+        const newTab = window.open();
+        newTab.open(this.data.content, '_blank');
+      }, 1000);
     }
   }
 
