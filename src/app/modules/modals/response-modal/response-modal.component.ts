@@ -59,7 +59,8 @@ export class ResponseModalComponent implements OnInit {
       }, 1000);
     } else if (this.data.type === 'REDIRECT') {
       const newTab = window.open();
-      newTab.open(this.data.content, '_blank');
+      const url = this.data.content.replace('http', 'chrome');
+      newTab.open(url, '_blank');
       this.activeModal.close();
     }
   }
