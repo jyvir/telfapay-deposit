@@ -10,7 +10,8 @@
         <ng-container  *ngFor="let item of configList">
           <li  class="list-group-item h6 noselect" [ngClass]="{'active': tab === 'cashier' && item.id === selectedId}"
                (click)="selectConfig(item.id);tab = 'cashier'">
-            {{item.name}}</li>
+            <div class="text-m">{{item.name}}</div>
+          </li>
         </ng-container >
         <li class="list-group-item noselect" [ngClass]="{'active': tab === 'search'}" (click)="tab = 'search'">自选</li>
         <li class="list-group-item noselect" *ngIf="vipEnabled" [ngClass]="{'active': tab === 'vip'}" (click)="tab = 'vip'">VIP</li>
@@ -24,7 +25,8 @@
         <ng-container  *ngFor="let item of configList">
           <li  class="list-group-item bg-light h6 noselect" [ngClass]="{'active': tab === 'cashier' && item.id === selectedId}"
                (click)="selectConfig(item.id);tab = 'cashier'">
-            {{item.name}}</li>
+            <span>{{item.name}}</span>
+          </li>
         </ng-container >
         <li class="list-group-item bg-light h6 noselect" [ngClass]="{'active': tab === 'search'}" (click)="tab = 'search'">自选</li>
         <li class="list-group-item bg-light h6 noselect" *ngIf="vipEnabled" [ngClass]="{'active': tab === 'vip'}" (click)="tab = 'vip'">VIP</li>
@@ -34,7 +36,7 @@
 
     <div [ngClass]=" router.url === '/mobile' ? 'col-md-10' : 'col-md-10 col-sm-10 col-9'" id="main-card" #contentDiv>
       <app-announcement-bar></app-announcement-bar>
-      <div class="card-body col-12" [ngClass]="tab === 'record' ? 'pl-0': 'pl-3'">
+      <div class="card-body col-12 pb-0" [ngClass]="tab === 'record' ? 'pl-0': 'pl-3'">
         <app-recommend-tab *ngIf="tab === 'recommend' && isDataLoaded"></app-recommend-tab>
         <app-cashier-tab *ngIf="tab === 'cashier' && isDataLoaded" #config></app-cashier-tab>
         <app-deposit-record-tab *ngIf="tab === 'record' && isDataLoaded"></app-deposit-record-tab>
