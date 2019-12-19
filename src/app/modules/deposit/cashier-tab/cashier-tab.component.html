@@ -17,7 +17,7 @@
                   item.key === 'WeChatH5'? '微信' :
                     item.key === 'AliPayH5'? '支付宝跳转' :
                       item.key === 'BTC'? '比特币' :
-                        item.key === 'OFFLINE_BANK'? '银行卡' : item.key }}</h6>
+                        item.key === 'OFFLINE_BANK' || item.key === 'BANK' ? '银行卡' : item.key }}</h6>
       </div>
       <div class="channel-scroll pr-3">
         {{ i === 4 ?  addNext() : ''}}
