@@ -6,7 +6,6 @@
     </div>
     <div class="grad " [ngClass]=" router.url === '/mobile' ? 'col-md-2 d-none d-sm-none d-md-block d-lg-block d-xl-block' : 'col-md-2 col-sm-2 col-3'">
       <ul class="list-group list-group-flush text-center h5 align-middle">
-        <li class="list-group-item" [ngClass]="{'active ': tab === 'recommend'}" (click)="tab = 'recommend'">推荐</li>
         <ng-container  *ngFor="let item of configList">
           <li  class="list-group-item h6 noselect" [ngClass]="{'active': tab === 'cashier' && item.id === selectedId}"
                (click)="selectConfig(item.id);tab = 'cashier'">
@@ -21,7 +20,6 @@
     <div id="mySidenav" *ngIf="router.url === '/mobile'" class="sidenav d-md-none d-lg-none d-xl-none" #nav>
       <ng-material-icon class="closebtn li-brown" icon="close" size="1" (click)="closeNav()"></ng-material-icon>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item bg-light h6 noselect" [ngClass]="{'active': tab === 'recommend'}" (click)="tab = 'recommend'">推荐</li>
         <ng-container  *ngFor="let item of configList">
           <li  class="list-group-item bg-light h6 noselect" [ngClass]="{'active': tab === 'cashier' && item.id === selectedId}"
                (click)="selectConfig(item.id);tab = 'cashier'">
@@ -37,7 +35,6 @@
     <div [ngClass]=" router.url === '/mobile' ? 'col-md-10' : 'col-md-10 col-sm-10 col-9'" id="main-card" #contentDiv>
       <app-announcement-bar></app-announcement-bar>
       <div class="card-body col-12 pb-0" [ngClass]="tab === 'record' ? 'pl-0': 'pl-3'">
-        <app-recommend-tab *ngIf="tab === 'recommend' && isDataLoaded"></app-recommend-tab>
         <app-cashier-tab *ngIf="tab === 'cashier' && isDataLoaded" #config></app-cashier-tab>
         <app-deposit-record-tab *ngIf="tab === 'record' && isDataLoaded"></app-deposit-record-tab>
         <app-vip-tab *ngIf="tab === 'vip' && isDataLoaded" ></app-vip-tab>
