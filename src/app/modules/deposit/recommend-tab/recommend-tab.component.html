@@ -2,7 +2,6 @@
   <h6 class="card-title"><strong>为您推荐</strong></h6>
 </div>
 
-<div class="text-center loader" *ngIf="loading"></div>
 <div #scrollContent class="row flex-row flex-nowrap amount-cont" *ngIf="!loading">
   <ng-container *ngFor="let item of channelList | groupBy:'channel' | orderBy: 'key' : false : false: customComparator; let i=index">
     <div class="channel-bg pt-3 mr-3 pr-0" [ngClass]=" router.url === '/mobile' ? 'col-md-3' : 'col-md-3 col-sm-3 col-3'">
@@ -11,7 +10,7 @@
           item.key === 'UnionPay'? 'unionpay':
           item.key === 'UnionPayH5'? 'unionpay-scan':
           item.key === 'AliPay' || item.key === 'VIP - AliPayQR' || item.key === 'VIP - AliPayAccount'? 'alipay' :
-          item.key === 'BTC'? 'btc' : item.key === 'OFFLINE_BANK'? 'offline' : 'none-ico' }}"></i>
+          item.key === 'BTC'? 'btc' : item.key === 'OFFLINE_BANK' || item.key === 'BANK'? 'offline' : 'none-ico' }}"></i>
         <h6>{{ item.key === 'WeChat' ? '微信' :
           item.key === 'UnionPay'? '云闪付':
             item.key === 'UnionPayH5'? '银联快捷':
@@ -20,7 +19,7 @@
                   item.key === 'WeChatH5'? '微信' :
                     item.key === 'AliPayH5'? '支付宝跳转' :
                       item.key === 'BTC'? '比特币' :
-                        item.key === 'OFFLINE_BANK'? '银行卡' :
+                        item.key === 'OFFLINE_BANK' || item.key === 'BANK' ? '银行卡' :
                           item.key === 'VIP - AliPayAccount'? '支付宝转账' :
                               item.key === 'VIP - AliPayQR'? '支付宝扫码' :
                                 item.key === 'VIP - BankCard'? '银行卡' :
@@ -45,3 +44,4 @@
     </div>
   </ng-container>
 </div>
+<div class="text-center loader" *ngIf="loading"></div>

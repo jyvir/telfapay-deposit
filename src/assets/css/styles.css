@@ -86,7 +86,7 @@ i{
   right: 4px
 }
 .offline{
-  background-image: url("../images/OfflineBank.jpg");
+  background-image: url("../images/OfflineBank.png");
   background-size: contain;
   height: 40px;
   width: 40px;
@@ -382,6 +382,7 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
     margin-left: 112px;
     padding-top: 0 !important;
     padding-right: 0 !important;
+    padding-left: 0 !important;
   }
 
   .btn-pay .card-text{
@@ -420,6 +421,31 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
 
   .next-icon i{
     display: block !important;
+  }
+
+  .datatable-body-cell {
+    font-size: 11px !important;
+  }
+
+  .btn {
+    font-size: 11px !important;
+  }
+
+  .refresh {
+    background-size: 25px 25px;
+  }
+  .channel-scroll {
+    height: 240px !important;
+  }
+
+  .amount-cont .channel-bg {
+    min-height: 240px !important;
+  }
+
+  li.list-group-item.h6.noselect.active > div{
+    word-break: break-all;
+    width: 5rem;
+    margin-left: -1rem;
   }
 }
 
