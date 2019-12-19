@@ -82,13 +82,13 @@ export class DepositComponent implements OnInit, AfterViewInit {
           this.tab = 'cashier';
           this.selectConfig(this.configList[0].id);
         } else {
-          this.tab = 'recommend';
+          this.tab = 'search';
         }
       },
       error1 => {
         this.isExpired = true;
         this.isDataLoaded = true;
-        this.tab = 'recommend';
+        this.tab = 'search';
       }
     );
   }
