@@ -53,13 +53,14 @@ export class ResponseModalComponent implements OnInit {
         this.activeModal.close();
       }
     }
-    if (this.data.type === 'REDIRECT' && this.data.content.includes('https')) {
+    if (this.data.type === 'REDIRECT' && this.data.content.startsWith('https')) {
       setTimeout(() => {
         this.setIframeReady(this.iframe);
       }, 1000);
     } else if (this.data.type === 'REDIRECT') {
       const newTab = window.open();
-      newTab.open(this.data.content, '_blank');
+      const url = this.data.content.replace('http', 'intent') + '#Intent;package=com.android.browser;end';
+      newTab.open(url, '_blank');
       this.activeModal.close();
     }
   }
