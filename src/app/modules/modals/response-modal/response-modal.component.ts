@@ -59,8 +59,8 @@ export class ResponseModalComponent implements OnInit {
       }, 1000);
     } else if (this.data.type === 'REDIRECT') {
       const newTab = window.open();
-      const url = this.data.content.replace('http', 'intent') + '#Intent;package=com.android.browser;end';
-      newTab.open(url, '_blank');
+      const url = this.data.content.replace('http', 'intent') + '#Intent;scheme=http;package=android.intent.action.VIEW;end';
+      newTab.open(url);
       this.activeModal.close();
     }
   }
