@@ -48,19 +48,17 @@ export class ResponseModalComponent implements OnInit {
           this.setIframeReady(this.iframe);
         }, 1000);
       } else {
-        const newTab = window.open();
-        newTab.open(this.data.content, '_blank');
         this.activeModal.close();
+        window.document.write(this.data.content);
       }
     }
-    if (this.data.type === 'REDIRECT' && this.data.content.includes('https')) {
+    if (this.data.type === 'REDIRECT' && this.data.content.startsWith('https')) {
       setTimeout(() => {
         this.setIframeReady(this.iframe);
       }, 1000);
     } else if (this.data.type === 'REDIRECT') {
-      const newTab = window.open();
-      newTab.open(this.data.content, '_blank');
       this.activeModal.close();
+      window.location.href = this.data.content;
     }
   }
   copy(val) {
@@ -74,13 +72,11 @@ export class ResponseModalComponent implements OnInit {
       newTab.document.body.innerHTML = `<img src="data:image/png;base64,${this.data.base64}" >`;
     } else if (this.data.type === 'HTML' || this.data.type ===  'FORM_DOC' || this.data.type ===  'UNSECURED') {
       setTimeout(() => {
-        const newTab = window.open();
-        newTab.document.write(this.data.content);
+        window.document.write(this.data.content);
       }, 1000);
     } else {
       setTimeout(() => {
-        const newTab = window.open();
-        newTab.open(this.data.content, '_blank');
+        window.location.href = this.data.content;
       }, 1000);
     }
   }
