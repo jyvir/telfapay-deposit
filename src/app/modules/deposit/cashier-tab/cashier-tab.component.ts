@@ -164,7 +164,13 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
         })
       ).subscribe(resp => {
         this.loading = false;
-        this.openModal(resp);
+        if ((resp.type === 'FORM_DOC' || resp.type === 'HTML' || resp.type === 'REDIRECT') && resp.content.includes('http://')) {
+          window.document.write(resp.content);
+        } else if ((resp.type === 'REDIRECT') && resp.content.startsWith('http://')) {
+          window.location.href = resp.content;
+        } else {
+          this.openModal(resp);
+        }
       });
     }
   }
