@@ -5,20 +5,18 @@
 
 .qr-code-img {
   width: 200px;
-  -webkit-overflow-scrolling : touch;
 }
 
 iframe{
   background: white;
-  -webkit-overflow-scrolling : touch;
 }
 
 .qr-code-img {
   background: white;
   padding: 3px;
-  -webkit-overflow-scrolling : touch;
 }
 
 .touch {
-  -webkit-overflow-scrolling: touch;
+  height: 100vh;
+  overflow-y: hidden;
 }
