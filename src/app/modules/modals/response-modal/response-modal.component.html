@@ -7,7 +7,7 @@
   </button>
 </div>
 <div class="text-center loader" *ngIf="isLoading"></div>
-<div class="modal-body" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard'">
+<div class="modal-body touch" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard'"">
   <div>
     <div class="row">
       <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankCode">
@@ -56,7 +56,7 @@
 </div>
 
 <div class="modal-body text-center" *ngIf="data.type === 'AliPayQR' || data.type === 'WeChatQR' || data.type === 'QR_CODE'
-|| data.type === 'FORM_DOC' || data.type === 'HTML' || data.type === 'REDIRECT'" style="position: fixed">
+|| data.type === 'FORM_DOC' || data.type === 'HTML' || data.type === 'REDIRECT'">
   <iframe *ngIf="data.type === 'REDIRECT'" [src]="sanitizer.bypassSecurityTrustResourceUrl(data.content)" sandbox="allow-forms allow-scripts allow-same-origin" height="1000px" width="100%"></iframe>
   <iframe *ngIf="data.type === 'FORM_DOC' || data.type === 'HTML'" #iframe height="1000px" width="100%"></iframe>
   <img class="qr-code-img" *ngIf="data.type === 'AliPayQR' || data.type === 'WeChatQR'" [src]="'data:image/png;base64,' + data.base64"/>

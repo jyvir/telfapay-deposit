@@ -15,3 +15,8 @@ iframe{
   background: white;
   padding: 3px;
 }
+
+.touch {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
