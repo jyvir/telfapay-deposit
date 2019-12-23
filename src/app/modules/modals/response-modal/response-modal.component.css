@@ -15,8 +15,3 @@ iframe{
   background: white;
   padding: 3px;
 }
-
-.touch {
-  height: 100vh;
-  overflow-y: hidden;
-}
