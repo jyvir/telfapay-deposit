@@ -315,9 +315,6 @@ datatable-header {
   background-color: #2d2521 !important;
   border-bottom: 1px solid #2d2521 !important;
   border-top: 1px solid #2d2521 !important;
-  -webkit-overflow-scrolling: touch;
-  overflow-y: auto;
-  position: fixed;
 }
 
 .modal-header .close {
