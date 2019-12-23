@@ -15,9 +15,3 @@ iframe{
   background: white;
   padding: 3px;
 }
-
-.touch {
-  -webkit-overflow-scrolling: touch;
-  height: 100vh;
-  overflow-y: hidden;
-}
