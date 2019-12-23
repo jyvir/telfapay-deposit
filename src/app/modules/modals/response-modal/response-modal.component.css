@@ -19,4 +19,5 @@ iframe{
 .touch {
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
+  position: fixed;
 }
