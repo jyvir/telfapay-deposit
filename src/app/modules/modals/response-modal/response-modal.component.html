@@ -8,7 +8,7 @@
 </div>
 <div class="text-center loader" *ngIf="isLoading"></div>
 <div class="modal-body" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard'"
-     style="overflow: scroll; overflow-y: hidden !important;">
+     style="overflow-y: scroll;">
   <div>
     <div class="row">
       <div class="col-md-12 align-middle mb-1 h5" *ngIf="data.bankCode">
