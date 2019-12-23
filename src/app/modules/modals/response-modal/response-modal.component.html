@@ -55,7 +55,7 @@
 
 </div>
 
-<div class="modal-body text-center" *ngIf="data.type === 'AliPayQR' || data.type === 'WeChatQR' || data.type === 'QR_CODE'
+<div class="modal-body text-center touch" *ngIf="data.type === 'AliPayQR' || data.type === 'WeChatQR' || data.type === 'QR_CODE'
 || data.type === 'FORM_DOC' || data.type === 'HTML' || data.type === 'REDIRECT'">
   <iframe *ngIf="data.type === 'REDIRECT'" [src]="sanitizer.bypassSecurityTrustResourceUrl(data.content)" sandbox="allow-forms allow-scripts allow-same-origin" height="1000px" width="100%"></iframe>
   <iframe *ngIf="data.type === 'FORM_DOC' || data.type === 'HTML'" #iframe height="1000px" width="100%"></iframe>
@@ -63,18 +63,18 @@
   <ngx-qrcode *ngIf="data.type === 'QR_CODE'" qrc-class="qr-class" [qrc-element-type]="elementType" [qrc-value]="data.content" class="center"></ngx-qrcode>
 </div>
 
-<div class="modal-footer black-bg" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard'">
+<div class="modal-footer black-bg touch" *ngIf="data.type === 'OFFLINE_BANK' || data.type === 'BANK' || data.type === 'AliPayAccount' || data.type === 'BankCard'">
   <button type="button" class="btn modal-btn col-md-6" (click)="activeModal.close('Close click')">取消</button>
   <button type="button" class="btn modal-btn col-md-6" (click)="activeModal.close('Close click')">已完成转账</button>
 </div>
-<div class="modal-footer black-bg" *ngIf="data.type === 'REDIRECTS'">
+<div class="modal-footer black-bg touch" *ngIf="data.type === 'REDIRECTS'">
   <a class="btn modal-btn" href="{{data.content}}" target="_blank">强制开启</a>
 </div>
-<div class="modal-footer black-bg" *ngIf="data.type === 'UNSECURED'">
+<div class="modal-footer black-bg touch" *ngIf="data.type === 'UNSECURED'">
   <button class="btn modal-btn" (click)="openNewTab()">强制开启</button>
 </div>
 
-<div class="modal-footer black-bg" *ngIf="data.hasMoreChannel">
+<div class="modal-footer black-bg touch" *ngIf="data.hasMoreChannel">
   <button type="button" class="btn modal-btn col-md-6" (click)="sendToAPI('send')">扫码支付</button>
   <button type="button" class="btn modal-btn col-md-6" (click)="sendToAPI('H5')">打开APP支付</button>
 </div>
