@@ -9,7 +9,7 @@
 
 iframe{
   background: white;
-  -webkit-overflow-scrolling : touch;
+  height: 400px;
 }
 
 .qr-code-img {
