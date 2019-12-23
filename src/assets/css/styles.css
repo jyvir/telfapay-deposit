@@ -210,18 +210,36 @@ i{
     display: inline-block;
     float: none;
   }
+  .touch {
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    overflow-y: hidden;
+  }
+
 }
 
 @media screen and (max-width: 640px) {
   #main-card {
     padding-left: 0 !important;
   }
+  .touch {
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    overflow-y: hidden;
+  }
+
 }
 
 @media screen and (max-width: 575px ) {
   #main-card {
     padding-left: 2rem !important;
   }
+  .touch {
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    overflow-y: hidden;
+  }
+
 }
 .amount-cont .col-md-3 {
    min-width: 175px;
@@ -368,12 +386,23 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
   .active {
     background-size: 105px 100% !important;
   }
+  .touch {
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    overflow-y: hidden;
+  }
+
 }
 
 @media (max-width: 767.98px) {
   html, body {
     max-width: 100% !important;
     overflow-x: hidden !important;
+  }
+  .touch {
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    overflow-y: hidden;
   }
   ::-webkit-scrollbar {
     display: none;
