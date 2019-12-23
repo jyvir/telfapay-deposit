@@ -315,7 +315,6 @@ datatable-header {
   background-color: #2d2521 !important;
   border-bottom: 1px solid #2d2521 !important;
   border-top: 1px solid #2d2521 !important;
-  -webkit-overflow-scrolling: touch !important;
 }
 
 .modal-header .close {
@@ -522,6 +521,7 @@ datatable-body-row .datatable-row-center, ngx-datatable {
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-overflow-scrolling: touch;
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
   -moz-user-select: none; /* Old versions of Firefox */
