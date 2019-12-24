@@ -59,6 +59,7 @@ export class DepositComponent implements OnInit, AfterViewInit {
           this.cookie.set('announcement', resp.announcement);
           this.cookie.set('arrangement', JSON.stringify(resp.arrangement));
           this.cookie.set('vip_enabled', resp.vip_enabled);
+          this.cookie.set('cashier_script', resp.cashier_script);
           this.vipEnabled = resp.vip_enabled;
           return this.commonService.retrieveConfigList();
         }

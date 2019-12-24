@@ -15,6 +15,7 @@ import {parseCookieValue} from '@angular/common/src/cookie';
 import {ɵparseCookieValue} from '@angular/common';
 import {log} from 'util';
 import * as cookies from 'cookie';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-cashier-tab',
@@ -151,6 +152,11 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
         payload.channel = item.channels[0];
       }
       const req = Utility.generateSign(payload);
+      if (payload.channel !== 'BANK' && payload.channel !== 'OFFLINE_BANK' && this.cookie.get('cashier_script') === 'true') {
+        // @ts-ignore
+        jumpToBrowser(`${environment.cashier_api}/cashier/deposit`, req);
+        return true;
+      }
       this.commonService.sendPayment('', req).pipe(
         catchError((res: HttpErrorResponse) => {
           this.loading = false;

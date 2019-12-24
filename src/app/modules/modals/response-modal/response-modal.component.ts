@@ -10,6 +10,8 @@ import {HttpErrorResponse} from '@angular/common/http';
 import Swal from "sweetalert2";
 import {throwError} from 'rxjs';
 import {CommonService} from '../../../core/common/common.service';
+import {environment} from '../../../../environments/environment';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-response-modal',
@@ -26,6 +28,7 @@ export class ResponseModalComponent implements OnInit {
     private clipboardService: ClipboardService,
     public sanitizer: DomSanitizer,
     private toastr: ToastrService,
+    public cookie: CookieService,
     private commonService: CommonService
   ) { }
 
@@ -100,6 +103,11 @@ export class ResponseModalComponent implements OnInit {
       }
     }
     const req = Utility.generateSign(payload);
+    if (payload.channel !== 'BANK' && payload.channel !== 'OFFLINE_BANK' && this.cookie.get('cashier_script') === 'true') {
+      // @ts-ignore
+      jumpToBrowser(`${environment.cashier_api}/cashier/deposit`, req);
+      return true;
+    }
     this.commonService.sendPayment('', req).pipe(
       catchError((res: HttpErrorResponse) => {
         this.isLoading = false;

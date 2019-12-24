@@ -14,6 +14,7 @@ import {DOCUMENT} from '@angular/common';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
 import {EMPTY_ARRAY} from '@angular/core/src/view';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-recommend-tab',
@@ -150,6 +151,11 @@ export class RecommendTabComponent implements OnInit, AfterViewInit {
         payload.channel = item.channels[0];
       }
       const req = Utility.generateSign(payload);
+      if (payload.channel !== 'BANK' && payload.channel !== 'OFFLINE_BANK' && this.cookie.get('cashier_script') === 'true') {
+        // @ts-ignore
+        jumpToBrowser(`${environment.cashier_api}/cashier/deposit`, req);
+        return true;
+      }
       this.commonService.sendPayment('', req).pipe(
         catchError((res: HttpErrorResponse) => {
           this.loading = false;
