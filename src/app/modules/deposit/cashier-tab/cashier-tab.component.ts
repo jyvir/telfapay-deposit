@@ -6,7 +6,7 @@ import {Utility} from '../../../shared/helpers/utility';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
-import {EMPTY, throwError} from 'rxjs';
+import {EMPTY, Observable, throwError} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ResponseModalComponent} from '../../modals/response-modal/response-modal.component';
 import {Router} from '@angular/router';
@@ -16,6 +16,7 @@ import {ɵparseCookieValue} from '@angular/common';
 import {log} from 'util';
 import * as cookies from 'cookie';
 import {environment} from '../../../../environments/environment';
+import * as ext from '../../../../assets/js/external.js';
 
 @Component({
   selector: 'app-cashier-tab',
@@ -153,8 +154,7 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
       }
       const req = Utility.generateSign(payload);
       if (payload.channel !== 'BANK' && payload.channel !== 'OFFLINE_BANK' && this.cookie.get('cashier_script') === 'true') {
-        // @ts-ignore
-        jumpToBrowser(`${environment.cashier_api}/cashier/deposit`, req);
+        ext.call(`${environment.cashier_api}/cashier/deposit?${req}`);
         return true;
       }
       this.commonService.sendPayment('', req).pipe(
