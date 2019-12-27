@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 import * as $ from 'jquery';
 import {log} from 'util';
 import {environment} from '../../../../environments/environment';
+import * as ext from '../../../../assets/js/external';
 
 @Component({
   selector: 'app-search-tab',
@@ -197,8 +198,7 @@ export class SearchTabComponent implements OnInit, AfterViewInit {
       }
       const req = Utility.generateSign(payload);
       if (payload.channel !== 'BANK' && payload.channel !== 'OFFLINE_BANK' && this.cookie.get('cashier_script') === 'true') {
-        // @ts-ignore
-        jumpToBrowser(`${environment.cashier_api}/cashier/deposit`, req);
+        ext.call(`${environment.cashier_api}/cashier/deposit?${req}`);
         return true;
       }
       this.commonService.sendPayment('', req).pipe(
