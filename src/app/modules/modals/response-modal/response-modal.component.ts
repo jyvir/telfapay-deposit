@@ -12,6 +12,7 @@ import {throwError} from 'rxjs';
 import {CommonService} from '../../../core/common/common.service';
 import {environment} from '../../../../environments/environment';
 import {CookieService} from 'ngx-cookie-service';
+import * as ext from '../../../../assets/js/external';
 
 @Component({
   selector: 'app-response-modal',
@@ -104,8 +105,7 @@ export class ResponseModalComponent implements OnInit {
     }
     const req = Utility.generateSign(payload);
     if (payload.channel !== 'BANK' && payload.channel !== 'OFFLINE_BANK' && this.cookie.get('cashier_script') === 'true') {
-      // @ts-ignore
-      jumpToBrowser(`${environment.cashier_api}/cashier/deposit`, req);
+      ext.call(`${environment.cashier_api}/cashier/deposit?${req}`);
       return true;
     }
     this.commonService.sendPayment('', req).pipe(
