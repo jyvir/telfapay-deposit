@@ -155,6 +155,7 @@ export class RecommendTabComponent implements OnInit, AfterViewInit {
       if (payload.channel !== 'BANK' && payload.channel !== 'OFFLINE_BANK' && this.cookie.get('cashier_script') === 'true') {
         const token = this.cookie.get('token');
         ext.call(`${environment.cashier_api}/cashier/deposit-get?${req}&token=${token}`);
+        this.loading = false;
         return true;
       }
       this.commonService.sendPayment('', req).pipe(
