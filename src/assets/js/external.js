@@ -1,5 +1,6 @@
 export function call(url)  {
   const os = getOS();
+  console.log(os;)
   switch (os) {
     case 'iOS':
       window["webkit"]&&window["webkit"].messageHandlers.openCasherBank.postMessage({ "params": url});
