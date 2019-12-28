@@ -108,6 +108,7 @@ export class ResponseModalComponent implements OnInit {
       const token = this.cookie.get('token');
       ext.call(`${environment.cashier_api}/cashier/deposit-get?${req}&token=${token}`);
       this.isLoading = false;
+      this.activeModal.close();
       return true;
     }
     this.commonService.sendPayment('', req).pipe(
