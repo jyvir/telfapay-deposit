@@ -138,9 +138,9 @@ i{
 
 .refresh{
   background-image: url("../images/refresh-icon.png");
-  padding: 20px !important;
+  padding: 12px !important;
   box-shadow: none !important;
-  background-size: 35px 35px;
+  background-size: 24px 24px;
   background-repeat: no-repeat;
 }
 
@@ -286,16 +286,27 @@ i{
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  height: 100vh;
+  margin-bottom: 0 !important;
 }
 
+#tab-bg{
+  margin-bottom: 0 !important;
+}
 .channel-bg {
   background: rgba(255,255,255,0.1);
 }
 
 .amount-cont .channel-bg {
-  height: fit-content;
-  min-height: 480px;
+  /*min-height: 480px;*/
+  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
 }
+.channel-bg::-webkit-scrollbar {
+  display: none;
+}
+
 
 .grad {
   background-image: linear-gradient(rgba(255,255,255,0), rgba(180,143,89,0.2), rgba(255,255,255,0)) !important;
@@ -340,7 +351,6 @@ datatable-header {
 }
 
 .channel-scroll {
-  height: 480px;
   overflow-y: auto;
 }
 
@@ -435,7 +445,7 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
     background-size: 25px 25px;
   }
   .channel-scroll {
-    height: 240px !important;
+    height: auto !important;
   }
 
   .amount-cont .channel-bg {
@@ -460,14 +470,15 @@ div.channel-scroll::-webkit-scrollbar-thumb:hover {
   border-radius: 12px !important;
   width: 200px !important;
 }
-
-.next-icon i{
-  border-radius: 25px;
-  background: rgba(255,255,255,0.1);
+.next-icon{
   position: fixed;
   right: 0;
   top: 50%;
   display: none;
+}
+.next-icon i{
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
 }
 
 .qr-class img {
@@ -527,4 +538,26 @@ datatable-body-row .datatable-row-center, ngx-datatable {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
+}
+
+.amount-cont{
+  height: 95%;
+}
+.amount-cont::-webkit-scrollbar {
+  display: none;
+}
+
+
+.height100{
+  height: 100%;
+}
+.height87{
+  height: 87%;
+}
+.fontsize12{
+  font-size: 12px !important;
+}
+.datatable-body-cell{
+  display: flex !important;
+  align-items: center !important;
 }
