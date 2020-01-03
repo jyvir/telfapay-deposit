@@ -1,5 +1,5 @@
 .cashier-container {
-  width: 1024px;
+  width: 100%;
 }
 
 .cashier-container h5 {
@@ -55,7 +55,7 @@
 
 #main-card {
   transition: margin-left .5s;
-  padding: 16px;
+  padding:0 16px;
 }
 
 @media screen and (max-height: 450px) {
@@ -129,7 +129,6 @@
   .grad {
     position: fixed;
     overflow-y: scroll;
-    max-height: 100%;
   }
 
   .active {
@@ -146,7 +145,7 @@
 
 
 @media screen and (max-width: 621px ) and (min-width: 576px),
-  screen and (max-width: 527px ) {
+screen and (max-width: 527px ) {
   .active {
     background-size: 94px 100%;
     width: 94px;
@@ -164,4 +163,8 @@
   .active {
     background-size: 107px 100%;
   }
+}
+
+.next-icon{
+
 }
