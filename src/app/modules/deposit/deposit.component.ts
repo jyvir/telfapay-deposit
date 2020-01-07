@@ -1,7 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CommonService} from '../../core/common/common.service';
 import {catchError, flatMap, map, mergeMap} from 'rxjs/operators';
-import {throwError} from 'rxjs';
+import {forkJoin, throwError} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
@@ -52,26 +52,25 @@ export class DepositComponent implements OnInit, AfterViewInit {
           this.cookie.set('productIp', value.product_ip ? value.product_ip : '');
           this.cookie.set('device_id', value.device_id ? value.device_id : '');
         }
-        return this.commonService.retrieveConfigurations();
+        const calls = [];
+        calls.push(this.commonService.retrieveConfigurations());
+        calls.push(this.commonService.retrieveConfigList());
+
+        return forkJoin(calls);
       }),
-      mergeMap(
-        resp => {
-          this.cookie.set('announcement', resp.announcement);
-          this.cookie.set('arrangement', JSON.stringify(resp.arrangement));
-          this.cookie.set('vip_enabled', resp.vip_enabled);
-          this.cookie.set('cashier_script', resp.cashier_script);
-          this.vipEnabled = resp.vip_enabled;
-          return this.commonService.retrieveConfigList();
-        }
-      ),
-      map(resp => resp),
       catchError(
         error => throwError(error.toString()
         ))
     ).subscribe(
       resp => {
-        Object.keys(resp).forEach((element, index) => {
-          const value = Object.getOwnPropertyDescriptor(resp, element).value;
+
+        this.cookie.set('announcement', resp[0].announcement);
+        this.cookie.set('arrangement', JSON.stringify(resp[0].arrangement));
+        this.cookie.set('vip_enabled', resp[0].vip_enabled);
+        this.cookie.set('cashier_script', resp[0].cashier_script);
+        this.vipEnabled = resp[0].vip_enabled;
+        Object.keys(resp[1]).forEach((element, index) => {
+          const value = Object.getOwnPropertyDescriptor(resp[1], element).value;
           const data = {
             name: value,
             id: element
