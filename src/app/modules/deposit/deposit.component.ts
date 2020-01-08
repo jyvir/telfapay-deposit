@@ -41,56 +41,44 @@ export class DepositComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.commonService.retrieveToken().pipe(
-      mergeMap(value => {
-        if (!value) {
-          this.isExpired = true;
-        } else {
-          this.cookie.set('username', value.username);
-          this.cookie.set('product_id', value.product_id);
-          this.cookie.set('ip', value.ip ? value.ip : '');
-          this.cookie.set('productIp', value.product_ip ? value.product_ip : '');
-          this.cookie.set('device_id', value.device_id ? value.device_id : '');
-        }
-        const calls = [];
-        calls.push(this.commonService.retrieveConfigurations());
-        calls.push(this.commonService.retrieveConfigList());
-
-        return forkJoin(calls);
-      }),
-      catchError(
-        error => throwError(error.toString()
-        ))
-    ).subscribe(
-      resp => {
-
-        this.cookie.set('announcement', resp[0].announcement);
-        this.cookie.set('arrangement', JSON.stringify(resp[0].arrangement));
-        this.cookie.set('vip_enabled', resp[0].vip_enabled);
-        this.cookie.set('cashier_script', resp[0].cashier_script);
-        this.vipEnabled = resp[0].vip_enabled;
-        Object.keys(resp[1]).forEach((element, index) => {
-          const value = Object.getOwnPropertyDescriptor(resp[1], element).value;
-          const data = {
-            name: value,
-            id: element
-          };
-          this.configList.push(data);
-        });
-        this.isDataLoaded = true;
-        if (this.configList) {
-          this.tab = 'cashier';
-          this.selectConfig(this.configList[0].id);
-        } else {
-          this.tab = 'search';
-        }
-      },
-      error1 => {
+    this.commonService.retrieveAll().subscribe(resp => {
+      if (!resp.tokenResponse) {
         this.isExpired = true;
-        this.isDataLoaded = true;
+      } else {
+        this.cookie.set('username', resp.tokenResponse.username);
+        this.cookie.set('product_id', resp.tokenResponse.product_id);
+        this.cookie.set('ip', resp.tokenResponse.ip ? resp.tokenResponse.ip : '');
+        this.cookie.set('productIp', resp.tokenResponse.product_ip ? resp.tokenResponse.product_ip : '');
+        this.cookie.set('device_id', resp.tokenResponse.device_id ? resp.tokenResponse.device_id : '');
+      }
+
+      this.cookie.set('first_config', JSON.stringify(resp.amountList));
+      this.cookie.set('announcement', resp.configurations.announcement);
+      this.cookie.set('arrangement', JSON.stringify(resp.configurations.arrangement));
+      this.cookie.set('vip_enabled', resp.configurations.vip_enabled);
+      this.cookie.set('cashier_script', resp.configurations.cashier_script);
+      this.vipEnabled = resp.configurations.vip_enabled;
+      Object.keys(resp.configList).forEach((element, index) => {
+        const value = Object.getOwnPropertyDescriptor(resp.configList, element).value;
+        const data = {
+          name: value,
+          id: element
+        };
+        this.configList.push(data);
+      });
+      this.isDataLoaded = true;
+      if (this.configList) {
+        this.tab = 'cashier';
+        this.selectConfig(this.configList[0].id);
+      } else {
         this.tab = 'search';
       }
-    );
+      return resp;
+    },error1 => {
+      this.isExpired = true;
+      this.isDataLoaded = true;
+      this.tab = 'search';
+    });
   }
 
   changeHide(val: boolean) {

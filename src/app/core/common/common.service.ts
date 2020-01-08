@@ -36,6 +36,12 @@ export class CommonService {
     return this.http.get(`${environment.cashier_api}/cashier/token`, httpOptions);
   }
 
+  public retrieveAll(): Observable<any> {
+    const token = this.cookie.get('token');
+    httpOptions.headers = httpOptions.headers.set('CashierToken', `Cashier:${token}`);
+    return this.http.get(`${environment.cashier_api}/cashier/all`, httpOptions);
+  }
+
   public retrieveConfigList(): Observable<any> {
     return this.http.get(`${environment.cashier_api}/cashier/config/list`, httpOptions);
   }
