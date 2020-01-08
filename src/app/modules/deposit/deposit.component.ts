@@ -42,6 +42,12 @@ export class DepositComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.commonService.retrieveAll().subscribe(resp => {
+      if (!resp) {
+        this.isExpired = true;
+        this.isDataLoaded = true;
+        this.tab = 'search';
+        return false;
+      }
       if (!resp.tokenResponse) {
         this.isExpired = true;
       } else {
