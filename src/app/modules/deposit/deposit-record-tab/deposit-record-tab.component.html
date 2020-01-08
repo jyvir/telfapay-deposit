@@ -28,7 +28,7 @@
           <p class="word-break ml-2"><strong>{{value}}</strong></p>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Channel" [width]="10">
+      <ngx-datatable-column name="Channel" [width]="30">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <p class="word-break pr-1">{{ value === 'WeChat' ? '微信扫码' :
             value === 'UnionPay'? '银联扫码':
@@ -41,7 +41,7 @@
                           value === 'OFFLINE_BANK'? '银行卡存款' : value }}</p>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Provider Reference" [width]="110">
+      <ngx-datatable-column name="Provider Reference" [width]="150">
         <ng-template let-value="value" ngx-datatable-cell-template>
           {{value}}
           <button type="button" class="btn btn-xs gold" (click)="copy(value)">复制</button>
