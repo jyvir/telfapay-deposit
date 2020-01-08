@@ -54,36 +54,50 @@ export class CashierTabComponent implements OnInit, AfterViewInit {
     const includedChannel = JSON.parse(this.cookie.get('arrangement'));
     $('.next-icon').hide();
     this.channelList = [];
-    this.commonService.retrieveConfig(id).pipe(
-      map(data => {
-        const datas = [];
-        Object.keys(data).forEach((element, index) => {
-          const channels = Object.getOwnPropertyDescriptor(data, element).value;
-          if (channels.length > 0 && includedChannel.includes(element) && element !== 'VipChannel') {
-            channels.forEach(val => {
-              const formattedData = {
-                amount: parseFloat(val.amount),
-                channel: element,
-                channels: val.channel
-              };
-              datas.push(formattedData);
-            });
-          }
+    const firstConfig = Utility.isEmpty(this.cookie.get('first_config')) ? null : this.cookie.get('first_config');
+    if (firstConfig) {
+      this.cookie.set('first_config', '');
+      this.channelList = this.formatDatas(JSON.parse(firstConfig), includedChannel);
+      setTimeout(() => {
+        this.loading = false;
+      }, 500);
+    } else {
+      this.commonService.retrieveConfig(id).pipe(
+        map(data => {
+          const datas = this.formatDatas(data, includedChannel);
+          return datas;
+        }),
+        catchError(err => {
+          console.log(err);
+          return EMPTY;
+        })
+      ).subscribe(
+        res => {
+          this.loading = false;
+          this.channelList = res;
+        },error => {
+          this.loading = false;
+        }
+      );
+    }
+  }
+
+  formatDatas(data, includedChannel) {
+    const datas = [];
+    Object.keys(data).forEach((element, index) => {
+      const channels = Object.getOwnPropertyDescriptor(data, element).value;
+      if (channels.length > 0 && includedChannel.includes(element) && element !== 'VipChannel') {
+        channels.forEach(val => {
+          const formattedData = {
+            amount: parseFloat(val.amount),
+            channel: element,
+            channels: val.channel
+          };
+          datas.push(formattedData);
         });
-        return datas;
-      }),
-      catchError(err => {
-        console.log(err);
-        return EMPTY;
-      })
-    ).subscribe(
-      res => {
-        this.loading = false;
-        this.channelList = res;
-      },error => {
-        this.loading = false;
       }
-    );
+    });
+    return datas;
   }
 
   groupByChannel(data) {

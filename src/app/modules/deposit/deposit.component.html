@@ -13,8 +13,8 @@
           </li>
         </ng-container >
         <li class="list-group-item noselect" [ngClass]="{'active': tab === 'search'}" (click)="tab = 'search'">自选1</li>
-        <li class="list-group-item noselect" *ngIf="vipEnabled" [ngClass]="{'active': tab === 'vip'}" (click)="tab = 'vip'">VIP1</li>
-        <li class="list-group-item noselect" [ngClass]="{'active': tab === 'record'}" (click)="tab = 'record'">充值记录1</li>
+        <li class="list-group-item noselect" *ngIf="vipEnabled" [ngClass]="{'active': tab === 'vip'}" (click)="tab = 'vip'">VIP</li>
+        <li class="list-group-item noselect" [ngClass]="{'active': tab === 'record'}" (click)="tab = 'record'">充值记录</li>
       </ul>
     </div>
     <div id="mySidenav" *ngIf="router.url === '/mobile'" class="sidenav d-md-none d-lg-none d-xl-none" #nav>
