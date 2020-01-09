@@ -1,5 +1,5 @@
 export const environment = {
-  api: 'https://cashierapi.dingguagua188.com',
-  cashier_api: 'https://cashierapi.dingguagua188.com',
+  api: 'https://cashierapi.xinfengxianshu.com',
+  cashier_api: 'https://cashierapi.xinfengxianshu.com',
   production: true
 };
