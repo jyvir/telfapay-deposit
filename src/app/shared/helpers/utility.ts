@@ -229,6 +229,12 @@ export class Utility {
       case 'Amount must be less than or equal product max amount':
         err = '金额超限';
         break;
+      case 'Username is blacklisted':
+        err = '账号好像有问题。请联系在线客服！';
+        break;
+      case 'Account number is blacklisted':
+        err = '账号好像有问题。请联系在线客服！';
+        break;
       case 'An error has occurred please contact our customer support':
         err = '出错了，请联系客服';
         break;
