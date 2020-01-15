@@ -12,7 +12,7 @@
             <div class="text-m">{{item.name}}</div>
           </li>
         </ng-container >
-        <li class="list-group-item noselect" [ngClass]="{'active': tab === 'search'}" (click)="tab = 'search'">自选1</li>
+        <li class="list-group-item noselect" [ngClass]="{'active': tab === 'search'}" (click)="tab = 'search'">自选</li>
         <li class="list-group-item noselect" *ngIf="vipEnabled" [ngClass]="{'active': tab === 'vip'}" (click)="tab = 'vip'">VIP</li>
         <li class="list-group-item noselect" [ngClass]="{'active': tab === 'record'}" (click)="tab = 'record'">充值记录</li>
       </ul>
